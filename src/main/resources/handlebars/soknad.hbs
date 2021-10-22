@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="NO">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase</title>
+    <meta name="subject" content="Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase"/>
+    <meta name="author" content="nav.no"/>
+    <meta name="description"
+          content="Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase {{søknadMottattDag}} {{ søknadMottatt }}"/>
+    <bookmarks>
+        <bookmark name="Søker" href="#søker"/>
+        <bookmark name="Samtykke" href="#samtykke"/>
+    </bookmarks>
+    {{#block 'style-common' }}
+    {{/block}}
+</head>
+
+<body>
+<h1 id="header">Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase</h1>
+<div class="nokkelinfo">
+    <p><strong>Sendt til NAV</strong> {{søknadMottattDag}} {{ søknadMottatt }}</p>
+    <p><strong>Språk:</strong> {{hjelp.språk}}</p>
+</div>
+<div class="innholdscontainer">
+
+    <div class="person" id="søker">
+        <p class="navn">{{ søker.navn }}</p>
+        <p>{{ søker.fødselsnummer }}</p>
+        <br/>
+    </div>
+
+    <!-- SAMTYKKE -->
+    <section id="samtykke">
+        <h2>Samtykke fra deg</h2>
+        <p class="sporsmalstekst">Har du forstått dine rettigheter og plikter?</p>
+        <p>{{ jaNeiSvar samtykke.harForståttRettigheterOgPlikter }}</p>
+        <hr/>
+        <p class="sporsmalstekst">Har du bekreftet at opplysninger du har gitt er riktige?</p>
+        <p>{{ jaNeiSvar samtykke.harBekreftetOpplysninger }}</p>
+    </section>
+
+</div>
+
+<!-- FOOTER -->
+<p id="footer">
+    <span class="soknadsid">{{ søknadId }}</span>
+    <span class="soknadsid">{{ id }}</span>
+    <span class="sidetall">side <span id="pagenumber"></span> av <span id="pagecount"></span></span>
+</p>
+</body>
+
+</html>
