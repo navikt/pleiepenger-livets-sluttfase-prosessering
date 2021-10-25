@@ -62,7 +62,7 @@ fun Application.pleiepengerLivetsSluttfaseProsessering() {
 
     val preprosesseringV1Service = PreprosesseringV1Service(
         pdfV1Generator = PdfV1Generator(),
-        dokumentService = k9MellomlagringService
+        k9MellomlagringService = k9MellomlagringService
     )
     val joarkGateway = JoarkGateway(
         baseUrl = configuration.getk9JoarkBaseUrl(),
