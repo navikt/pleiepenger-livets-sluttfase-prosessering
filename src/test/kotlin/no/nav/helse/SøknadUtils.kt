@@ -8,23 +8,20 @@ import no.nav.k9.søknad.felles.type.Landkode
 import no.nav.k9.søknad.felles.type.NorskIdentitetsnummer
 import no.nav.k9.søknad.felles.type.Periode
 import no.nav.k9.søknad.felles.type.SøknadId
-import no.nav.k9.søknad.ytelse.omsorgspenger.utvidetrett.v1.OmsorgspengerMidlertidigAlene
 import no.nav.k9.søknad.ytelse.pls.v1.Pleietrengende
 import no.nav.k9.søknad.ytelse.pls.v1.PleipengerLivetsSluttfase
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
-import no.nav.k9.søknad.felles.personopplysninger.Barn as K9Barn
 import no.nav.k9.søknad.felles.personopplysninger.Søker as K9Søker
-import no.nav.k9.søknad.ytelse.omsorgspenger.utvidetrett.v1.AnnenForelder as K9AnnenForelder
 
 object SøknadUtils {
 
     fun gyldigSøknad(
         søkerFødselsnummer: String = "02119970078",
         søknadId: String = UUID.randomUUID().toString(),
-        mottatt: ZonedDateTime = ZonedDateTime.now()
+        mottatt: ZonedDateTime = ZonedDateTime.of(2018, 1, 2, 3, 4, 5, 6, ZoneId.of("UTC"))
     ) = Søknad(
         språk = "nb",
         søknadId = søknadId,
@@ -38,6 +35,27 @@ object SøknadUtils {
             fornavn = "Ola"
         ),
         vedleggUrls = listOf(),
+        pleietrengende = Pleietrengende("02119970078"),
+        medlemskap = Medlemskap(
+            harBoddIUtlandetSiste12Mnd = true,
+            utenlandsoppholdSiste12Mnd = listOf(
+                Bosted(
+                    fraOgMed = LocalDate.parse("2020-01-01"),
+                    tilOgMed = LocalDate.parse("2020-01-10"),
+                    landnavn = "Brasil",
+                    landkode = "BR"
+                )
+            ),
+            skalBoIUtlandetNeste12Mnd = true,
+            utenlandsoppholdNeste12Mnd = listOf(
+                Bosted(
+                    fraOgMed = LocalDate.parse("2021-01-01"),
+                    tilOgMed = LocalDate.parse("2021-01-10"),
+                    landnavn = "Cuba",
+                    landkode = "CU"
+                )
+            )
+        ),
         k9Format = gyldigK9Format(søknadId),
         harBekreftetOpplysninger = true,
         harForståttRettigheterOgPlikter = true

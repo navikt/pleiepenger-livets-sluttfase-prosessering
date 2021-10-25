@@ -1,12 +1,8 @@
 package no.nav.helse
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import no.nav.helse.SøknadUtils.gyldigSøknad
 import no.nav.helse.dokument.Søknadsformat
-import no.nav.helse.prosessering.v1.søknad.*
 import org.skyscreamer.jsonassert.JSONAssert
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.*
 import kotlin.test.Test
 
@@ -15,7 +11,7 @@ class SøknadsformatTest {
     @Test
     fun `Søknaden journalføres som JSON uten vedlegg`() {
         val søknadId = UUID.randomUUID().toString()
-        val json = Søknadsformat.somJson(melding(søknadId))
+        val json = Søknadsformat.somJson(gyldigSøknad(søknadId = søknadId))
 
         println(String(json))
 
@@ -31,10 +27,33 @@ class SøknadsformatTest {
                 "fornavn": "Ola",
                 "mellomnavn": "Mellomnavn",
                 "etternavn": "Nordmann",
-                "fødselsdato": "2018-01-24",
+                "fødselsdato": "2019-01-29",
                 "aktørId": "123456"
               },
               "vedleggUrls": [],
+              "pleietrengende": {
+                "norskIdentitetsnummer": "02119970078"
+              },
+              "medlemskap": {
+                "harBoddIUtlandetSiste12Mnd": true,
+                "utenlandsoppholdSiste12Mnd": [
+                  {
+                    "fraOgMed": "2020-01-01",
+                    "tilOgMed": "2020-01-10",
+                    "landkode": "BR",
+                    "landnavn": "Brasil"
+                  }
+                ],
+                "skalBoIUtlandetNeste12Mnd": true,
+                "utenlandsoppholdNeste12Mnd": [
+                  {
+                    "fraOgMed": "2021-01-01",
+                    "tilOgMed": "2021-01-10",
+                    "landkode": "CU",
+                    "landnavn": "Cuba"
+                  }
+                ]
+              },
               "k9Format": {
                 "søknadId": "$søknadId",
                 "versjon": "1.0.0",
@@ -79,21 +98,4 @@ class SøknadsformatTest {
 
         JSONAssert.assertEquals(forventetSøknad, String(json), true)
     }
-
-    private fun melding(soknadId: String): Søknad = Søknad(
-        søknadId = soknadId,
-        mottatt = ZonedDateTime.of(2018, 1, 2, 3, 4, 5, 6, ZoneId.of("UTC")),
-        søker = Søker(
-            aktørId = "123456",
-            fødselsnummer = "02119970078",
-            etternavn = "Nordmann",
-            mellomnavn = "Mellomnavn",
-            fornavn = "Ola",
-            fødselsdato = LocalDate.parse("2018-01-24")
-        ),
-        vedleggUrls = listOf(),
-        k9Format = SøknadUtils.gyldigK9Format(soknadId),
-        harBekreftetOpplysninger = true,
-        harForståttRettigheterOgPlikter = true
-    )
 }

@@ -9,9 +9,8 @@ import com.openhtmltopdf.outputdevice.helper.BaseRendererBuilder
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder
 import com.openhtmltopdf.util.XRLog
 import no.nav.helse.dusseldorf.ktor.core.fromResources
-import no.nav.helse.prosessering.v1.søknad.Søknad
-import no.nav.helse.prosessering.v1.søknad.Søker
-import no.nav.helse.prosessering.v1.søknad.capitalizeName
+import no.nav.helse.prosessering.v1.PdfV1Generator.Companion.DATE_FORMATTER
+import no.nav.helse.prosessering.v1.søknad.*
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.time.DayOfWeek
@@ -21,7 +20,7 @@ import java.time.format.DateTimeFormatter
 import java.util.logging.Level
 
 internal class PdfV1Generator {
-    private companion object {
+    companion object {
         private const val ROOT = "handlebars"
         private const val SOKNAD = "soknad"
 
@@ -56,7 +55,8 @@ internal class PdfV1Generator {
         private val soknadTemplate = handlebars.compile(SOKNAD)
 
         private val ZONE_ID = ZoneId.of("Europe/Oslo")
-        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").withZone(ZONE_ID)
+        val DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZONE_ID)
+        val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").withZone(ZONE_ID)
     }
 
     internal fun generateOppsummeringPdf(søknad: Søknad): ByteArray {
@@ -72,6 +72,8 @@ internal class PdfV1Generator {
                             "navn" to søknad.søker.formatertNavn().capitalizeName(),
                             "fødselsnummer" to søknad.søker.fødselsnummer
                         ),
+                        "pleietrengende" to søknad.pleietrengende.somMap(),
+                        "medlemskap" to søknad.medlemskap.somMap(),
                         "samtykke" to mapOf(
                             "harForståttRettigheterOgPlikter" to søknad.harForståttRettigheterOgPlikter,
                             "harBekreftetOpplysninger" to søknad.harBekreftetOpplysninger
@@ -143,4 +145,26 @@ private fun ZonedDateTime.norskDag() = when(dayOfWeek) {
     DayOfWeek.FRIDAY -> "Fredag"
     DayOfWeek.SATURDAY -> "Lørdag"
     else -> "Søndag"
+}
+
+private fun Pleietrengende.somMap() = mapOf<String, Any?>(
+    "norskIdentitetsnummer" to this.norskIdentitetsnummer
+)
+
+private fun Medlemskap.somMap() = mapOf<String, Any?>(
+    "data" to this,
+    "harBoddIUtlandetSiste12Mnd" to this.harBoddIUtlandetSiste12Mnd,
+    "utenlandsoppholdSiste12Mnd" to this.utenlandsoppholdSiste12Mnd.somMap(),
+    "skalBoIUtlandetNeste12Mnd" to this.skalBoIUtlandetNeste12Mnd,
+    "utenlandsoppholdNeste12Mnd" to this.utenlandsoppholdNeste12Mnd.somMap()
+)
+
+private fun List<Bosted>.somMap() : List<Map<String, Any?>> {
+    return map {
+        mapOf(
+            "landnavn" to it.landnavn,
+            "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
+            "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed)
+        )
+    }
 }

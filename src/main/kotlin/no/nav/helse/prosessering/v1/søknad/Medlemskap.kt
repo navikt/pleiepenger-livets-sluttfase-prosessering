@@ -1,0 +1,20 @@
+package no.nav.helse.prosessering.v1.søknad
+
+import com.fasterxml.jackson.annotation.JsonFormat
+import java.time.LocalDate
+
+data class Medlemskap(
+    val harBoddIUtlandetSiste12Mnd: Boolean,
+    val utenlandsoppholdSiste12Mnd: List<Bosted> = listOf(),
+    val skalBoIUtlandetNeste12Mnd: Boolean,
+    val utenlandsoppholdNeste12Mnd: List<Bosted> = listOf()
+)
+
+data class Bosted(
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    val fraOgMed: LocalDate,
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    val tilOgMed: LocalDate,
+    val landkode: String,
+    val landnavn: String
+)

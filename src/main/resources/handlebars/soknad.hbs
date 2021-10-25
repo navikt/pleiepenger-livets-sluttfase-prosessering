@@ -10,6 +10,8 @@
           content="Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase {{søknadMottattDag}} {{ søknadMottatt }}"/>
     <bookmarks>
         <bookmark name="Søker" href="#søker"/>
+        <bookmark name="Pleietrengende" href="#pleietrengende"/>
+        <bookmark name="Medlemskap" href="#medlemskap"/>
         <bookmark name="Samtykke" href="#samtykke"/>
     </bookmarks>
     {{#block 'style-common' }}
@@ -29,6 +31,43 @@
         <p>{{ søker.fødselsnummer }}</p>
         <br/>
     </div>
+
+    <section id="pleietrengende">
+        <h2>Pleietrengende</h2>
+        <p>Identitetsnummer: {{pleietrengende.norskIdentitetsnummer}}</p>
+    </section>
+
+    <section id="medlemskap">
+        <h2>Medlemskap i folketrygden</h2>
+
+        <p class="sporsmalstekst">Har du bodd i utlandet de siste 12 månedene?</p>
+        {{#if medlemskap.harBoddIUtlandetSiste12Mnd}}
+            <p>Ja</p>
+            <ul>
+                {{#each medlemskap.utenlandsoppholdSiste12Mnd as | bosted|~}}
+                    <li>
+                        {{bosted.landnavn}} ({{bosted.fraOgMed}} - {{bosted.tilOgMed}})
+                    </li>
+                {{/each}}
+            </ul>
+        {{else}}
+            Nei
+        {{/if}}
+
+        <p class="sporsmalstekst">Skal du bo i utlandet de neste 12 månedene?</p>
+        {{#if medlemskap.skalBoIUtlandetNeste12Mnd}}
+            <p>Ja</p>
+            <ul>
+                {{#each medlemskap.utenlandsoppholdNeste12Mnd as | bosted|~}}
+                    <li>
+                        {{bosted.landnavn}} ({{bosted.fraOgMed}} - {{bosted.tilOgMed}})
+                    </li>
+                {{/each}}
+            </ul>
+        {{else}}
+            Nei
+        {{/if}}
+    </section>
 
     <!-- SAMTYKKE -->
     <section id="samtykke">

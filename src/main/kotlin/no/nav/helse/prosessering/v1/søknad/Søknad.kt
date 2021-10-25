@@ -12,6 +12,8 @@ data class Søknad(
     val språk: String? = "nb",
     val søker: Søker,
     val vedleggUrls: List<URL>,
+    val pleietrengende: Pleietrengende,
+    val medlemskap: Medlemskap,
     val k9Format: Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean

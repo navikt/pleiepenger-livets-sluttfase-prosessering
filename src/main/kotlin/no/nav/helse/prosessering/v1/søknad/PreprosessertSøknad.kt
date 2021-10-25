@@ -12,6 +12,8 @@ data class PreprosessertSøknad(
     val dokumentUrls: List<List<URI>>,
     val søker: Søker,
     val vedleggUrls: List<URL>,
+    val pleietrengende: Pleietrengende,
+    val medlemskap: Medlemskap,
     val k9Format: K9Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean
@@ -26,6 +28,8 @@ data class PreprosessertSøknad(
         dokumentUrls = dokumentUrls,
         søker = søknad.søker,
         vedleggUrls = søknad.vedleggUrls,
+        pleietrengende = søknad.pleietrengende,
+        medlemskap = søknad.medlemskap,
         k9Format = søknad.k9Format,
         harForståttRettigheterOgPlikter = søknad.harForståttRettigheterOgPlikter,
         harBekreftetOpplysninger = søknad.harBekreftetOpplysninger
