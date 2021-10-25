@@ -3,10 +3,14 @@ package no.nav.helse
 import no.nav.helse.prosessering.v1.søknad.*
 import no.nav.k9.søknad.Søknad
 import no.nav.k9.søknad.felles.Versjon
+import no.nav.k9.søknad.felles.personopplysninger.Bosteder
+import no.nav.k9.søknad.felles.type.Landkode
 import no.nav.k9.søknad.felles.type.NorskIdentitetsnummer
 import no.nav.k9.søknad.felles.type.Periode
 import no.nav.k9.søknad.felles.type.SøknadId
 import no.nav.k9.søknad.ytelse.omsorgspenger.utvidetrett.v1.OmsorgspengerMidlertidigAlene
+import no.nav.k9.søknad.ytelse.pls.v1.Pleietrengende
+import no.nav.k9.søknad.ytelse.pls.v1.PleipengerLivetsSluttfase
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -21,7 +25,7 @@ object SøknadUtils {
         søkerFødselsnummer: String = "02119970078",
         søknadId: String = UUID.randomUUID().toString(),
         mottatt: ZonedDateTime = ZonedDateTime.now()
-    ) = MeldingV1(
+    ) = Søknad(
         språk = "nb",
         søknadId = søknadId,
         mottatt = mottatt,
@@ -44,17 +48,20 @@ object SøknadUtils {
         Versjon("1.0.0"),
         ZonedDateTime.of(2018, 1, 2, 3, 4, 5, 6, ZoneId.of("UTC")),
         K9Søker(NorskIdentitetsnummer.of("02119970078")),
-        OmsorgspengerMidlertidigAlene(
-            listOf(
-                K9Barn(NorskIdentitetsnummer.of("29076523302"), null)
-            ),
-            K9AnnenForelder(
-                NorskIdentitetsnummer.of("25058118020"),
-                K9AnnenForelder.SituasjonType.FENGSEL,
-                "Sitter i fengsel..",
-                Periode(LocalDate.parse("2020-01-01"), LocalDate.parse("2030-01-01"))
-            ),
-            null
-        )
+        PleipengerLivetsSluttfase()
+            .medPleietrengende(Pleietrengende(NorskIdentitetsnummer.of("02119970078")))
+            .medBosteder(
+                Bosteder()
+                    .medPerioder(
+                        mapOf(
+                            Periode(
+                                LocalDate.parse("2021-01-01"),
+                                LocalDate.parse("2021-01-01")
+                            ) to Bosteder.BostedPeriodeInfo().medLand(
+                                Landkode.DANMARK
+                            )
+                        )
+                    )
+            )
     )
 }

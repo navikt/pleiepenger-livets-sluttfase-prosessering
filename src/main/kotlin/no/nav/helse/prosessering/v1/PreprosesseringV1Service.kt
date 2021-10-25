@@ -1,16 +1,17 @@
 package no.nav.helse.prosessering.v1
 
-import no.nav.helse.dokument.DokumentGateway
-import no.nav.helse.dokument.DokumentService
+import no.nav.helse.dokument.K9MellomlagringGateway
+import no.nav.helse.dokument.K9MellomlagringService
+import no.nav.helse.dokument.Søknadsformat
 import no.nav.helse.felles.CorrelationId
 import no.nav.helse.felles.Metadata
-import no.nav.helse.prosessering.v1.søknad.MeldingV1
-import no.nav.helse.prosessering.v1.søknad.PreprosessertMeldingV1
+import no.nav.helse.prosessering.v1.søknad.Søknad
+import no.nav.helse.prosessering.v1.søknad.PreprosessertSøknad
 import org.slf4j.LoggerFactory
 
 internal class PreprosesseringV1Service(
     private val pdfV1Generator: PdfV1Generator,
-    private val dokumentService: DokumentService
+    private val k9MellomlagringService: K9MellomlagringService
 ) {
 
     private companion object {
@@ -18,36 +19,37 @@ internal class PreprosesseringV1Service(
     }
 
     internal suspend fun preprosesser(
-        melding: MeldingV1,
+        søknad: Søknad,
         metadata: Metadata
-    ): PreprosessertMeldingV1 {
+    ): PreprosessertSøknad {
         val correlationId = CorrelationId(metadata.correlationId)
-        val dokumentEier = DokumentGateway.DokumentEier(melding.søker.fødselsnummer)
+        val dokumentEier = K9MellomlagringGateway.DokumentEier(søknad.søker.fødselsnummer)
 
-        logger.trace("Genererer Oppsummerings-PDF av søknaden.")
-        val søknadOppsummeringPdf = pdfV1Generator.generateSoknadOppsummeringPdf(melding)
-        logger.trace("Generering av Oppsummerings-PDF OK.")
+        logger.info("Genererer Oppsummerings-PDF av søknaden.")
+        val oppsummeringPdf = pdfV1Generator.generateOppsummeringPdf(søknad)
 
-        logger.trace("Mellomlagrer Oppsummerings-PDF.")
-
-        val soknadOppsummeringPdfUrl = dokumentService.lagreSoknadsOppsummeringPdf(
-            pdf = søknadOppsummeringPdf,
-            correlationId = correlationId,
-            dokumentEier = dokumentEier,
-            dokumentbeskrivelse = "Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase"
-        )
-
-        logger.trace("Mellomlagring av Oppsummerings-PDF OK")
-
-        logger.trace("Mellomlagrer Oppsummerings-JSON")
-
-        val søknadJsonUrl = dokumentService.lagreSoknadsMelding(
-            k9Format = melding.k9Format,
-            dokumentEier = dokumentEier,
+        logger.info("Mellomlagrer Oppsummerings-PDF.")
+        val soknadOppsummeringPdfUrl = k9MellomlagringService.lagreDokument(
+            dokument = K9MellomlagringGateway.Dokument(
+                eier = dokumentEier,
+                content = oppsummeringPdf,
+                contentType = "application/pdf",
+                title = "Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase"
+            ),
             correlationId = correlationId
         )
 
-        logger.trace("Mellomlagrer Oppsummerings-JSON OK.")
+        logger.info("Mellomlagrer Oppsummerings-JSON")
+        val søknadJsonUrl = k9MellomlagringService.lagreDokument(
+            dokument = K9MellomlagringGateway.Dokument(
+                eier = dokumentEier,
+                content = Søknadsformat.somJson(søknad.k9Format),
+                contentType = "application/json",
+                title = "Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase - JSON"
+            ),
+            correlationId = correlationId
+        )
+
         val komplettDokumentUrls = mutableListOf(
             listOf(
                 soknadOppsummeringPdfUrl,
@@ -55,15 +57,15 @@ internal class PreprosesseringV1Service(
             )
         )
 
-        if (melding.vedleggUrls.isNotEmpty()) {
-            logger.info("Legger til ${melding.vedleggUrls.size} vedlegg URL's fra meldingen som dokument.")
-            melding.vedleggUrls.forEach { komplettDokumentUrls.add(listOf(it.toURI())) }
+        if (søknad.vedleggUrls.isNotEmpty()) {
+            logger.info("Legger til ${søknad.vedleggUrls.size} vedlegg URL's fra meldingen som dokument.")
+            søknad.vedleggUrls.forEach { komplettDokumentUrls.add(listOf(it.toURI())) }
         }
 
-        logger.trace("Totalt ${komplettDokumentUrls.size} dokumentbolker.")
+        logger.info("Totalt ${komplettDokumentUrls.size} dokumentbolker med totalt ${komplettDokumentUrls.flatten().size} dokumenter")
 
-        val preprosessertMeldingV1 = PreprosessertMeldingV1(
-            melding = melding,
+        val preprosessertMeldingV1 = PreprosessertSøknad(
+            søknad = søknad,
             dokumentUrls = komplettDokumentUrls.toList()
         )
 

@@ -14,7 +14,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import no.nav.helse.felles.CorrelationId
-import no.nav.helse.HttpError
+import no.nav.helse.felles.HttpError
 import no.nav.helse.dusseldorf.ktor.client.buildURL
 import no.nav.helse.dusseldorf.ktor.core.Retry
 import no.nav.helse.dusseldorf.ktor.health.HealthCheck
@@ -30,7 +30,7 @@ import java.io.ByteArrayInputStream
 import java.net.URI
 import java.time.Duration
 
-class DokumentGateway(
+class K9MellomlagringGateway(
     private val accessTokenClient: AccessTokenClient,
     private val lagreDokumentScopes: Set<String>,
     private val sletteDokumentScopes: Set<String>,
@@ -40,7 +40,7 @@ class DokumentGateway(
     private companion object {
         private const val LAGRE_DOKUMENT_OPERATION = "lagre-dokument"
         private const val SLETTE_DOKUMENT_OPERATION = "slette-dokument"
-        private val logger: Logger = LoggerFactory.getLogger(DokumentGateway::class.java)
+        private val logger: Logger = LoggerFactory.getLogger(K9MellomlagringGateway::class.java)
     }
 
     private val completeUrl = Url.buildURL(
@@ -203,7 +203,8 @@ class DokumentGateway(
     data class Dokument(
         val eier: DokumentEier,
         val content: ByteArray,
-        @JsonProperty("content_type") val contentType: String,
+        @JsonProperty("content_type")
+        val contentType: String,
         val title: String
     )
 

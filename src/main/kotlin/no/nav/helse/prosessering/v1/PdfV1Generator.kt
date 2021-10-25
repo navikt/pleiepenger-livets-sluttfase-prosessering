@@ -9,7 +9,7 @@ import com.openhtmltopdf.outputdevice.helper.BaseRendererBuilder
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder
 import com.openhtmltopdf.util.XRLog
 import no.nav.helse.dusseldorf.ktor.core.fromResources
-import no.nav.helse.prosessering.v1.søknad.MeldingV1
+import no.nav.helse.prosessering.v1.søknad.Søknad
 import no.nav.helse.prosessering.v1.søknad.Søker
 import no.nav.helse.prosessering.v1.søknad.capitalizeName
 import java.io.ByteArrayInputStream
@@ -59,25 +59,25 @@ internal class PdfV1Generator {
         private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").withZone(ZONE_ID)
     }
 
-    internal fun generateSoknadOppsummeringPdf(melding: MeldingV1): ByteArray {
+    internal fun generateOppsummeringPdf(søknad: Søknad): ByteArray {
         XRLog.listRegisteredLoggers().forEach { logger -> XRLog.setLevel(logger, Level.WARNING) }
         soknadTemplate.apply(
             Context
                 .newBuilder(
                     mapOf(
-                        "søknadId" to melding.søknadId,
-                        "søknadMottattDag" to melding.mottatt.withZoneSameInstant(ZONE_ID).norskDag(),
-                        "søknadMottatt" to DATE_TIME_FORMATTER.format(melding.mottatt),
+                        "søknadId" to søknad.søknadId,
+                        "søknadMottattDag" to søknad.mottatt.withZoneSameInstant(ZONE_ID).norskDag(),
+                        "søknadMottatt" to DATE_TIME_FORMATTER.format(søknad.mottatt),
                         "søker" to mapOf(
-                            "navn" to melding.søker.formatertNavn().capitalizeName(),
-                            "fødselsnummer" to melding.søker.fødselsnummer
+                            "navn" to søknad.søker.formatertNavn().capitalizeName(),
+                            "fødselsnummer" to søknad.søker.fødselsnummer
                         ),
                         "samtykke" to mapOf(
-                            "harForståttRettigheterOgPlikter" to melding.harForståttRettigheterOgPlikter,
-                            "harBekreftetOpplysninger" to melding.harBekreftetOpplysninger
+                            "harForståttRettigheterOgPlikter" to søknad.harForståttRettigheterOgPlikter,
+                            "harBekreftetOpplysninger" to søknad.harBekreftetOpplysninger
                         ),
                         "hjelp" to mapOf(
-                            "språk" to melding.språk?.språkTilTekst(),
+                            "språk" to søknad.språk?.språkTilTekst(),
                         )
                     )
                 )

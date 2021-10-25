@@ -6,7 +6,7 @@ import java.net.URL
 import java.time.LocalDate
 import java.time.ZonedDateTime
 
-data class MeldingV1(
+data class Søknad(
     val søknadId: String,
     val mottatt: ZonedDateTime,
     val språk: String? = "nb",

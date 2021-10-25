@@ -44,7 +44,7 @@ internal class PreprosesseringStream(
                         logger.info(formaterStatuslogging(soknadId, "preprosesseres"))
 
                         val preprosessertMelding = preprosesseringV1Service.preprosesser(
-                            melding = entry.deserialiserTilMelding(),
+                            søknad = entry.deserialiserTilMelding(),
                             metadata = entry.metadata
                         )
 

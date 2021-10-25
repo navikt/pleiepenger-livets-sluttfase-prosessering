@@ -11,7 +11,7 @@ import no.nav.helse.kafka.Topics.K9_DITTNAV_VARSEL
 import no.nav.helse.kafka.Topics.MOTTATT
 import no.nav.helse.kafka.Topics.PREPROSESSERT
 import no.nav.helse.kafka.midlertidigAleneKonfigurertMapper
-import no.nav.helse.prosessering.v1.søknad.MeldingV1
+import no.nav.helse.prosessering.v1.søknad.Søknad
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.KafkaConsumer
@@ -106,7 +106,7 @@ fun KafkaConsumer<String, String>.hentCleanupMelding(
     throw IllegalStateException("Fant ikke opprettet oppgave for søknad $id etter $maxWaitInSeconds sekunder.")
 }
 
-fun KafkaProducer<String, TopicEntry>.leggTilMottak(soknad: MeldingV1) {
+fun KafkaProducer<String, TopicEntry>.leggTilMottak(soknad: Søknad) {
     send(
         ProducerRecord(
             MOTTATT.name,

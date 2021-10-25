@@ -10,8 +10,8 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.prometheus.client.hotspot.DefaultExports
 import no.nav.helse.auth.AccessTokenClientResolver
-import no.nav.helse.dokument.DokumentGateway
-import no.nav.helse.dokument.DokumentService
+import no.nav.helse.dokument.K9MellomlagringGateway
+import no.nav.helse.dokument.K9MellomlagringService
 import no.nav.helse.dusseldorf.ktor.auth.clients
 import no.nav.helse.dusseldorf.ktor.client.HttpRequestHealthCheck
 import no.nav.helse.dusseldorf.ktor.client.HttpRequestHealthConfig
@@ -51,18 +51,18 @@ fun Application.pleiepengerLivetsSluttfaseProsessering() {
 
     val accessTokenClientResolver = AccessTokenClientResolver(environment.config.clients())
 
-    val dokumentGateway = DokumentGateway(
+    val k9MellomlagringGateway = K9MellomlagringGateway(
         baseUrl = configuration.getK9MellomlagringServiceDiscovery(),
         accessTokenClient = accessTokenClientResolver.dokumentAccessTokenClient(),
         lagreDokumentScopes = configuration.getLagreDokumentScopes(),
         sletteDokumentScopes = configuration.getSletteDokumentScopes()
     )
 
-    val dokumentService = DokumentService(dokumentGateway)
+    val k9MellomlagringService = K9MellomlagringService(k9MellomlagringGateway)
 
     val preprosesseringV1Service = PreprosesseringV1Service(
         pdfV1Generator = PdfV1Generator(),
-        dokumentService = dokumentService
+        dokumentService = k9MellomlagringService
     )
     val joarkGateway = JoarkGateway(
         baseUrl = configuration.getk9JoarkBaseUrl(),
@@ -74,7 +74,7 @@ fun Application.pleiepengerLivetsSluttfaseProsessering() {
         kafkaConfig = configuration.getKafkaConfig(),
         preprosesseringV1Service = preprosesseringV1Service,
         joarkGateway = joarkGateway,
-        dokumentService = dokumentService
+        k9MellomlagringService = k9MellomlagringService
     )
 
     environment.monitor.subscribe(ApplicationStopping) {
@@ -97,7 +97,7 @@ fun Application.pleiepengerLivetsSluttfaseProsessering() {
         HealthRoute(
             healthService = HealthService(
                 healthChecks = mutableSetOf(
-                    dokumentGateway,
+                    k9MellomlagringGateway,
                     joarkGateway,
                     HttpRequestHealthCheck(
                         mapOf(

@@ -1,8 +1,8 @@
 package no.nav.helse
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import no.nav.helse.dokument.Søknadsformat
 import no.nav.helse.prosessering.v1.søknad.*
-import org.junit.jupiter.api.Disabled
 import org.skyscreamer.jsonassert.JSONAssert
 import java.time.LocalDate
 import java.time.ZoneId
@@ -12,17 +12,18 @@ import kotlin.test.Test
 
 class SøknadsformatTest {
 
-    @Disabled
     @Test
     fun `Søknaden journalføres som JSON uten vedlegg`() {
         val søknadId = UUID.randomUUID().toString()
         val json = Søknadsformat.somJson(melding(søknadId))
 
+        println(String(json))
+
         val forventetSøknad =
             //language=json
             """
             {
-              "søknadId": $søknadId,
+              "søknadId": "$søknadId",
               "mottatt": "2018-01-02T03:04:05.000000006Z",
               "språk": "nb",
               "søker": {
@@ -33,25 +34,9 @@ class SøknadsformatTest {
                 "fødselsdato": "2018-01-24",
                 "aktørId": "123456"
               },
-              "id": "123456789",
-              "annenForelder": {
-                "navn": "Berit",
-                "fnr": "02119970078",
-                "situasjon": "FENGSEL",
-                "situasjonBeskrivelse": "Sitter i fengsel..",
-                "periodeOver6Måneder": false,
-                "periodeFraOgMed": "2020-01-01",
-                "periodeTilOgMed": "2020-10-01"
-              },
-              "barn": [
-                {
-                  "navn": "Ole",
-                  "identitetsnummer": "1234",
-                  "aktørId": null
-                }
-              ],
+              "vedleggUrls": [],
               "k9Format": {
-                "søknadId": $søknadId,
+                "søknadId": "$søknadId",
                 "versjon": "1.0.0",
                 "mottattDato": "2018-01-02T03:04:05.000Z",
                 "søker": {
@@ -59,22 +44,33 @@ class SøknadsformatTest {
                 },
                 "språk": "nb",
                 "ytelse": {
-                  "type": "OMP_UTV_MA",
-                  "barn": [
-                    {
-                      "norskIdentitetsnummer": "29076523302",
-                      "fødselsdato": null
-                    }
-                  ],
-                  "annenForelder": {
-                    "norskIdentitetsnummer": "25058118020",
-                    "situasjon": "FENGSEL",
-                    "situasjonBeskrivelse": "Sitter i fengsel..",
-                    "periode": "2020-01-01/2030-01-01"
+                  "type": "PLEIEPENGER_LIVETS_SLUTTFASE",
+                  "pleietrengende": {
+                    "norskIdentitetsnummer": "02119970078"
                   },
-                  "begrunnelse": null
+                  "arbeidstid": {
+                    "arbeidstakerList": [],
+                    "frilanserArbeidstidInfo": null,
+                    "selvstendigNæringsdrivendeArbeidstidInfo": null
+                  },
+                  "opptjeningAktivitet": {},
+                  "bosteder": {
+                    "perioder": {
+                      "2021-01-01/2021-01-01": {
+                        "land": "DNK"
+                      }
+                    },
+                    "perioderSomSkalSlettes": {}
+                  },
+                  "utenlandsopphold": {
+                    "perioder": {},
+                    "perioderSomSkalSlettes": {}
+                  }
                 },
-                "journalposter": []
+                "journalposter": [],
+                "begrunnelseForInnsending": {
+                  "tekst": null
+                }
               },
               "harForståttRettigheterOgPlikter": true,
               "harBekreftetOpplysninger": true
@@ -84,7 +80,7 @@ class SøknadsformatTest {
         JSONAssert.assertEquals(forventetSøknad, String(json), true)
     }
 
-    private fun melding(soknadId: String): MeldingV1 = MeldingV1(
+    private fun melding(soknadId: String): Søknad = Søknad(
         søknadId = soknadId,
         mottatt = ZonedDateTime.of(2018, 1, 2, 3, 4, 5, 6, ZoneId.of("UTC")),
         søker = Søker(

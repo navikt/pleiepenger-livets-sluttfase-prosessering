@@ -7,8 +7,8 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.helse.dusseldorf.ktor.jackson.dusseldorfConfigured
 import no.nav.helse.felles.Metadata
-import no.nav.helse.prosessering.v1.søknad.MeldingV1
-import no.nav.helse.prosessering.v1.søknad.PreprosessertMeldingV1
+import no.nav.helse.prosessering.v1.søknad.Søknad
+import no.nav.helse.prosessering.v1.søknad.PreprosessertSøknad
 import org.apache.kafka.common.serialization.Deserializer
 import org.apache.kafka.common.serialization.Serdes
 import org.apache.kafka.common.serialization.Serializer
@@ -18,7 +18,7 @@ import org.apache.kafka.streams.kstream.Produced
 import org.json.JSONObject
 
 data class Data(val rawJson: String)
-data class Cleanup(val metadata: Metadata, val melding: PreprosessertMeldingV1, val journalførtMelding: Journalfort)
+data class Cleanup(val metadata: Metadata, val melding: PreprosessertSøknad, val journalførtMelding: Journalfort)
 data class Journalfort(val journalpostId: String)
 
 internal data class Topic(
@@ -56,8 +56,8 @@ internal object Topics {
 }
 
 internal fun TopicEntry.deserialiserTilCleanup(): Cleanup = midlertidigAleneKonfigurertMapper().readValue(data.rawJson)
-internal fun TopicEntry.deserialiserTilMelding(): MeldingV1 = midlertidigAleneKonfigurertMapper().readValue(data.rawJson)
-internal fun TopicEntry.deserialiserTilPreprosessertMelding(): PreprosessertMeldingV1  = midlertidigAleneKonfigurertMapper().readValue(data.rawJson)
+internal fun TopicEntry.deserialiserTilMelding(): Søknad = midlertidigAleneKonfigurertMapper().readValue(data.rawJson)
+internal fun TopicEntry.deserialiserTilPreprosessertMelding(): PreprosessertSøknad  = midlertidigAleneKonfigurertMapper().readValue(data.rawJson)
 internal fun Any.serialiserTilData() = Data(midlertidigAleneKonfigurertMapper().writeValueAsString(this))
 
 class SerDes : Serializer<TopicEntry>, Deserializer<TopicEntry> {

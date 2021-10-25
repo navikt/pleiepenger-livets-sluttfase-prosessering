@@ -1,7 +1,7 @@
 package no.nav.helse.prosessering.v1
 
 import io.prometheus.client.Counter
-import no.nav.helse.prosessering.v1.søknad.PreprosessertMeldingV1
+import no.nav.helse.prosessering.v1.søknad.PreprosessertSøknad
 
 private val annenForelderSituasjonCounter = Counter.build()
     .name("annen_forelder_situasjon_counter")
@@ -15,6 +15,6 @@ private val generelCounter = Counter.build()
     .labelNames("spm", "svar")
     .register()
 
-internal fun PreprosessertMeldingV1.reportMetrics(){
+internal fun PreprosessertSøknad.reportMetrics(){
 
 }
