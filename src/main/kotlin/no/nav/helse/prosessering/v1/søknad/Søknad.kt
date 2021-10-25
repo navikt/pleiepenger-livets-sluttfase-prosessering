@@ -14,6 +14,7 @@ data class Søknad(
     val vedleggUrls: List<URL>,
     val pleietrengende: Pleietrengende,
     val medlemskap: Medlemskap,
+    val fraværsperioder: List<Fraværsperiode>,
     val k9Format: Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean

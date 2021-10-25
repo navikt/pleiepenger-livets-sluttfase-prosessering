@@ -54,6 +54,20 @@ class SøknadsformatTest {
                   }
                 ]
               },
+              "fraværsperioder": [
+                {
+                  "fraOgMed": "2021-02-01",
+                  "tilOgMed": "2021-02-10",
+                  "antallTimerBorte": "PT5H",
+                  "antallTimerPlanlagt": "PT7H30M"
+                },
+                {
+                  "fraOgMed": "2021-02-13",
+                  "tilOgMed": "2021-02-15",
+                  "antallTimerBorte": null,
+                  "antallTimerPlanlagt": null
+                }
+              ],
               "k9Format": {
                 "søknadId": "$søknadId",
                 "versjon": "1.0.0",

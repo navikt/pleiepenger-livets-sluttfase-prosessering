@@ -12,6 +12,7 @@
         <bookmark name="Søker" href="#søker"/>
         <bookmark name="Pleietrengende" href="#pleietrengende"/>
         <bookmark name="Medlemskap" href="#medlemskap"/>
+        <bookmark name="Fraværsperioder" href="#fraværsperioder"/>
         <bookmark name="Samtykke" href="#samtykke"/>
     </bookmarks>
     {{#block 'style-common' }}
@@ -35,6 +36,21 @@
     <section id="pleietrengende">
         <h2>Pleietrengende</h2>
         <p>Identitetsnummer: {{pleietrengende.norskIdentitetsnummer}}</p>
+    </section>
+
+    <section id="fraværsperioder">
+        <h2>Fraværsperioder</h2>
+        <ul>
+            {{#each fraværsperioder as | fraværsperiode|~}}
+                <li>
+                    <p>Periode: {{fraværsperiode.fraOgMed}} - {{fraværsperiode.tilOgMed}}</p>
+                    {{#if fraværsperiode.antallTimerBorte}}
+                        <p>Antall timer du skulle ha jobbet den dagen: {{fraværsperiode.antallTimerPlanlagt}}</p>
+                        <p>Antall timer du var borte fra jobb den dagen: {{fraværsperiode.antallTimerBorte}}</p>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ul>
     </section>
 
     <section id="medlemskap">

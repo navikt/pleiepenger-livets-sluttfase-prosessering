@@ -14,6 +14,7 @@ import no.nav.helse.prosessering.v1.søknad.*
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.time.DayOfWeek
+import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -74,6 +75,7 @@ internal class PdfV1Generator {
                         ),
                         "pleietrengende" to søknad.pleietrengende.somMap(),
                         "medlemskap" to søknad.medlemskap.somMap(),
+                        "fraværsperioder" to søknad.fraværsperioder.somMapFraværsperiode(),
                         "samtykke" to mapOf(
                             "harForståttRettigheterOgPlikter" to søknad.harForståttRettigheterOgPlikter,
                             "harBekreftetOpplysninger" to søknad.harBekreftetOpplysninger
@@ -154,12 +156,12 @@ private fun Pleietrengende.somMap() = mapOf<String, Any?>(
 private fun Medlemskap.somMap() = mapOf<String, Any?>(
     "data" to this,
     "harBoddIUtlandetSiste12Mnd" to this.harBoddIUtlandetSiste12Mnd,
-    "utenlandsoppholdSiste12Mnd" to this.utenlandsoppholdSiste12Mnd.somMap(),
+    "utenlandsoppholdSiste12Mnd" to this.utenlandsoppholdSiste12Mnd.somMapBosted(),
     "skalBoIUtlandetNeste12Mnd" to this.skalBoIUtlandetNeste12Mnd,
-    "utenlandsoppholdNeste12Mnd" to this.utenlandsoppholdNeste12Mnd.somMap()
+    "utenlandsoppholdNeste12Mnd" to this.utenlandsoppholdNeste12Mnd.somMapBosted()
 )
 
-private fun List<Bosted>.somMap() : List<Map<String, Any?>> {
+private fun List<Bosted>.somMapBosted() : List<Map<String, Any?>> {
     return map {
         mapOf(
             "landnavn" to it.landnavn,
@@ -167,4 +169,20 @@ private fun List<Bosted>.somMap() : List<Map<String, Any?>> {
             "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed)
         )
     }
+}
+
+private fun List<Fraværsperiode>.somMapFraværsperiode() : List<Map<String, Any?>>{
+    return map {
+        mapOf(
+            "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
+            "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed),
+            "antallTimerBorte" to it.antallTimerBorte?.somTekst(),
+            "antallTimerPlanlagt" to it.antallTimerPlanlagt?.somTekst()
+        )
+    }
+}
+
+private fun Duration.somTekst() = when (this.toMinutesPart()) {
+    0 -> "${this.toHours()} timer"
+    else -> "${this.toHoursPart()} timer og ${this.toMinutesPart()} minutter"
 }
