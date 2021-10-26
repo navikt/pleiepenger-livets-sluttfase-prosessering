@@ -13,6 +13,7 @@
         <bookmark name="Pleietrengende" href="#pleietrengende"/>
         <bookmark name="Medlemskap" href="#medlemskap"/>
         <bookmark name="Fraværsperioder" href="#fraværsperioder"/>
+        <bookmark name="Utenlandsopphold" href="#utenlandsopphold"/>
         <bookmark name="Samtykke" href="#samtykke"/>
     </bookmarks>
     {{#block 'style-common' }}
@@ -51,6 +52,19 @@
                 </li>
             {{/each}}
         </ul>
+    </section>
+
+    <section id="utenlandsopphold">
+        {{#if utenlandsopphold}}
+            <h2>Utenlandsopphold</h2>
+            <ul>
+                {{#each utenlandsopphold as | utenlandsopphold|~}}
+                    <li>
+                        {{utenlandsopphold.landnavn}} ({{utenlandsopphold.fraOgMed}} - {{utenlandsopphold.tilOgMed}})
+                    </li>
+                {{/each}}
+            </ul>
+        {{/if}}
     </section>
 
     <section id="medlemskap">

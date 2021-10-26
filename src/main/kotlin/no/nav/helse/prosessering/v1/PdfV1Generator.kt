@@ -76,6 +76,7 @@ internal class PdfV1Generator {
                         "pleietrengende" to søknad.pleietrengende.somMap(),
                         "medlemskap" to søknad.medlemskap.somMap(),
                         "fraværsperioder" to søknad.fraværsperioder.somMapFraværsperiode(),
+                        "utenlandsopphold" to søknad.utenlandsopphold?.somMapOpphold(),
                         "samtykke" to mapOf(
                             "harForståttRettigheterOgPlikter" to søknad.harForståttRettigheterOgPlikter,
                             "harBekreftetOpplysninger" to søknad.harBekreftetOpplysninger
@@ -156,12 +157,12 @@ private fun Pleietrengende.somMap() = mapOf<String, Any?>(
 private fun Medlemskap.somMap() = mapOf<String, Any?>(
     "data" to this,
     "harBoddIUtlandetSiste12Mnd" to this.harBoddIUtlandetSiste12Mnd,
-    "utenlandsoppholdSiste12Mnd" to this.utenlandsoppholdSiste12Mnd.somMapBosted(),
+    "utenlandsoppholdSiste12Mnd" to this.utenlandsoppholdSiste12Mnd.somMapOpphold(),
     "skalBoIUtlandetNeste12Mnd" to this.skalBoIUtlandetNeste12Mnd,
-    "utenlandsoppholdNeste12Mnd" to this.utenlandsoppholdNeste12Mnd.somMapBosted()
+    "utenlandsoppholdNeste12Mnd" to this.utenlandsoppholdNeste12Mnd.somMapOpphold()
 )
 
-private fun List<Bosted>.somMapBosted() : List<Map<String, Any?>> {
+private fun List<Opphold>.somMapOpphold() : List<Map<String, Any?>> {
     return map {
         mapOf(
             "landnavn" to it.landnavn,

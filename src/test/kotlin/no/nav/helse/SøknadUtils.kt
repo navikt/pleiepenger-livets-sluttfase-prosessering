@@ -4,6 +4,7 @@ import no.nav.helse.prosessering.v1.søknad.*
 import no.nav.k9.søknad.Søknad
 import no.nav.k9.søknad.felles.Versjon
 import no.nav.k9.søknad.felles.personopplysninger.Bosteder
+import no.nav.k9.søknad.felles.personopplysninger.Utenlandsopphold.UtenlandsoppholdPeriodeInfo
 import no.nav.k9.søknad.felles.type.Landkode
 import no.nav.k9.søknad.felles.type.NorskIdentitetsnummer
 import no.nav.k9.søknad.felles.type.Periode
@@ -16,6 +17,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 import no.nav.k9.søknad.felles.personopplysninger.Søker as K9Søker
+import no.nav.k9.søknad.felles.personopplysninger.Utenlandsopphold as K9Utenlandsopphold
 
 object SøknadUtils {
 
@@ -30,7 +32,7 @@ object SøknadUtils {
         søker = Søker(
             aktørId = "123456",
             fødselsnummer = søkerFødselsnummer,
-            fødselsdato = LocalDate.now().minusDays(1000),
+            fødselsdato = LocalDate.parse("2000-01-01"),
             etternavn = "Nordmann",
             mellomnavn = "Mellomnavn",
             fornavn = "Ola"
@@ -69,6 +71,20 @@ object SøknadUtils {
                 tilOgMed = LocalDate.parse("2021-02-15")
             )
         ),
+        utenlandsopphold = listOf(
+            Utenlandsopphold(
+                fraOgMed = LocalDate.parse("2021-01-01"),
+                tilOgMed = LocalDate.parse("2021-01-10"),
+                landnavn = "Cuba",
+                landkode = "CU"
+            ),
+            Utenlandsopphold(
+                fraOgMed = LocalDate.parse("2021-02-01"),
+                tilOgMed = LocalDate.parse("2021-02-10"),
+                landnavn = "Cuba",
+                landkode = "CU"
+            )
+        ),
         k9Format = gyldigK9Format(søknadId),
         harBekreftetOpplysninger = true,
         harForståttRettigheterOgPlikter = true
@@ -81,6 +97,17 @@ object SøknadUtils {
         K9Søker(NorskIdentitetsnummer.of("02119970078")),
         PleipengerLivetsSluttfase()
             .medPleietrengende(Pleietrengende(NorskIdentitetsnummer.of("02119970078")))
+            .medUtenlandsopphold(
+                K9Utenlandsopphold()
+                    .medPerioder(
+                        mapOf(
+                            Periode(
+                                LocalDate.parse("2021-03-01"),
+                                LocalDate.parse("2021-03-03")
+                            ) to UtenlandsoppholdPeriodeInfo().medLand(Landkode.CANADA)
+                        )
+                    )
+            )
             .medBosteder(
                 Bosteder()
                     .medPerioder(

@@ -27,7 +27,7 @@ class SøknadsformatTest {
                 "fornavn": "Ola",
                 "mellomnavn": "Mellomnavn",
                 "etternavn": "Nordmann",
-                "fødselsdato": "2019-01-29",
+                "fødselsdato": "2000-01-01",
                 "aktørId": "123456"
               },
               "vedleggUrls": [],
@@ -68,6 +68,20 @@ class SøknadsformatTest {
                   "antallTimerPlanlagt": null
                 }
               ],
+              "utenlandsopphold": [
+                {
+                  "fraOgMed": "2021-01-01",
+                  "tilOgMed": "2021-01-10",
+                  "landkode": "CU",
+                  "landnavn": "Cuba"
+                },
+                {
+                  "fraOgMed": "2021-02-01",
+                  "tilOgMed": "2021-02-10",
+                  "landkode": "CU",
+                  "landnavn": "Cuba"
+                }
+              ],
               "k9Format": {
                 "søknadId": "$søknadId",
                 "versjon": "1.0.0",
@@ -96,7 +110,12 @@ class SøknadsformatTest {
                     "perioderSomSkalSlettes": {}
                   },
                   "utenlandsopphold": {
-                    "perioder": {},
+                    "perioder": {
+                      "2021-03-01/2021-03-03": {
+                        "land": "CAN",
+                        "årsak": null
+                      }
+                    },
                     "perioderSomSkalSlettes": {}
                   }
                 },

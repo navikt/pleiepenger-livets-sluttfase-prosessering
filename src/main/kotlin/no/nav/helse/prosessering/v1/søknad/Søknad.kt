@@ -15,6 +15,7 @@ data class Søknad(
     val pleietrengende: Pleietrengende,
     val medlemskap: Medlemskap,
     val fraværsperioder: List<Fraværsperiode>,
+    val utenlandsopphold: List<Utenlandsopphold>?,
     val k9Format: Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean

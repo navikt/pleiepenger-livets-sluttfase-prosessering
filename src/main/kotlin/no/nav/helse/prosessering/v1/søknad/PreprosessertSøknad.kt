@@ -15,6 +15,7 @@ data class PreprosessertSøknad(
     val pleietrengende: Pleietrengende,
     val medlemskap: Medlemskap,
     val fraværsperioder: List<Fraværsperiode>,
+    val utenlandsopphold: List<Utenlandsopphold>?,
     val k9Format: K9Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean
@@ -32,6 +33,7 @@ data class PreprosessertSøknad(
         pleietrengende = søknad.pleietrengende,
         medlemskap = søknad.medlemskap,
         fraværsperioder = søknad.fraværsperioder,
+        utenlandsopphold = søknad.utenlandsopphold,
         k9Format = søknad.k9Format,
         harForståttRettigheterOgPlikter = søknad.harForståttRettigheterOgPlikter,
         harBekreftetOpplysninger = søknad.harBekreftetOpplysninger

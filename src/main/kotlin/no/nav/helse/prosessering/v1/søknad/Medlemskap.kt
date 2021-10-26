@@ -10,7 +10,10 @@ data class Medlemskap(
     val utenlandsoppholdNeste12Mnd: List<Bosted> = listOf()
 )
 
-data class Bosted(
+typealias Utenlandsopphold = Opphold
+typealias Bosted = Opphold
+
+data class Opphold(
     @JsonFormat(pattern = "yyyy-MM-dd")
     val fraOgMed: LocalDate,
     @JsonFormat(pattern = "yyyy-MM-dd")
