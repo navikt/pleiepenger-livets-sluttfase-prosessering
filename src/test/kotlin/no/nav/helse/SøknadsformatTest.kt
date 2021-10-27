@@ -90,8 +90,8 @@ class SøknadsformatTest {
               "selvstendigNæringsdrivende": {
                 "fraOgMed": "2015-01-01",
                 "tilOgMed": null,
-                "næringstype": "ANNEN",
-                "fiskerErPåBladB": true,
+                "næringstype": "FISKE",
+                "fiskerErPåBladB": false,
                 "navnPåVirksomheten": "Bjarnes Bakeri",
                 "registrertINorge": false,
                 "registrertIUtlandet": {
@@ -100,9 +100,18 @@ class SøknadsformatTest {
                 },
                 "næringsinntekt": 9656876,
                 "organisasjonsnummer": null,
-                "yrkesaktivSisteTreFerdigliknedeÅrene": null,
-                "varigEndring": null,
-                "regnskapsfører": null,
+                "yrkesaktivSisteTreFerdigliknedeÅrene": {
+                  "oppstartsdato": "2020-03-04"
+                },
+                "varigEndring": {
+                  "dato": "2019-09-09",
+                  "inntektEtterEndring": 854875,
+                  "forklaring": "Opplevde en varig endring fordi....."
+                },
+                "regnskapsfører": {
+                  "navn": "Regn",
+                  "telefon": "987654321"
+                },
                 "erNyoppstartet": false,
                 "harFlereAktiveVirksomheter": false
               },
