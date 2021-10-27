@@ -17,6 +17,7 @@ data class Søknad(
     val fraværsperioder: List<Fraværsperiode>,
     val utenlandsopphold: List<Utenlandsopphold>?,
     val frilans: Frilans?,
+    val selvstendigNæringsdrivende: SelvstendigNæringsdrivende?,
     val k9Format: Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean

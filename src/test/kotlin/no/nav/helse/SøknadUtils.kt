@@ -92,6 +92,27 @@ object SøknadUtils {
             jobberFortsattSomFrilans = false,
             sluttdato = LocalDate.parse("2021-01-01")
         ),
+        selvstendigNæringsdrivende = SelvstendigNæringsdrivende(
+            fraOgMed = LocalDate.parse("2015-01-01"),
+            næringstype = Næringstype.FISKE,
+            yrkesaktivSisteTreFerdigliknedeÅrene = YrkesaktivSisteTreFerdigliknedeArene(LocalDate.parse("2020-03-04")),
+            fiskerErPåBladB = false,
+            navnPåVirksomheten = "Bjarnes Bakeri",
+            registrertINorge = false,
+            registrertIUtlandet = Land("ABW","Aruba"),
+            næringsinntekt = 9656876,
+            erNyoppstartet = false,
+            harFlereAktiveVirksomheter = false,
+            varigEndring = VarigEndring(
+                dato = LocalDate.parse("2019-09-09"),
+                inntektEtterEndring = 854875,
+                forklaring = "Opplevde en varig endring fordi....."
+            ),
+            regnskapsfører = Regnskapsfører(
+                navn = "Regn",
+                telefon = "987654321"
+            )
+        ),
         k9Format = gyldigK9Format(søknadId),
         harBekreftetOpplysninger = true,
         harForståttRettigheterOgPlikter = true

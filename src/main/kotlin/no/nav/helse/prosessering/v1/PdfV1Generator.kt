@@ -78,6 +78,7 @@ internal class PdfV1Generator {
                         "fraværsperioder" to søknad.fraværsperioder.somMapFraværsperiode(),
                         "utenlandsopphold" to søknad.utenlandsopphold?.somMapOpphold(),
                         "frilans" to søknad.frilans?.somMap(),
+                        "selvstendigNæringsdrivende" to søknad.selvstendigNæringsdrivende?.somMap(),
                         "samtykke" to mapOf(
                             "harForståttRettigheterOgPlikter" to søknad.harForståttRettigheterOgPlikter,
                             "harBekreftetOpplysninger" to søknad.harBekreftetOpplysninger
@@ -188,6 +189,42 @@ private fun Frilans.somMap() = mapOf<String, Any?>(
     "startdato" to DATE_FORMATTER.format(startdato),
     "sluttdato" to if(sluttdato != null) DATE_FORMATTER.format(sluttdato) else null,
     "jobberFortsattSomFrilans" to jobberFortsattSomFrilans
+)
+
+private fun SelvstendigNæringsdrivende.somMap() = mapOf<String, Any?>(
+    "næringsinntekt" to næringsinntekt,
+    "yrkesaktivSisteTreFerdigliknedeÅrene" to yrkesaktivSisteTreFerdigliknedeÅrene?.somMap(),
+    "varigEndring" to varigEndring?.somMap(),
+    "harFlereAktiveVirksomheter" to harFlereAktiveVirksomheter,
+    "navnPåVirksomheten" to navnPåVirksomheten,
+    "fraOgMed" to DATE_FORMATTER.format(fraOgMed),
+    "tilOgMed" to if(tilOgMed != null) DATE_FORMATTER.format(tilOgMed) else null,
+    "næringstype" to næringstype.beskrivelse,
+    "fiskerErPåBladB" to fiskerErPåBladB,
+    "registrertINorge" to registrertINorge,
+    "organisasjonsnummer" to organisasjonsnummer,
+    "registrertIUtlandet" to registrertIUtlandet?.somMap(),
+    "regnskapsfører" to regnskapsfører?.somMap()
+)
+
+private fun Regnskapsfører.somMap() = mapOf<String, Any?>(
+    "navn" to navn,
+    "telefon" to telefon
+)
+
+private fun YrkesaktivSisteTreFerdigliknedeArene.somMap() = mapOf<String, Any?>(
+    "oppstartsdato" to DATE_FORMATTER.format(oppstartsdato)
+)
+
+private fun Land.somMap() = mapOf<String, Any?>(
+    "landnavn" to landnavn,
+    "landkode" to landkode
+)
+
+private fun VarigEndring.somMap() = mapOf<String, Any?>(
+    "dato" to DATE_FORMATTER.format(dato),
+    "inntektEtterEndring" to inntektEtterEndring,
+    "forklaring" to forklaring
 )
 
 private fun Duration.somTekst() = when (this.toMinutesPart()) {

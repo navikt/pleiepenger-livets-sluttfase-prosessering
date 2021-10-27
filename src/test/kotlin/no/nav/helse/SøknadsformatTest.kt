@@ -87,6 +87,25 @@ class SøknadsformatTest {
                 "jobberFortsattSomFrilans" : false,
                 "sluttdato" : "2021-01-01"
               },
+              "selvstendigNæringsdrivende": {
+                "fraOgMed": "2015-01-01",
+                "tilOgMed": null,
+                "næringstype": "ANNEN",
+                "fiskerErPåBladB": true,
+                "navnPåVirksomheten": "Bjarnes Bakeri",
+                "registrertINorge": false,
+                "registrertIUtlandet": {
+                  "landkode": "ABW",
+                  "landnavn": "Aruba"
+                },
+                "næringsinntekt": 9656876,
+                "organisasjonsnummer": null,
+                "yrkesaktivSisteTreFerdigliknedeÅrene": null,
+                "varigEndring": null,
+                "regnskapsfører": null,
+                "erNyoppstartet": false,
+                "harFlereAktiveVirksomheter": false
+              },
               "k9Format": {
                 "søknadId": "$søknadId",
                 "versjon": "1.0.0",
