@@ -16,6 +16,7 @@ data class Søknad(
     val medlemskap: Medlemskap,
     val fraværsperioder: List<Fraværsperiode>,
     val utenlandsopphold: List<Utenlandsopphold>?,
+    val frilans: Frilans?,
     val k9Format: Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean

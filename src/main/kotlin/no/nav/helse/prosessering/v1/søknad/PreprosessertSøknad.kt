@@ -16,6 +16,7 @@ data class PreprosessertSøknad(
     val medlemskap: Medlemskap,
     val fraværsperioder: List<Fraværsperiode>,
     val utenlandsopphold: List<Utenlandsopphold>?,
+    val frilans: Frilans?,
     val k9Format: K9Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean
@@ -34,6 +35,7 @@ data class PreprosessertSøknad(
         medlemskap = søknad.medlemskap,
         fraværsperioder = søknad.fraværsperioder,
         utenlandsopphold = søknad.utenlandsopphold,
+        frilans = søknad.frilans,
         k9Format = søknad.k9Format,
         harForståttRettigheterOgPlikter = søknad.harForståttRettigheterOgPlikter,
         harBekreftetOpplysninger = søknad.harBekreftetOpplysninger

@@ -82,6 +82,11 @@ class SøknadsformatTest {
                   "landnavn": "Cuba"
                 }
               ],
+              "frilans" : {
+                "startdato" : "2015-01-01",
+                "jobberFortsattSomFrilans" : false,
+                "sluttdato" : "2021-01-01"
+              },
               "k9Format": {
                 "søknadId": "$søknadId",
                 "versjon": "1.0.0",
@@ -100,7 +105,12 @@ class SøknadsformatTest {
                     "frilanserArbeidstidInfo": null,
                     "selvstendigNæringsdrivendeArbeidstidInfo": null
                   },
-                  "opptjeningAktivitet": {},
+                  "opptjeningAktivitet": {
+                    "frilanser" : {
+                      "startdato" : "2015-01-01",
+                      "sluttdato" : "2021-01-01"
+                    }
+                  },
                   "bosteder": {
                     "perioder": {
                       "2021-01-01/2021-01-01": {

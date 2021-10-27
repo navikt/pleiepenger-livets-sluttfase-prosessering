@@ -3,6 +3,8 @@ package no.nav.helse
 import no.nav.helse.prosessering.v1.søknad.*
 import no.nav.k9.søknad.Søknad
 import no.nav.k9.søknad.felles.Versjon
+import no.nav.k9.søknad.felles.opptjening.Frilanser
+import no.nav.k9.søknad.felles.opptjening.OpptjeningAktivitet
 import no.nav.k9.søknad.felles.personopplysninger.Bosteder
 import no.nav.k9.søknad.felles.personopplysninger.Utenlandsopphold.UtenlandsoppholdPeriodeInfo
 import no.nav.k9.søknad.felles.type.Landkode
@@ -85,6 +87,11 @@ object SøknadUtils {
                 landkode = "CU"
             )
         ),
+        frilans = Frilans(
+            startdato = LocalDate.parse("2015-01-01"),
+            jobberFortsattSomFrilans = false,
+            sluttdato = LocalDate.parse("2021-01-01")
+        ),
         k9Format = gyldigK9Format(søknadId),
         harBekreftetOpplysninger = true,
         harForståttRettigheterOgPlikter = true
@@ -119,6 +126,14 @@ object SøknadUtils {
                                 Landkode.DANMARK
                             )
                         )
+                    )
+            )
+            .medOpptjeningAktivitet(
+                OpptjeningAktivitet()
+                    .medFrilanser(
+                        Frilanser()
+                            .medStartDato(LocalDate.parse("2015-01-01"))
+                            .medSluttDato(LocalDate.parse("2021-01-01"))
                     )
             )
     )

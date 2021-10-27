@@ -14,6 +14,7 @@
         <bookmark name="Medlemskap" href="#medlemskap"/>
         <bookmark name="Fraværsperioder" href="#fraværsperioder"/>
         <bookmark name="Utenlandsopphold" href="#utenlandsopphold"/>
+        <bookmark name="Frilans" href="#frilans"/>
         <bookmark name="Samtykke" href="#samtykke"/>
     </bookmarks>
     {{#block 'style-common' }}
@@ -64,6 +65,21 @@
                     </li>
                 {{/each}}
             </ul>
+        {{/if}}
+    </section>
+
+    <section id="frilans">
+        {{#if frilans}}
+            <h2>Frilans</h2>
+            <p class="sporsmalstekst">Når startet du som frilanser?</p>
+            <p>{{frilans.startdato}}</p>
+            <p class="sporsmalstekst">Jobber du fremdeles som frilanser?</p>
+            <p>{{ jaNeiSvar frilans.jobberFortsattSomFrilans }}</p>
+
+            {{#if frilans.sluttdato}}
+                <p class="sporsmalstekst">Når sluttet du som frilanser?</p>
+                <p>{{frilans.sluttdato}}</p>
+            {{/if}}
         {{/if}}
     </section>
 

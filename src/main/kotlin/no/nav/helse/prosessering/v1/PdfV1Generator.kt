@@ -77,6 +77,7 @@ internal class PdfV1Generator {
                         "medlemskap" to søknad.medlemskap.somMap(),
                         "fraværsperioder" to søknad.fraværsperioder.somMapFraværsperiode(),
                         "utenlandsopphold" to søknad.utenlandsopphold?.somMapOpphold(),
+                        "frilans" to søknad.frilans?.somMap(),
                         "samtykke" to mapOf(
                             "harForståttRettigheterOgPlikter" to søknad.harForståttRettigheterOgPlikter,
                             "harBekreftetOpplysninger" to søknad.harBekreftetOpplysninger
@@ -182,6 +183,12 @@ private fun List<Fraværsperiode>.somMapFraværsperiode() : List<Map<String, Any
         )
     }
 }
+
+private fun Frilans.somMap() = mapOf<String, Any?>(
+    "startdato" to DATE_FORMATTER.format(startdato),
+    "sluttdato" to if(sluttdato != null) DATE_FORMATTER.format(sluttdato) else null,
+    "jobberFortsattSomFrilans" to jobberFortsattSomFrilans
+)
 
 private fun Duration.somTekst() = when (this.toMinutesPart()) {
     0 -> "${this.toHours()} timer"
