@@ -58,12 +58,16 @@ class SøknadsformatTest {
                 {
                   "fraOgMed": "2021-02-01",
                   "tilOgMed": "2021-02-10",
+                  "aktivitetFravær" : ["FRILANS"],
+                  "organisasjonsnummer" : null,
                   "antallTimerBorte": "PT5H",
                   "antallTimerPlanlagt": "PT7H30M"
                 },
                 {
                   "fraOgMed": "2021-02-13",
                   "tilOgMed": "2021-02-15",
+                  "aktivitetFravær" : ["ARBEIDSTAKER", "FRILANS","SELVSTENDIG_NÆRINGSDRIVENDE"],
+                  "organisasjonsnummer" : ["914242444"],
                   "antallTimerBorte": null,
                   "antallTimerPlanlagt": null
                 }

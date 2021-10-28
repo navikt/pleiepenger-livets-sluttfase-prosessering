@@ -1,6 +1,7 @@
 package no.nav.helse
 
 import no.nav.helse.prosessering.v1.søknad.*
+import no.nav.helse.prosessering.v1.søknad.AktivitetFravær.*
 import no.nav.k9.søknad.Søknad
 import no.nav.k9.søknad.felles.Versjon
 import no.nav.k9.søknad.felles.opptjening.Frilanser
@@ -65,13 +66,16 @@ object SøknadUtils {
             Fraværsperiode(
                 fraOgMed = LocalDate.parse("2021-02-01"),
                 tilOgMed = LocalDate.parse("2021-02-10"),
+                aktivitetFravær = listOf(FRILANS),
+                antallTimerPlanlagt = Duration.ofHours(7).plusMinutes(30),
                 antallTimerBorte = Duration.ofHours(5),
-                antallTimerPlanlagt = Duration.ofHours(7).plusMinutes(30)
             ),
             Fraværsperiode(
                 fraOgMed = LocalDate.parse("2021-02-13"),
-                tilOgMed = LocalDate.parse("2021-02-15")
-            )
+                tilOgMed = LocalDate.parse("2021-02-15"),
+                aktivitetFravær = listOf(ARBEIDSTAKER, FRILANS, SELVSTENDIG_NÆRINGSDRIVENDE),
+                organisasjonsnummer = listOf("914242444")
+                )
         ),
         utenlandsopphold = listOf(
             Utenlandsopphold(

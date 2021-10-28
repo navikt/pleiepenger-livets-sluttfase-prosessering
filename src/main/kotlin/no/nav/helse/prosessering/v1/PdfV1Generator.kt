@@ -179,6 +179,8 @@ private fun List<Fraværsperiode>.somMapFraværsperiode() : List<Map<String, Any
         mapOf(
             "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
             "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed),
+            "aktivitetFravær" to it.aktivitetFravær.joinToString(separator = ", ") { it.pdfTekst },
+            "organisasjonsnummer" to it.organisasjonsnummer?.joinToString(", "),
             "antallTimerBorte" to it.antallTimerBorte?.somTekst(),
             "antallTimerPlanlagt" to it.antallTimerPlanlagt?.somTekst()
         )

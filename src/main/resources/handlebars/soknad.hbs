@@ -47,6 +47,12 @@
             {{#each fraværsperioder as | fraværsperiode|~}}
                 <li>
                     <p>Periode: {{fraværsperiode.fraOgMed}} - {{fraværsperiode.tilOgMed}}</p>
+                    <p>Aktivitet du hadde fravær fra: {{fraværsperiode.aktivitetFravær}}</p>
+
+                    {{#if fraværsperiode.organisasjonsnummer}}
+                        <p>Organisasjonsnummer: {{fraværsperiode.organisasjonsnummer}}</p>
+                    {{/if}}
+
                     {{#if fraværsperiode.antallTimerBorte}}
                         <p>Antall timer du skulle ha jobbet den dagen: {{fraværsperiode.antallTimerPlanlagt}}</p>
                         <p>Antall timer du var borte fra jobb den dagen: {{fraværsperiode.antallTimerBorte}}</p>
