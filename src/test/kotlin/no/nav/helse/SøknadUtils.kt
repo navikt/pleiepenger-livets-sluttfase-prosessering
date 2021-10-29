@@ -41,7 +41,7 @@ object SøknadUtils {
             fornavn = "Ola"
         ),
         vedleggUrls = listOf(),
-        pleietrengende = Pleietrengende("02119970078"),
+        pleietrengende = Pleietrengende("02119970078", "Bjarne"),
         medlemskap = Medlemskap(
             harBoddIUtlandetSiste12Mnd = true,
             utenlandsoppholdSiste12Mnd = listOf(

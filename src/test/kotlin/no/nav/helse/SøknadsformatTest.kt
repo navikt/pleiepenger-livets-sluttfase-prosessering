@@ -32,7 +32,8 @@ class SøknadsformatTest {
               },
               "vedleggUrls": [],
               "pleietrengende": {
-                "norskIdentitetsnummer": "02119970078"
+                "norskIdentitetsnummer": "02119970078",
+                "navn" : "Bjarne"
               },
               "medlemskap": {
                 "harBoddIUtlandetSiste12Mnd": true,

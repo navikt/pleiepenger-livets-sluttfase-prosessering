@@ -153,7 +153,8 @@ private fun ZonedDateTime.norskDag() = when(dayOfWeek) {
 }
 
 private fun Pleietrengende.somMap() = mapOf<String, Any?>(
-    "norskIdentitetsnummer" to this.norskIdentitetsnummer
+    "norskIdentitetsnummer" to this.norskIdentitetsnummer,
+    "navn" to this.navn
 )
 
 private fun Medlemskap.somMap() = mapOf<String, Any?>(
