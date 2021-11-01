@@ -1,7 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val dusseldorfKtorVersion = "2.1.6.2-6ce5eaa"
+val dusseldorfKtorVersion = "3.1.6.4-48ba1bc"
 val k9FormatVersion = "5.5.4"
 val ktorVersion = ext.get("ktorVersion").toString()
 val slf4jVersion = ext.get("slf4jVersion").toString()
@@ -22,7 +22,7 @@ plugins {
 
 buildscript {
     // Henter ut diverse dependency versjoner, i.e. ktorVersion.
-    apply("https://raw.githubusercontent.com/navikt/dusseldorf-ktor/6ce5eaa4666595bb6b550fca5ca8bbdc242961a0/gradle/dusseldorf-ktor.gradle.kts")
+    apply("https://raw.githubusercontent.com/navikt/dusseldorf-ktor/48ba1bc8bdbf0f777d17165aecd5530a2bc70f16/gradle/dusseldorf-ktor.gradle.kts")
 }
 
 dependencies {
