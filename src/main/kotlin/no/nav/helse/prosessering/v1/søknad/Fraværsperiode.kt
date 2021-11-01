@@ -14,7 +14,7 @@ data class Fraværsperiode(
 )
 
 enum class AktivitetFravær(val pdfTekst: String){
-    FRILANS("Frilans"),
+    FRILANSER("Frilans"),
     SELVSTENDIG_NÆRINGSDRIVENDE("Selvstendig næringsdrivende"),
     ARBEIDSTAKER("Arbeidstaker")
 }

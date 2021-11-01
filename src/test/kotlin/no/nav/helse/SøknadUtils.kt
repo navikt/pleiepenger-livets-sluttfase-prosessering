@@ -66,14 +66,14 @@ object SøknadUtils {
             Fraværsperiode(
                 fraOgMed = LocalDate.parse("2021-02-01"),
                 tilOgMed = LocalDate.parse("2021-02-10"),
-                aktivitetFravær = listOf(FRILANS),
+                aktivitetFravær = listOf(FRILANSER),
                 antallTimerPlanlagt = Duration.ofHours(7).plusMinutes(30),
                 antallTimerBorte = Duration.ofHours(5),
             ),
             Fraværsperiode(
                 fraOgMed = LocalDate.parse("2021-02-13"),
                 tilOgMed = LocalDate.parse("2021-02-15"),
-                aktivitetFravær = listOf(ARBEIDSTAKER, FRILANS, SELVSTENDIG_NÆRINGSDRIVENDE),
+                aktivitetFravær = listOf(ARBEIDSTAKER, FRILANSER, SELVSTENDIG_NÆRINGSDRIVENDE),
                 organisasjonsnummer = listOf("914242444")
                 )
         ),

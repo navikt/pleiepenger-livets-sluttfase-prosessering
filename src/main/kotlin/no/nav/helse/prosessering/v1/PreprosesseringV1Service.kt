@@ -5,8 +5,8 @@ import no.nav.helse.dokument.K9MellomlagringService
 import no.nav.helse.dokument.Søknadsformat
 import no.nav.helse.felles.CorrelationId
 import no.nav.helse.felles.Metadata
-import no.nav.helse.prosessering.v1.søknad.Søknad
 import no.nav.helse.prosessering.v1.søknad.PreprosessertSøknad
+import no.nav.helse.prosessering.v1.søknad.Søknad
 import org.slf4j.LoggerFactory
 
 internal class PreprosesseringV1Service(
@@ -29,7 +29,7 @@ internal class PreprosesseringV1Service(
         val oppsummeringPdf = pdfV1Generator.generateOppsummeringPdf(søknad)
 
         logger.info("Mellomlagrer Oppsummerings-PDF.")
-        val soknadOppsummeringPdfUrl = k9MellomlagringService.lagreDokument(
+        val oppsummeringPdfUrl = k9MellomlagringService.lagreDokument(
             dokument = K9MellomlagringGateway.Dokument(
                 eier = dokumentEier,
                 content = oppsummeringPdf,
@@ -52,7 +52,7 @@ internal class PreprosesseringV1Service(
 
         val komplettDokumentUrls = mutableListOf(
             listOf(
-                soknadOppsummeringPdfUrl,
+                oppsummeringPdfUrl,
                 søknadJsonUrl
             )
         )
