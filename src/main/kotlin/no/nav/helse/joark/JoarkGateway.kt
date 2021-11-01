@@ -9,8 +9,6 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
 import com.github.kittinunf.fuel.httpPost
 import io.ktor.http.*
-import no.nav.helse.felles.CorrelationId
-import no.nav.helse.felles.HttpError
 import no.nav.helse.dusseldorf.ktor.client.buildURL
 import no.nav.helse.dusseldorf.ktor.health.HealthCheck
 import no.nav.helse.dusseldorf.ktor.health.Healthy
@@ -19,6 +17,9 @@ import no.nav.helse.dusseldorf.ktor.health.UnHealthy
 import no.nav.helse.dusseldorf.ktor.metrics.Operation
 import no.nav.helse.dusseldorf.oauth2.client.AccessTokenClient
 import no.nav.helse.dusseldorf.oauth2.client.CachedAccessTokenClient
+import no.nav.helse.felles.CorrelationId
+import no.nav.helse.felles.HttpError
+import no.nav.helse.prosessering.v1.søknad.Søker
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.ByteArrayInputStream
@@ -55,20 +56,23 @@ class JoarkGateway(
     }
 
     suspend fun journalfør(
-        norskIdent: String,
         mottatt: ZonedDateTime,
-        navn: Navn,
         dokumenter: List<List<URI>>,
-        correlationId: CorrelationId
+        correlationId: CorrelationId,
+        søker: Søker
     ): JournalPostId {
 
         val authorizationHeader = cachedAccessTokenClient.getAccessToken(journalforeScopes).asAuthoriationHeader()
 
         val joarkRequest = JoarkRequest(
-            norskIdent = norskIdent,
+            norskIdent = søker.fødselsnummer,
             mottatt = mottatt,
             dokumenter = dokumenter,
-            søkerNavn = navn
+            søkerNavn = Navn(
+                fornavn = søker.fornavn,
+                mellomnavn = søker.mellomnavn,
+                etternavn = søker.etternavn
+            )
         )
 
         val body = objectMapper.writeValueAsBytes(joarkRequest)
@@ -94,7 +98,7 @@ class JoarkGateway(
             { error ->
                 logger.error("Error response = '${error.response.body().asString("text/plain")}' fra '${request.url}'")
                 logger.error(error.toString())
-                throw HttpError(response.statusCode, "Feil ved jorunalføring.")
+                throw HttpError(response.statusCode, "Feil ved journalføring.")
             }
         )
     }

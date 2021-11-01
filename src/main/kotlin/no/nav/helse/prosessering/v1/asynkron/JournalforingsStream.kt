@@ -3,13 +3,7 @@ package no.nav.helse.prosessering.v1.asynkron
 import no.nav.helse.felles.CorrelationId
 import no.nav.helse.felles.formaterStatuslogging
 import no.nav.helse.joark.JoarkGateway
-import no.nav.helse.joark.Navn
 import no.nav.helse.kafka.*
-import no.nav.helse.kafka.KafkaConfig
-import no.nav.helse.kafka.ManagedKafkaStreams
-import no.nav.helse.kafka.ManagedStreamHealthy
-import no.nav.helse.kafka.ManagedStreamReady
-import no.nav.helse.kafka.Topics
 import org.apache.kafka.streams.StreamsBuilder
 import org.apache.kafka.streams.Topology
 import org.slf4j.LoggerFactory
@@ -52,23 +46,17 @@ internal class JournalforingsStream(
 
                         val journalPostId = joarkGateway.journalfør(
                             mottatt = preprosessertMelding.mottatt,
-                            norskIdent = preprosessertMelding.søker.fødselsnummer,
                             correlationId = CorrelationId(entry.metadata.correlationId),
                             dokumenter = dokumenter,
-                            navn = Navn(
-                                fornavn = preprosessertMelding.søker.fornavn,
-                                mellomnavn = preprosessertMelding.søker.mellomnavn,
-                                etternavn = preprosessertMelding.søker.etternavn
-                            )
+                            søker = preprosessertMelding.søker
                         )
 
                         logger.info("Dokumenter journalført med ID = ${journalPostId.journalpostId}.")
-                        val journalfort = Journalfort(journalpostId = journalPostId.journalpostId)
 
                         Cleanup(
                             metadata = entry.metadata,
                             melding = preprosessertMelding,
-                            journalførtMelding = journalfort
+                            journalførtMelding = Journalfort(journalPostId.journalpostId)
                         ).serialiserTilData()
                     }
                 }

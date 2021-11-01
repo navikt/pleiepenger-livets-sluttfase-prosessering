@@ -6,11 +6,6 @@ import no.nav.helse.felles.CorrelationId
 import no.nav.helse.felles.formaterStatuslogging
 import no.nav.helse.felles.tilK9Beskjed
 import no.nav.helse.kafka.*
-import no.nav.helse.kafka.KafkaConfig
-import no.nav.helse.kafka.ManagedKafkaStreams
-import no.nav.helse.kafka.ManagedStreamHealthy
-import no.nav.helse.kafka.ManagedStreamReady
-import no.nav.helse.kafka.Topics
 import org.apache.kafka.streams.StreamsBuilder
 import org.apache.kafka.streams.Topology
 import org.slf4j.LoggerFactory
@@ -46,7 +41,6 @@ internal class CleanupStream(
                         val cleanupMelding = entry.deserialiserTilCleanup()
 
                         logger.info(formaterStatuslogging(cleanupMelding.melding.søknadId, "kjører cleanup"))
-                        logger.trace("Sletter dokumenter.")
 
                         k9MellomlagringService.slettDokumeter(
                             urlBolks = cleanupMelding.melding.dokumentUrls,

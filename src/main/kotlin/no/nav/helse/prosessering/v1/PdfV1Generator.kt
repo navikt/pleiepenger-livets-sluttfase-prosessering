@@ -66,6 +66,7 @@ internal class PdfV1Generator {
             Context
                 .newBuilder(
                     mapOf(
+                        "tittel" to "Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase",
                         "søknadId" to søknad.søknadId,
                         "søknadMottattDag" to søknad.mottatt.withZoneSameInstant(ZONE_ID).norskDag(),
                         "søknadMottatt" to DATE_TIME_FORMATTER.format(søknad.mottatt),
