@@ -11,11 +11,11 @@
 * [4. Drift og støtte](#11-drift-og-sttte)
 
 # 1. Kontekst
-Prosesseringstjeneste for søknad om å
+Prosesseringstjeneste for søknad om pleiepenger i livets sluttfase.
 
 # 2. Funksjonelle krav
-Tjenesten konsumerer meldinger fra topicen "privat-omsorgspenger-midlertidig-alene-mottatt" som 
-[omsorgspenger-midlertidig-alene-api](https://github.com/navikt/omsorgspenger-midlertidig-alene-api) har produsert. 
+Tjenesten konsumerer meldinger fra topicen "dusseldorf.privat-pp-livets-sluttfase-mottatt" som
+[pleiepenger-livets-sluttfase-api](https://github.com/navikt/pleiepenger-livets-sluttfase-api) har produsert. 
 
 Videre blir søknaden preprosessert, pdf generert og lagret i [K9-mellomlagring](https://github.com/navikt/k9-mellomlagring). 
 
@@ -34,4 +34,4 @@ Vi bruker [nais-alerts](https://doc.nais.io/observability/alerts) for å sette o
 ## Henvendelser
 Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på GitHub.
 
-Interne henvendelser kan sendes via Slack i kanalen #team-düsseldorf.
+Interne henvendelser kan sendes via Slack i kanalen #team-brukerdialog.
