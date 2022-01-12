@@ -40,7 +40,7 @@ object SøknadUtils {
             mellomnavn = "Mellomnavn",
             fornavn = "Ola"
         ),
-        vedleggUrls = listOf(),
+        vedleggId = listOf("123", "456"),
         pleietrengende = Pleietrengende("02119970078", "Bjarne"),
         medlemskap = Medlemskap(
             harBoddIUtlandetSiste12Mnd = true,

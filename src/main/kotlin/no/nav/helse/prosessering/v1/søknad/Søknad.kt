@@ -11,7 +11,8 @@ data class Søknad(
     val mottatt: ZonedDateTime,
     val språk: String? = "nb",
     val søker: Søker,
-    val vedleggUrls: List<URL>,
+    val vedleggUrls: List<URL> = listOf(), // TODO: 12/01/2022 - Fjernes når api kun sender vedleggId
+    val vedleggId: List<String> = listOf(),
     val pleietrengende: Pleietrengende,
     val medlemskap: Medlemskap,
     val fraværsperioder: List<Fraværsperiode>,

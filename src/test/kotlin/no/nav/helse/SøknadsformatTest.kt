@@ -31,6 +31,7 @@ class SøknadsformatTest {
                 "aktørId": "123456"
               },
               "vedleggUrls": [],
+              "vedleggId": ["123", "456"],
               "pleietrengende": {
                 "norskIdentitetsnummer": "02119970078",
                 "navn" : "Bjarne"
