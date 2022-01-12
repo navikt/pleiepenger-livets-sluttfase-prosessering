@@ -57,7 +57,7 @@ class JoarkGateway(
 
     suspend fun journalfør(
         mottatt: ZonedDateTime,
-        dokumenter: List<List<URI>>,
+        dokumentId: List<List<String>>,
         correlationId: CorrelationId,
         søker: Søker
     ): JournalPostId {
@@ -67,7 +67,7 @@ class JoarkGateway(
         val joarkRequest = JoarkRequest(
             norskIdent = søker.fødselsnummer,
             mottatt = mottatt,
-            dokumenter = dokumenter,
+            dokumentId = dokumentId,
             søkerNavn = Navn(
                 fornavn = søker.fornavn,
                 mellomnavn = søker.mellomnavn,
@@ -115,7 +115,8 @@ private data class JoarkRequest(
     @JsonProperty("norsk_ident") val norskIdent: String,
     @JsonProperty("soker_navn") val søkerNavn: Navn,
     val mottatt: ZonedDateTime,
-    val dokumenter: List<List<URI>>
+    @JsonProperty("dokument_id")
+    val dokumentId: List<List<String>>
 )
 
 data class Navn(

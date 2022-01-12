@@ -43,7 +43,7 @@ internal class CleanupStream(
                         logger.info(formaterStatuslogging(cleanupMelding.melding.søknadId, "kjører cleanup"))
 
                         k9MellomlagringService.slettDokumeter(
-                            urlBolks = cleanupMelding.melding.dokumentUrls,
+                            dokumentIdBolks = cleanupMelding.melding.dokumentId,
                             dokumentEier = K9MellomlagringGateway.DokumentEier(cleanupMelding.melding.søker.fødselsnummer),
                             correlationId = CorrelationId(entry.metadata.correlationId)
                         )
