@@ -2,7 +2,6 @@ package no.nav.helse.prosessering.v1.søknad
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import no.nav.k9.søknad.Søknad
-import java.net.URL
 import java.time.LocalDate
 import java.time.ZonedDateTime
 
@@ -11,7 +10,6 @@ data class Søknad(
     val mottatt: ZonedDateTime,
     val språk: String? = "nb",
     val søker: Søker,
-    val vedleggUrls: List<URL> = listOf(), // TODO: 12/01/2022 - Fjernes når api kun sender vedleggId
     val vedleggId: List<String> = listOf(),
     val pleietrengende: Pleietrengende,
     val medlemskap: Medlemskap,

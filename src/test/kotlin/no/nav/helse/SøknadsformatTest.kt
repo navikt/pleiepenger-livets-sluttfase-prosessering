@@ -30,7 +30,6 @@ class SøknadsformatTest {
                 "fødselsdato": "2000-01-01",
                 "aktørId": "123456"
               },
-              "vedleggUrls": [],
               "vedleggId": ["123", "456"],
               "pleietrengende": {
                 "norskIdentitetsnummer": "02119970078",
