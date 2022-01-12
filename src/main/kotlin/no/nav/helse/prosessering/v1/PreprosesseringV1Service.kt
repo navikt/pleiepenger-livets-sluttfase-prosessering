@@ -64,12 +64,6 @@ internal class PreprosesseringV1Service(
             søknad.vedleggId.forEach { komplettDokumentId.add(listOf(it)) }
         }
 
-        if (søknad.vedleggUrls.isNotEmpty()) {
-            logger.info("Legger til ${søknad.vedleggUrls.size} vedlegg URL's fra meldingen som dokument.")
-            logger.info("Mapper om vedleggUrl's til id")
-            søknad.vedleggUrls.forEach { komplettDokumentId.add(listOf(it.dokumentId())) }
-        }
-
         logger.info("Totalt ${komplettDokumentId.size} dokumentbolker med totalt ${komplettDokumentId.flatten().size} dokumenter")
 
         val preprosessertMeldingV1 = PreprosessertSøknad(
