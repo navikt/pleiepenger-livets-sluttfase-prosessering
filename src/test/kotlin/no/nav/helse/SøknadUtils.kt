@@ -14,7 +14,6 @@ import no.nav.k9.søknad.felles.type.Periode
 import no.nav.k9.søknad.felles.type.SøknadId
 import no.nav.k9.søknad.ytelse.pls.v1.Pleietrengende
 import no.nav.k9.søknad.ytelse.pls.v1.PleipengerLivetsSluttfase
-import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -66,9 +65,7 @@ object SøknadUtils {
             Fraværsperiode(
                 fraOgMed = LocalDate.parse("2021-02-01"),
                 tilOgMed = LocalDate.parse("2021-02-10"),
-                aktivitetFravær = listOf(FRILANSER),
-                antallTimerPlanlagt = Duration.ofHours(7).plusMinutes(30),
-                antallTimerBorte = Duration.ofHours(5),
+                aktivitetFravær = listOf(FRILANSER, STØNAD_FRA_NAV)
             ),
             Fraværsperiode(
                 fraOgMed = LocalDate.parse("2021-02-13"),

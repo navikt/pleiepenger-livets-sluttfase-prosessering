@@ -59,18 +59,14 @@ class SøknadsformatTest {
                 {
                   "fraOgMed": "2021-02-01",
                   "tilOgMed": "2021-02-10",
-                  "aktivitetFravær" : ["FRILANSER"],
-                  "organisasjonsnummer" : null,
-                  "antallTimerBorte": "PT5H",
-                  "antallTimerPlanlagt": "PT7H30M"
+                  "aktivitetFravær" : ["FRILANSER", "STØNAD_FRA_NAV"],
+                  "organisasjonsnummer" : null
                 },
                 {
                   "fraOgMed": "2021-02-13",
                   "tilOgMed": "2021-02-15",
                   "aktivitetFravær" : ["ARBEIDSTAKER", "FRILANSER","SELVSTENDIG_NÆRINGSDRIVENDE"],
-                  "organisasjonsnummer" : ["914242444"],
-                  "antallTimerBorte": null,
-                  "antallTimerPlanlagt": null
+                  "organisasjonsnummer" : ["914242444"]
                 }
               ],
               "utenlandsopphold": [
