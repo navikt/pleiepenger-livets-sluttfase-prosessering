@@ -148,6 +148,7 @@ class SøknadsformatTest {
                     },
                     "perioderSomSkalSlettes": {}
                   },
+                  "trekkKravPerioder" : [],
                   "utenlandsopphold": {
                     "perioder": {
                       "2021-03-01/2021-03-03": {
