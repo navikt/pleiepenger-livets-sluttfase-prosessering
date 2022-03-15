@@ -55,20 +55,6 @@ class SøknadsformatTest {
                   }
                 ]
               },
-              "fraværsperioder": [
-                {
-                  "fraOgMed": "2021-02-01",
-                  "tilOgMed": "2021-02-10",
-                  "aktivitetFravær" : ["FRILANSER", "STØNAD_FRA_NAV"],
-                  "organisasjonsnummer" : null
-                },
-                {
-                  "fraOgMed": "2021-02-13",
-                  "tilOgMed": "2021-02-15",
-                  "aktivitetFravær" : ["ARBEIDSTAKER", "FRILANSER","SELVSTENDIG_NÆRINGSDRIVENDE"],
-                  "organisasjonsnummer" : ["914242444"]
-                }
-              ],
               "utenlandsopphold": [
                 {
                   "fraOgMed": "2021-01-01",

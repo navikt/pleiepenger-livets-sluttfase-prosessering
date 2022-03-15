@@ -76,7 +76,6 @@ internal class PdfV1Generator {
                         ),
                         "pleietrengende" to søknad.pleietrengende.somMap(),
                         "medlemskap" to søknad.medlemskap.somMap(),
-                        "fraværsperioder" to søknad.fraværsperioder.somMapFraværsperiode(),
                         "utenlandsopphold" to søknad.utenlandsopphold?.somMapOpphold(),
                         "frilans" to søknad.frilans?.somMap(),
                         "selvstendigNæringsdrivende" to søknad.selvstendigNæringsdrivende?.somMap(),
@@ -172,17 +171,6 @@ private fun List<Opphold>.somMapOpphold() : List<Map<String, Any?>> {
             "landnavn" to it.landnavn,
             "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
             "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed)
-        )
-    }
-}
-
-private fun List<Fraværsperiode>.somMapFraværsperiode() : List<Map<String, Any?>>{
-    return map {
-        mapOf(
-            "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
-            "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed),
-            "aktivitetFravær" to it.aktivitetFravær.joinToString(separator = ", ") { it.pdfTekst },
-            "organisasjonsnummer" to it.organisasjonsnummer?.joinToString(", ")
         )
     }
 }

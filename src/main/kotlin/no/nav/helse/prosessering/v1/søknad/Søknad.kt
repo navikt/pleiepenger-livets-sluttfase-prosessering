@@ -13,7 +13,6 @@ data class Søknad(
     val vedleggId: List<String> = listOf(),
     val pleietrengende: Pleietrengende,
     val medlemskap: Medlemskap,
-    val fraværsperioder: List<Fraværsperiode>,
     val utenlandsopphold: List<Utenlandsopphold>?,
     val frilans: Frilans?,
     val selvstendigNæringsdrivende: SelvstendigNæringsdrivende?,

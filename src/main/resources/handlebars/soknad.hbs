@@ -12,7 +12,6 @@
         <bookmark name="Søker" href="#søker"/>
         <bookmark name="Pleietrengende" href="#pleietrengende"/>
         <bookmark name="Medlemskap" href="#medlemskap"/>
-        <bookmark name="Fraværsperioder" href="#fraværsperioder"/>
         <bookmark name="Utenlandsopphold" href="#utenlandsopphold"/>
         <bookmark name="Frilans" href="#frilans"/>
         <bookmark name="Selvstendig næringsdrivende" href="#selvstendigNæringsdrivende"/>
@@ -40,22 +39,6 @@
         <h2>Pleietrengende</h2>
         <p>Identitetsnummer: {{pleietrengende.norskIdentitetsnummer}}</p>
         <p>Navn: {{pleietrengende.navn}}</p>
-    </section>
-
-    <section id="fraværsperioder">
-        <h2>Fraværsperioder</h2>
-        <ul>
-            {{#each fraværsperioder as | fraværsperiode|~}}
-                <li>
-                    <p>Periode: {{fraværsperiode.fraOgMed}} - {{fraværsperiode.tilOgMed}}</p>
-                    <p>Aktivitet du hadde fravær fra: {{fraværsperiode.aktivitetFravær}}</p>
-
-                    {{#if fraværsperiode.organisasjonsnummer}}
-                        <p>Organisasjonsnummer: {{fraværsperiode.organisasjonsnummer}}</p>
-                    {{/if}}
-                </li>
-            {{/each}}
-        </ul>
     </section>
 
     <section id="utenlandsopphold">

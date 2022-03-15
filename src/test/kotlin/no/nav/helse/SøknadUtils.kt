@@ -1,8 +1,6 @@
 package no.nav.helse
 
 import no.nav.helse.prosessering.v1.søknad.*
-import no.nav.helse.prosessering.v1.søknad.AktivitetFravær.*
-import no.nav.k9.søknad.Søknad
 import no.nav.k9.søknad.felles.Versjon
 import no.nav.k9.søknad.felles.opptjening.Frilanser
 import no.nav.k9.søknad.felles.opptjening.OpptjeningAktivitet
@@ -18,6 +16,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
+import no.nav.k9.søknad.Søknad as k9FormatSøknad
 import no.nav.k9.søknad.felles.personopplysninger.Søker as K9Søker
 import no.nav.k9.søknad.felles.personopplysninger.Utenlandsopphold as K9Utenlandsopphold
 
@@ -60,19 +59,6 @@ object SøknadUtils {
                     landkode = "CU"
                 )
             )
-        ),
-        fraværsperioder = listOf(
-            Fraværsperiode(
-                fraOgMed = LocalDate.parse("2021-02-01"),
-                tilOgMed = LocalDate.parse("2021-02-10"),
-                aktivitetFravær = listOf(FRILANSER, STØNAD_FRA_NAV)
-            ),
-            Fraværsperiode(
-                fraOgMed = LocalDate.parse("2021-02-13"),
-                tilOgMed = LocalDate.parse("2021-02-15"),
-                aktivitetFravær = listOf(ARBEIDSTAKER, FRILANSER, SELVSTENDIG_NÆRINGSDRIVENDE),
-                organisasjonsnummer = listOf("914242444")
-                )
         ),
         utenlandsopphold = listOf(
             Utenlandsopphold(
@@ -119,7 +105,7 @@ object SøknadUtils {
         harForståttRettigheterOgPlikter = true
     )
 
-    fun gyldigK9Format(søknadId: String = UUID.randomUUID().toString()) = Søknad(
+    fun gyldigK9Format(søknadId: String = UUID.randomUUID().toString()) = k9FormatSøknad(
         SøknadId(søknadId),
         Versjon("1.0.0"),
         ZonedDateTime.of(2018, 1, 2, 3, 4, 5, 6, ZoneId.of("UTC")),
