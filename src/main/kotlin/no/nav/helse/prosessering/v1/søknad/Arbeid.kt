@@ -25,9 +25,16 @@ data class ArbeidIPeriode(
     val fasteDager: PlanUkedager? = null
 )
 
-enum class JobberIPeriodeSvar {
-    JA,
-    NEI
+enum class JobberIPeriodeSvar(val pdfTekst: String) {
+    JA("Ja"),
+    NEI("Nei");
+
+    fun tilBoolean(): Boolean{
+        return when(this){
+            JA -> true
+            NEI -> false
+        }
+    }
 }
 
 data class Enkeltdag(

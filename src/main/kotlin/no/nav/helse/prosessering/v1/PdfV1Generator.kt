@@ -11,13 +11,15 @@ import com.openhtmltopdf.util.XRLog
 import no.nav.helse.dusseldorf.ktor.core.fromResources
 import no.nav.helse.prosessering.v1.PdfV1Generator.Companion.DATE_FORMATTER
 import no.nav.helse.prosessering.v1.søknad.*
+import no.nav.helse.utils.somNorskDag
+import no.nav.helse.utils.somNorskMåned
+import no.nav.helse.utils.somTekst
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
-import java.time.DayOfWeek
-import java.time.Duration
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.*
 import java.time.format.DateTimeFormatter
+import java.time.temporal.WeekFields
+import java.util.*
 import java.util.logging.Level
 
 internal class PdfV1Generator {
@@ -76,7 +78,11 @@ internal class PdfV1Generator {
                         ),
                         "pleietrengende" to søknad.pleietrengende.somMap(),
                         "medlemskap" to søknad.medlemskap.somMap(),
-                        "utenlandsopphold" to søknad.utenlandsoppholdIPerioden?.somMapOpphold(),
+                        "utenlandsoppholdIPerioden" to mapOf(
+                            "skalOppholdeSegIUtlandetIPerioden" to søknad.utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden,
+                            "opphold" to søknad.utenlandsoppholdIPerioden.opphold.somMapUtenlandsopphold()
+                        ),
+                        "arbeidsgivere" to søknad.arbeidsgivere.somMapAnsatt(),
                         "frilans" to søknad.frilans?.somMap(),
                         "selvstendigNæringsdrivende" to søknad.selvstendigNæringsdrivende?.somMap(),
                         "samtykke" to mapOf(
@@ -85,6 +91,9 @@ internal class PdfV1Generator {
                         ),
                         "hjelp" to mapOf(
                             "språk" to søknad.språk?.språkTilTekst(),
+                            "ingen_arbeidsgivere" to søknad.arbeidsgivere.isEmpty(),
+                            "harFlereAktiveVirksomheterErSatt" to søknad.harFlereAktiveVirksomehterSatt(),
+                            "ingen_arbeidsforhold" to !søknad.harMinstEtArbeidsforhold()
                         )
                     )
                 )
@@ -175,33 +184,133 @@ private fun List<Opphold>.somMapOpphold(): List<Map<String, Any?>> {
     }
 }
 
-private fun UtenlandsoppholdIPerioden.somMapOpphold(): Map<String, Any?> {
-    return mapOf(
-        "skalOppholdeSegIUtlandetIPerioden" to this.skalOppholdeSegIUtlandetIPerioden,
-        "opphold" to this.opphold.somMapOpphold()
+private fun List<Utenlandsopphold>.somMapUtenlandsopphold(): List<Map<String, Any?>> {
+    val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.of("Europe/Oslo"))
+    return map {
+        mapOf<String, Any?>(
+            "landnavn" to it.landnavn,
+            "landkode" to it.landkode,
+            "fraOgMed" to dateFormatter.format(it.fraOgMed),
+            "tilOgMed" to dateFormatter.format(it.tilOgMed),
+        )
+    }
+}
+
+private fun Søknad.harMinstEtArbeidsforhold() : Boolean{
+    frilans?.let {
+        if(it.arbeidsforhold != null) return true
+    }
+
+    selvstendigNæringsdrivende?.let {
+        if(it.arbeidsforhold != null) return true
+    }
+
+    if(arbeidsgivere.any(){it.arbeidsforhold != null}) return true
+
+    return false
+}
+
+private fun Arbeidsforhold.somMap(): Map<String, Any?> = mapOf(
+    "jobberNormaltTimer" to jobberNormaltTimer,
+    "harFraværIPeriode" to harFraværIPeriode,
+    "arbeidIPeriode" to arbeidIPeriode?.somMap()
+)
+
+private fun ArbeidIPeriode.somMap(): Map<String, Any?> = mapOf(
+    "jobberIPerioden" to jobberIPerioden.tilBoolean(),
+    "jobberProsent" to jobberProsent,
+    "erLiktHverUkeSatt" to (erLiktHverUke != null),
+    "erLiktHverUke" to erLiktHverUke,
+    "enkeltdagerPerMnd" to enkeltdager?.somMapPerMnd(),
+    "fasteDager" to fasteDager?.somMap(),
+    "snittTimerPerUkedag" to fasteDager?.mandag?.somTekst() // alle dager er like dersom jobberProsent er satt.
+)
+
+private fun List<Enkeltdag>.somMapEnkeltdag(): List<Map<String, Any?>> {
+    return map {
+        mapOf<String, Any?>(
+            "dato" to DATE_FORMATTER.format(it.dato),
+            "dag" to it.dato.dayOfWeek.somNorskDag(),
+            "tid" to it.tid.somTekst(avkort = false)
+        )
+    }
+}
+
+private fun List<Enkeltdag>.somMapPerUke(): List<Map<String, Any>> {
+    val perUke = this.groupBy {
+        val uketall = it.dato.get(WeekFields.of(Locale.getDefault()).weekOfYear())
+        if (uketall == 0) 53 else uketall
+    }
+    return perUke.map {
+        mapOf(
+            "uke" to it.key,
+            "dager" to it.value.somMapEnkeltdag()
+        )
+    }
+}
+
+fun List<Enkeltdag>.somMapPerMnd(): List<Map<String, Any>> {
+    val perMåned: Map<Month, List<Enkeltdag>> = this.groupBy { it.dato.month }
+
+    return perMåned.map {
+        mapOf(
+            "år" to it.value.first().dato.year,
+            "måned" to it.key.somNorskMåned().capitalizeName(),
+            "enkeltdagerPerUke" to it.value.somMapPerUke()
+        )
+    }
+}
+
+private fun Duration?.harGyldigVerdi() = this != null && this != Duration.ZERO
+private fun PlanUkedager.somMap() = mapOf<String, Any?>(
+    "mandag" to if (mandag.harGyldigVerdi()) mandag!!.somTekst() else null,
+    "tirsdag" to if (tirsdag.harGyldigVerdi()) tirsdag!!.somTekst() else null,
+    "onsdag" to if (onsdag.harGyldigVerdi()) onsdag!!.somTekst() else null,
+    "torsdag" to if (torsdag.harGyldigVerdi()) torsdag!!.somTekst() else null,
+    "fredag" to if (fredag.harGyldigVerdi()) fredag!!.somTekst() else null,
+)
+
+private fun List<Arbeidsgiver>.somMapAnsatt() = map {
+    mapOf<String, Any?>(
+        "navn" to it.navn,
+        "organisasjonsnummer" to it.organisasjonsnummer,
+        "erAnsatt" to it.erAnsatt,
+        "arbeidsforhold" to it.arbeidsforhold?.somMap(),
+        "sluttetFørSøknadsperiodeErSatt" to (it.sluttetFørSøknadsperiode != null),
+        "sluttetFørSøknadsperiode" to it.sluttetFørSøknadsperiode
     )
 }
 
 private fun Frilans.somMap() = mapOf<String, Any?>(
     "startdato" to DATE_FORMATTER.format(startdato),
     "sluttdato" to if (sluttdato != null) DATE_FORMATTER.format(sluttdato) else null,
-    "jobberFortsattSomFrilans" to jobberFortsattSomFrilans
+    "jobberFortsattSomFrilans" to jobberFortsattSomFrilans,
+    "arbeidsforhold" to arbeidsforhold?.somMap()
 )
 
 private fun SelvstendigNæringsdrivende.somMap() = mapOf<String, Any?>(
-    "næringsinntekt" to virksomhet.næringsinntekt,
-    "yrkesaktivSisteTreFerdigliknedeÅrene" to virksomhet.yrkesaktivSisteTreFerdigliknedeÅrene?.somMap(),
-    "varigEndring" to virksomhet.varigEndring?.somMap(),
-    "harFlereAktiveVirksomheter" to virksomhet.harFlereAktiveVirksomheter,
-    "navnPåVirksomheten" to virksomhet.navnPåVirksomheten,
-    "fraOgMed" to DATE_FORMATTER.format(virksomhet.fraOgMed),
-    "tilOgMed" to if (virksomhet.tilOgMed != null) DATE_FORMATTER.format(virksomhet.tilOgMed) else null,
-    "næringstype" to virksomhet.næringstype.beskrivelse,
-    "fiskerErPåBladB" to virksomhet.fiskerErPåBladB,
-    "registrertINorge" to virksomhet.registrertINorge,
-    "organisasjonsnummer" to virksomhet.organisasjonsnummer,
-    "registrertIUtlandet" to virksomhet.registrertIUtlandet?.somMap(),
-    "regnskapsfører" to virksomhet.regnskapsfører?.somMap()
+    "virksomhet" to virksomhet.somMap(),
+    "arbeidsforhold" to arbeidsforhold?.somMap()
+)
+
+
+private fun Søknad.harFlereAktiveVirksomehterSatt() =
+    (this.selvstendigNæringsdrivende?.virksomhet?.harFlereAktiveVirksomheter != null)
+
+private fun Virksomhet.somMap(): Map<String, Any?> = mapOf(
+    "næringstype" to næringstype.beskrivelse,
+    "næringsinntekt" to næringsinntekt,
+    "yrkesaktivSisteTreFerdigliknedeÅrene" to yrkesaktivSisteTreFerdigliknedeÅrene?.somMap(),
+    "varigEndring" to varigEndring?.somMap(),
+    "harFlereAktiveVirksomheter" to harFlereAktiveVirksomheter,
+    "navnPåVirksomheten" to navnPåVirksomheten,
+    "fraOgMed" to DATE_FORMATTER.format(fraOgMed),
+    "tilOgMed" to if (tilOgMed != null) DATE_FORMATTER.format(tilOgMed) else null,
+    "fiskerErPåBladB" to fiskerErPåBladB,
+    "registrertINorge" to registrertINorge,
+    "organisasjonsnummer" to organisasjonsnummer,
+    "registrertIUtlandet" to registrertIUtlandet?.somMap(),
+    "regnskapsfører" to regnskapsfører?.somMap()
 )
 
 private fun Regnskapsfører.somMap() = mapOf<String, Any?>(
@@ -223,8 +332,3 @@ private fun VarigEndring.somMap() = mapOf<String, Any?>(
     "inntektEtterEndring" to inntektEtterEndring,
     "forklaring" to forklaring
 )
-
-private fun Duration.somTekst() = when (this.toMinutesPart()) {
-    0 -> "${this.toHours()} timer"
-    else -> "${this.toHoursPart()} timer og ${this.toMinutesPart()} minutter"
-}
