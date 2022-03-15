@@ -57,20 +57,23 @@ class SøknadsformatTest {
                   }
                 ]
               },
-              "utenlandsopphold": [
-                {
-                  "fraOgMed": "2021-01-01",
-                  "tilOgMed": "2021-01-10",
-                  "landkode": "CU",
-                  "landnavn": "Cuba"
-                },
-                {
-                  "fraOgMed": "2021-02-01",
-                  "tilOgMed": "2021-02-10",
-                  "landkode": "CU",
-                  "landnavn": "Cuba"
-                }
-              ],
+              "utenlandsoppholdIPerioden": {
+                "skalOppholdeSegIUtlandetIPerioden": true,
+                "opphold": [
+                    {
+                      "fraOgMed": "2021-01-01",
+                      "tilOgMed": "2021-01-10",
+                      "landkode": "CU",
+                      "landnavn": "Cuba"
+                    },
+                    {
+                      "fraOgMed": "2021-02-01",
+                      "tilOgMed": "2021-02-10",
+                      "landkode": "CU",
+                      "landnavn": "Cuba"
+                    }
+                  ]
+              },
               "frilans" : {
                 "startdato" : "2015-01-01",
                 "jobberFortsattSomFrilans" : false,

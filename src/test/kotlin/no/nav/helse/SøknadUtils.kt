@@ -13,7 +13,6 @@ import no.nav.k9.søknad.felles.type.SøknadId
 import no.nav.k9.søknad.ytelse.pls.v1.Pleietrengende
 import no.nav.k9.søknad.ytelse.pls.v1.PleipengerLivetsSluttfase
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
@@ -63,18 +62,21 @@ object SøknadUtils {
                 )
             )
         ),
-        utenlandsopphold = listOf(
-            Utenlandsopphold(
-                fraOgMed = LocalDate.parse("2021-01-01"),
-                tilOgMed = LocalDate.parse("2021-01-10"),
-                landnavn = "Cuba",
-                landkode = "CU"
-            ),
-            Utenlandsopphold(
-                fraOgMed = LocalDate.parse("2021-02-01"),
-                tilOgMed = LocalDate.parse("2021-02-10"),
-                landnavn = "Cuba",
-                landkode = "CU"
+        utenlandsoppholdIPerioden = UtenlandsoppholdIPerioden(
+            skalOppholdeSegIUtlandetIPerioden = true,
+            opphold = listOf(
+                Utenlandsopphold(
+                    fraOgMed = LocalDate.parse("2021-01-01"),
+                    tilOgMed = LocalDate.parse("2021-01-10"),
+                    landnavn = "Cuba",
+                    landkode = "CU"
+                ),
+                Utenlandsopphold(
+                    fraOgMed = LocalDate.parse("2021-02-01"),
+                    tilOgMed = LocalDate.parse("2021-02-10"),
+                    landnavn = "Cuba",
+                    landkode = "CU"
+                )
             )
         ),
         frilans = Frilans(

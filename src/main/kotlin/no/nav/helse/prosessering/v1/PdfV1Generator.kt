@@ -76,7 +76,7 @@ internal class PdfV1Generator {
                         ),
                         "pleietrengende" to søknad.pleietrengende.somMap(),
                         "medlemskap" to søknad.medlemskap.somMap(),
-                        "utenlandsopphold" to søknad.utenlandsopphold?.somMapOpphold(),
+                        "utenlandsopphold" to søknad.utenlandsoppholdIPerioden?.somMapOpphold(),
                         "frilans" to søknad.frilans?.somMap(),
                         "selvstendigNæringsdrivende" to søknad.selvstendigNæringsdrivende?.somMap(),
                         "samtykke" to mapOf(
@@ -142,7 +142,7 @@ private fun String.språkTilTekst() = when (this.lowercase()) {
     else -> this
 }
 
-private fun ZonedDateTime.norskDag() = when(dayOfWeek) {
+private fun ZonedDateTime.norskDag() = when (dayOfWeek) {
     DayOfWeek.MONDAY -> "Mandag"
     DayOfWeek.TUESDAY -> "Tirsdag"
     DayOfWeek.WEDNESDAY -> "Onsdag"
@@ -165,7 +165,7 @@ private fun Medlemskap.somMap() = mapOf<String, Any?>(
     "utenlandsoppholdNeste12Mnd" to this.utenlandsoppholdNeste12Mnd.somMapOpphold()
 )
 
-private fun List<Opphold>.somMapOpphold() : List<Map<String, Any?>> {
+private fun List<Opphold>.somMapOpphold(): List<Map<String, Any?>> {
     return map {
         mapOf(
             "landnavn" to it.landnavn,
@@ -175,9 +175,16 @@ private fun List<Opphold>.somMapOpphold() : List<Map<String, Any?>> {
     }
 }
 
+private fun UtenlandsoppholdIPerioden.somMapOpphold(): Map<String, Any?> {
+    return mapOf(
+        "skalOppholdeSegIUtlandetIPerioden" to this.skalOppholdeSegIUtlandetIPerioden,
+        "opphold" to this.opphold.somMapOpphold()
+    )
+}
+
 private fun Frilans.somMap() = mapOf<String, Any?>(
     "startdato" to DATE_FORMATTER.format(startdato),
-    "sluttdato" to if(sluttdato != null) DATE_FORMATTER.format(sluttdato) else null,
+    "sluttdato" to if (sluttdato != null) DATE_FORMATTER.format(sluttdato) else null,
     "jobberFortsattSomFrilans" to jobberFortsattSomFrilans
 )
 
@@ -188,7 +195,7 @@ private fun SelvstendigNæringsdrivende.somMap() = mapOf<String, Any?>(
     "harFlereAktiveVirksomheter" to harFlereAktiveVirksomheter,
     "navnPåVirksomheten" to navnPåVirksomheten,
     "fraOgMed" to DATE_FORMATTER.format(fraOgMed),
-    "tilOgMed" to if(tilOgMed != null) DATE_FORMATTER.format(tilOgMed) else null,
+    "tilOgMed" to if (tilOgMed != null) DATE_FORMATTER.format(tilOgMed) else null,
     "næringstype" to næringstype.beskrivelse,
     "fiskerErPåBladB" to fiskerErPåBladB,
     "registrertINorge" to registrertINorge,
