@@ -189,19 +189,19 @@ private fun Frilans.somMap() = mapOf<String, Any?>(
 )
 
 private fun SelvstendigNæringsdrivende.somMap() = mapOf<String, Any?>(
-    "næringsinntekt" to næringsinntekt,
-    "yrkesaktivSisteTreFerdigliknedeÅrene" to yrkesaktivSisteTreFerdigliknedeÅrene?.somMap(),
-    "varigEndring" to varigEndring?.somMap(),
-    "harFlereAktiveVirksomheter" to harFlereAktiveVirksomheter,
-    "navnPåVirksomheten" to navnPåVirksomheten,
-    "fraOgMed" to DATE_FORMATTER.format(fraOgMed),
-    "tilOgMed" to if (tilOgMed != null) DATE_FORMATTER.format(tilOgMed) else null,
-    "næringstype" to næringstype.beskrivelse,
-    "fiskerErPåBladB" to fiskerErPåBladB,
-    "registrertINorge" to registrertINorge,
-    "organisasjonsnummer" to organisasjonsnummer,
-    "registrertIUtlandet" to registrertIUtlandet?.somMap(),
-    "regnskapsfører" to regnskapsfører?.somMap()
+    "næringsinntekt" to virksomhet.næringsinntekt,
+    "yrkesaktivSisteTreFerdigliknedeÅrene" to virksomhet.yrkesaktivSisteTreFerdigliknedeÅrene?.somMap(),
+    "varigEndring" to virksomhet.varigEndring?.somMap(),
+    "harFlereAktiveVirksomheter" to virksomhet.harFlereAktiveVirksomheter,
+    "navnPåVirksomheten" to virksomhet.navnPåVirksomheten,
+    "fraOgMed" to DATE_FORMATTER.format(virksomhet.fraOgMed),
+    "tilOgMed" to if (virksomhet.tilOgMed != null) DATE_FORMATTER.format(virksomhet.tilOgMed) else null,
+    "næringstype" to virksomhet.næringstype.beskrivelse,
+    "fiskerErPåBladB" to virksomhet.fiskerErPåBladB,
+    "registrertINorge" to virksomhet.registrertINorge,
+    "organisasjonsnummer" to virksomhet.organisasjonsnummer,
+    "registrertIUtlandet" to virksomhet.registrertIUtlandet?.somMap(),
+    "regnskapsfører" to virksomhet.regnskapsfører?.somMap()
 )
 
 private fun Regnskapsfører.somMap() = mapOf<String, Any?>(

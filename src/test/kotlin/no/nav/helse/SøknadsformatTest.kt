@@ -15,6 +15,7 @@ class SøknadsformatTest {
 
         println(String(json))
 
+
         val forventetSøknad =
             //language=json
             """
@@ -74,38 +75,99 @@ class SøknadsformatTest {
                     }
                   ]
               },
+              "arbeidsgivere": [
+                {
+                  "navn": "Something Fishy AS",
+                  "organisasjonsnummer": "123456789",
+                  "erAnsatt": true,
+                  "sluttetFørSøknadsperiode": false,
+                    "arbeidsforhold": {
+                      "jobberNormaltTimer": 7.5,
+                      "harFraværIPeriode": true,
+                      "arbeidIPeriode": {
+                        "jobberIPerioden": "JA",
+                        "jobberProsent": 50.0,
+                        "erLiktHverUke": true,
+                        "enkeltdager": [],
+                        "fasteDager": {
+                          "mandag": "PT7H30M",
+                          "tirsdag": null,
+                          "onsdag": "PT7H30M",
+                          "torsdag": null,
+                          "fredag": "PT7H30M"
+                        }
+                      }
+                    }
+                }
+              ],
               "frilans" : {
                 "startdato" : "2015-01-01",
                 "jobberFortsattSomFrilans" : false,
-                "sluttdato" : "2021-01-01"
+                "sluttdato" : "2021-01-01",
+                "arbeidsforhold": {
+                  "jobberNormaltTimer": 7.5,
+                  "harFraværIPeriode": true,
+                  "arbeidIPeriode": {
+                    "jobberIPerioden": "JA",
+                    "jobberProsent": 50.0,
+                    "erLiktHverUke": true,
+                    "enkeltdager": [],
+                    "fasteDager": {
+                      "mandag": "PT7H30M",
+                      "tirsdag": null,
+                      "onsdag": "PT7H30M",
+                      "torsdag": null,
+                      "fredag": "PT7H30M"
+                    }
+                  }
+                }
               },
               "selvstendigNæringsdrivende": {
-                "fraOgMed": "2015-01-01",
-                "tilOgMed": null,
-                "næringstype": "FISKE",
-                "fiskerErPåBladB": false,
-                "navnPåVirksomheten": "Bjarnes Bakeri",
-                "registrertINorge": false,
-                "registrertIUtlandet": {
-                  "landkode": "ABW",
-                  "landnavn": "Aruba"
+                "virksomhet": {
+                  "fraOgMed": "2015-01-01",
+                    "tilOgMed": null,
+                    "næringstype": "FISKE",
+                    "fiskerErPåBladB": false,
+                    "navnPåVirksomheten": "Bjarnes Bakeri",
+                    "registrertINorge": false,
+                    "registrertIUtlandet": {
+                      "landkode": "ABW",
+                      "landnavn": "Aruba"
+                    },
+                    "næringsinntekt": 9656876,
+                    "organisasjonsnummer": null,
+                    "yrkesaktivSisteTreFerdigliknedeÅrene": {
+                      "oppstartsdato": "2020-03-04"
+                    },
+                    "varigEndring": {
+                      "dato": "2019-09-09",
+                      "inntektEtterEndring": 854875,
+                      "forklaring": "Opplevde en varig endring fordi....."
+                    },
+                    "regnskapsfører": {
+                      "navn": "Regn",
+                      "telefon": "987654321"
+                    },
+                    "erNyoppstartet": false,
+                    "harFlereAktiveVirksomheter": false
                 },
-                "næringsinntekt": 9656876,
-                "organisasjonsnummer": null,
-                "yrkesaktivSisteTreFerdigliknedeÅrene": {
-                  "oppstartsdato": "2020-03-04"
-                },
-                "varigEndring": {
-                  "dato": "2019-09-09",
-                  "inntektEtterEndring": 854875,
-                  "forklaring": "Opplevde en varig endring fordi....."
-                },
-                "regnskapsfører": {
-                  "navn": "Regn",
-                  "telefon": "987654321"
-                },
-                "erNyoppstartet": false,
-                "harFlereAktiveVirksomheter": false
+                "arbeidsforhold": {
+                  "jobberNormaltTimer": 7.5,
+                  "harFraværIPeriode": true,
+                  "arbeidIPeriode": {
+                    "jobberIPerioden": "JA",
+                    "jobberProsent": 50.0,
+                    "erLiktHverUke": true,
+                    "enkeltdager": [],
+                    "fasteDager": {
+                      "mandag": "PT7H30M",
+                      "tirsdag": null,
+                      "onsdag": "PT7H30M",
+                      "torsdag": null,
+                      "fredag": "PT7H30M"
+                    }
+                  }
+                }
               },
               "k9Format": {
                 "søknadId": "$søknadId",
@@ -159,7 +221,6 @@ class SøknadsformatTest {
               "harBekreftetOpplysninger": true
             }
             """.trimIndent()
-
         JSONAssert.assertEquals(forventetSøknad, String(json), true)
     }
 }

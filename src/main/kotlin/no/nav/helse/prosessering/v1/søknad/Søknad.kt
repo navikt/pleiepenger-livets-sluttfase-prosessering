@@ -14,6 +14,7 @@ data class Søknad(
     val tilOgMed: LocalDate,
     val vedleggId: List<String> = listOf(),
     val pleietrengende: Pleietrengende,
+    val arbeidsgivere: List<Arbeidsgiver>,
     val medlemskap: Medlemskap,
     val utenlandsoppholdIPerioden: UtenlandsoppholdIPerioden,
     val frilans: Frilans?,

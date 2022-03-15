@@ -12,6 +12,7 @@ import no.nav.k9.søknad.felles.type.Periode
 import no.nav.k9.søknad.felles.type.SøknadId
 import no.nav.k9.søknad.ytelse.pls.v1.Pleietrengende
 import no.nav.k9.søknad.ytelse.pls.v1.PleipengerLivetsSluttfase
+import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -79,30 +80,85 @@ object SøknadUtils {
                 )
             )
         ),
+        arbeidsgivere = listOf(
+            Arbeidsgiver(
+                navn = "Something Fishy AS",
+                organisasjonsnummer = "123456789",
+                erAnsatt = true,
+                sluttetFørSøknadsperiode = false,
+                arbeidsforhold = Arbeidsforhold(
+                    jobberNormaltTimer = 7.5,
+                    harFraværIPeriode = true,
+                    arbeidIPeriode = ArbeidIPeriode(
+                        jobberIPerioden = JobberIPeriodeSvar.JA,
+                        jobberProsent = 50.0,
+                        erLiktHverUke = true,
+                        enkeltdager = listOf(),
+                        fasteDager = PlanUkedager(
+                            mandag = Duration.ofHours(7).plusMinutes(30),
+                            onsdag = Duration.ofHours(7).plusMinutes(30),
+                            fredag = Duration.ofHours(7).plusMinutes(30)
+                        )
+                    )
+                )
+            )
+        ),
         frilans = Frilans(
             startdato = LocalDate.parse("2015-01-01"),
             jobberFortsattSomFrilans = false,
-            sluttdato = LocalDate.parse("2021-01-01")
+            sluttdato = LocalDate.parse("2021-01-01"),
+            arbeidsforhold = Arbeidsforhold(
+                jobberNormaltTimer = 7.5,
+                harFraværIPeriode = true,
+                arbeidIPeriode = ArbeidIPeriode(
+                    jobberIPerioden = JobberIPeriodeSvar.JA,
+                    jobberProsent = 50.0,
+                    erLiktHverUke = true,
+                    enkeltdager = listOf(),
+                    fasteDager = PlanUkedager(
+                        mandag = Duration.ofHours(7).plusMinutes(30),
+                        onsdag = Duration.ofHours(7).plusMinutes(30),
+                        fredag = Duration.ofHours(7).plusMinutes(30)
+                    )
+                )
+            )
         ),
         selvstendigNæringsdrivende = SelvstendigNæringsdrivende(
-            fraOgMed = LocalDate.parse("2015-01-01"),
-            næringstype = Næringstype.FISKE,
-            yrkesaktivSisteTreFerdigliknedeÅrene = YrkesaktivSisteTreFerdigliknedeArene(LocalDate.parse("2020-03-04")),
-            fiskerErPåBladB = false,
-            navnPåVirksomheten = "Bjarnes Bakeri",
-            registrertINorge = false,
-            registrertIUtlandet = Land("ABW","Aruba"),
-            næringsinntekt = 9656876,
-            erNyoppstartet = false,
-            harFlereAktiveVirksomheter = false,
-            varigEndring = VarigEndring(
-                dato = LocalDate.parse("2019-09-09"),
-                inntektEtterEndring = 854875,
-                forklaring = "Opplevde en varig endring fordi....."
+            virksomhet = Virksomhet(
+                fraOgMed = LocalDate.parse("2015-01-01"),
+                næringstype = Næringstype.FISKE,
+                yrkesaktivSisteTreFerdigliknedeÅrene = YrkesaktivSisteTreFerdigliknedeArene(LocalDate.parse("2020-03-04")),
+                fiskerErPåBladB = false,
+                navnPåVirksomheten = "Bjarnes Bakeri",
+                registrertINorge = false,
+                registrertIUtlandet = Land("ABW","Aruba"),
+                næringsinntekt = 9656876,
+                erNyoppstartet = false,
+                harFlereAktiveVirksomheter = false,
+                varigEndring = VarigEndring(
+                    dato = LocalDate.parse("2019-09-09"),
+                    inntektEtterEndring = 854875,
+                    forklaring = "Opplevde en varig endring fordi....."
+                ),
+                regnskapsfører = Regnskapsfører(
+                    navn = "Regn",
+                    telefon = "987654321"
+                )
             ),
-            regnskapsfører = Regnskapsfører(
-                navn = "Regn",
-                telefon = "987654321"
+            arbeidsforhold = Arbeidsforhold(
+                jobberNormaltTimer = 7.5,
+                harFraværIPeriode = true,
+                arbeidIPeriode = ArbeidIPeriode(
+                    jobberIPerioden = JobberIPeriodeSvar.JA,
+                    jobberProsent = 50.0,
+                    erLiktHverUke = true,
+                    enkeltdager = listOf(),
+                    fasteDager = PlanUkedager(
+                        mandag = Duration.ofHours(7).plusMinutes(30),
+                        onsdag = Duration.ofHours(7).plusMinutes(30),
+                        fredag = Duration.ofHours(7).plusMinutes(30)
+                    )
+                )
             )
         ),
         k9Format = gyldigK9Format(søknadId),

@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDate
 
 data class SelvstendigNæringsdrivende(
+    val virksomhet: Virksomhet,
+    val arbeidsforhold: Arbeidsforhold? = null
+)
+
+data class Virksomhet(
     @JsonFormat(pattern = "yyyy-MM-dd") val fraOgMed: LocalDate,
     @JsonFormat(pattern = "yyyy-MM-dd") val tilOgMed: LocalDate? = null,
     val næringstype: Næringstype,
