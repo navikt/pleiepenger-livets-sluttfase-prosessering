@@ -13,6 +13,7 @@ import no.nav.k9.søknad.felles.type.SøknadId
 import no.nav.k9.søknad.ytelse.pls.v1.Pleietrengende
 import no.nav.k9.søknad.ytelse.pls.v1.PleipengerLivetsSluttfase
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
@@ -38,6 +39,8 @@ object SøknadUtils {
             mellomnavn = "Mellomnavn",
             fornavn = "Ola"
         ),
+        fraOgMed = LocalDate.parse("2022-01-01"),
+        tilOgMed = LocalDate.parse("2022-02-01"),
         vedleggId = listOf("123", "456"),
         pleietrengende = Pleietrengende("02119970078", "Bjarne"),
         medlemskap = Medlemskap(

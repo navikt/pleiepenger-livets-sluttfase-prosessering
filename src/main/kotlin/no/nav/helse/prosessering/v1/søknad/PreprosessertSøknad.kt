@@ -1,5 +1,6 @@
 package no.nav.helse.prosessering.v1.søknad
 
+import java.time.LocalDate
 import java.time.ZonedDateTime
 import no.nav.k9.søknad.Søknad as K9Søknad
 
@@ -8,6 +9,8 @@ data class PreprosessertSøknad(
     val mottatt: ZonedDateTime,
     val språk: String?,
     val søker: Søker,
+    val fraOgMed: LocalDate,
+    val tilOgMed: LocalDate,
     val dokumentId: List<List<String>>,
     val pleietrengende: Pleietrengende,
     val medlemskap: Medlemskap,
@@ -26,6 +29,8 @@ data class PreprosessertSøknad(
         søknadId = søknad.søknadId,
         mottatt = søknad.mottatt,
         søker = søknad.søker,
+        fraOgMed = søknad.fraOgMed,
+        tilOgMed = søknad.tilOgMed,
         dokumentId = dokumentId,
         pleietrengende = søknad.pleietrengende,
         medlemskap = søknad.medlemskap,

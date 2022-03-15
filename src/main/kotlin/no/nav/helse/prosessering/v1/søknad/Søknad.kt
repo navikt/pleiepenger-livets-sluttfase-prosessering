@@ -10,6 +10,8 @@ data class Søknad(
     val mottatt: ZonedDateTime,
     val språk: String? = "nb",
     val søker: Søker,
+    val fraOgMed: LocalDate,
+    val tilOgMed: LocalDate,
     val vedleggId: List<String> = listOf(),
     val pleietrengende: Pleietrengende,
     val medlemskap: Medlemskap,
