@@ -72,6 +72,10 @@ internal class PdfV1Generator {
                         "søknadId" to søknad.søknadId,
                         "søknadMottattDag" to søknad.mottatt.withZoneSameInstant(ZONE_ID).norskDag(),
                         "søknadMottatt" to DATE_TIME_FORMATTER.format(søknad.mottatt),
+                        "periode" to mapOf(
+                            "fra_og_med" to DATE_FORMATTER.format(søknad.fraOgMed),
+                            "til_og_med" to DATE_FORMATTER.format(søknad.tilOgMed)
+                        ),
                         "søker" to mapOf(
                             "navn" to søknad.søker.formatertNavn().capitalizeName(),
                             "fødselsnummer" to søknad.søker.fødselsnummer
