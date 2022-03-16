@@ -184,6 +184,7 @@ class SøknadsformatTest {
                   "pleietrengende": {
                     "norskIdentitetsnummer": "02119970078"
                   },
+                  "søknadsperiode": [],
                   "arbeidstid": {
                     "arbeidstakerList": [],
                     "frilanserArbeidstidInfo": null,
@@ -202,6 +203,9 @@ class SøknadsformatTest {
                       }
                     },
                     "perioderSomSkalSlettes": {}
+                  },
+                  "uttak": {
+                    "perioder": {}
                   },
                   "trekkKravPerioder" : [],
                   "utenlandsopphold": {
