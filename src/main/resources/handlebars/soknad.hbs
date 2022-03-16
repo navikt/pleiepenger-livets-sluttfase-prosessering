@@ -38,9 +38,23 @@
     </div>
 
     <section id="pleietrengende">
-        <h2>Pleietrengende</h2>
-        <p>Identitetsnummer: {{pleietrengende.norskIdentitetsnummer}}</p>
-        <p>Navn: {{pleietrengende.navn}}</p>
+            <h2>Pleietrengende</h2>
+            <p class="navn">
+                Navn: {{# if pleietrengende.navn }}
+                    {{ pleietrengende.navn }}
+                {{else}}
+                    <span class="ikke_satt">Navn ikke angitt</span>
+                {{/if}}
+            </p>
+            {{# if pleietrengende.norskIdentitetsnummer }}
+                <p>Identitetsnummer: {{ pleietrengende.norskIdentitetsnummer }}</p>
+            {{/if}}
+            {{#if pleietrengende.fødselsdato}}
+                <p>Fødsesldato: {{pleietrengende.fødselsdato}}</p>
+            {{/if}}
+            {{#if pleietrengende.årsakManglerIdentitetsnummer}}
+                <p>Oppgitt grunn for at pleietrengende ikke har fødselsnummer/D-nummer: {{pleietrengende.årsakManglerIdentitetsnummer}}</p>
+            {{/if}}
     </section>
 
     <section id="perioder">

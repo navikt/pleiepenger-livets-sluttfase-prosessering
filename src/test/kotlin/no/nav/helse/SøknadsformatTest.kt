@@ -36,6 +36,8 @@ class SøknadsformatTest {
               "vedleggId": ["123", "456"],
               "pleietrengende": {
                 "norskIdentitetsnummer": "02119970078",
+                "fødselsdato": null,
+                "årsakManglerIdentitetsnummer": null,
                 "navn" : "Bjarne"
               },
               "medlemskap": {

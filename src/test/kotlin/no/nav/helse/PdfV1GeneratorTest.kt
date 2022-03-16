@@ -1,6 +1,8 @@
 package no.nav.helse
 
 import no.nav.helse.prosessering.v1.PdfV1Generator
+import no.nav.helse.prosessering.v1.søknad.Pleietrengende
+import no.nav.helse.prosessering.v1.søknad.ÅrsakManglerIdentitetsnummer
 import java.io.File
 import java.time.LocalDate
 import kotlin.test.Test
@@ -17,6 +19,18 @@ class PdfV1GeneratorTest {
         var id = "1-full-søknad"
         var pdf = generator.generateOppsummeringPdf(
             søknad = SøknadUtils.gyldigSøknad(søknadId = id)
+        )
+        if (writeBytes) File(pdfPath(soknadId = id)).writeBytes(pdf)
+
+        id = "2-søknad-pleietrengende-uten-norskidentifikator"
+        pdf = generator.generateOppsummeringPdf(
+            søknad = SøknadUtils.gyldigSøknad(søknadId = id).copy(
+                pleietrengende = Pleietrengende(
+                    navn = "Bjarne",
+                    fødselsdato = LocalDate.now().minusYears(45),
+                    årsakManglerIdentitetsnummer = ÅrsakManglerIdentitetsnummer.BOR_I_UTLANDET
+                )
+            )
         )
         if (writeBytes) File(pdfPath(soknadId = id)).writeBytes(pdf)
     }

@@ -167,6 +167,8 @@ private fun ZonedDateTime.norskDag() = when (dayOfWeek) {
 
 private fun Pleietrengende.somMap() = mapOf<String, Any?>(
     "norskIdentitetsnummer" to this.norskIdentitetsnummer,
+    "fødselsdato" to if(fødselsdato != null) DATE_FORMATTER.format(fødselsdato) else null,
+    "årsakManglerIdentitetsnummer" to årsakManglerIdentitetsnummer?.pdfTekst,
     "navn" to this.navn
 )
 
