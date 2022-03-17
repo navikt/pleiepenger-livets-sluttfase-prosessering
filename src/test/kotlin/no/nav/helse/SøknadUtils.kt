@@ -172,7 +172,7 @@ object SøknadUtils {
         ZonedDateTime.of(2018, 1, 2, 3, 4, 5, 6, ZoneId.of("UTC")),
         K9Søker(NorskIdentitetsnummer.of("02119970078")),
         PleipengerLivetsSluttfase()
-            .medPleietrengende(Pleietrengende(NorskIdentitetsnummer.of("02119970078")))
+            .medPleietrengende(Pleietrengende().medNorskIdentitetsnummer(NorskIdentitetsnummer.of("02119970078")))
             .medUtenlandsopphold(
                 K9Utenlandsopphold()
                     .medPerioder(

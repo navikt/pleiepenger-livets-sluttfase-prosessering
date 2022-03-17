@@ -182,7 +182,8 @@ class SøknadsformatTest {
                 "ytelse": {
                   "type": "PLEIEPENGER_LIVETS_SLUTTFASE",
                   "pleietrengende": {
-                    "norskIdentitetsnummer": "02119970078"
+                    "norskIdentitetsnummer": "02119970078",
+                    "fødselsdato": null
                   },
                   "søknadsperiode": [],
                   "arbeidstid": {
