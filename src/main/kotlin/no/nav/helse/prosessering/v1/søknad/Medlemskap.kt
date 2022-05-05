@@ -21,3 +21,8 @@ data class Opphold(
     val landkode: String,
     val landnavn: String
 )
+
+data class UtenlandsoppholdIPerioden(
+    val skalOppholdeSegIUtlandetIPerioden: Boolean? = null,
+    val opphold: List<Utenlandsopphold> = listOf()
+)

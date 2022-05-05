@@ -1,8 +1,6 @@
 package no.nav.helse
 
 import no.nav.helse.prosessering.v1.søknad.*
-import no.nav.helse.prosessering.v1.søknad.AktivitetFravær.*
-import no.nav.k9.søknad.Søknad
 import no.nav.k9.søknad.felles.Versjon
 import no.nav.k9.søknad.felles.opptjening.Frilanser
 import no.nav.k9.søknad.felles.opptjening.OpptjeningAktivitet
@@ -14,10 +12,12 @@ import no.nav.k9.søknad.felles.type.Periode
 import no.nav.k9.søknad.felles.type.SøknadId
 import no.nav.k9.søknad.ytelse.pls.v1.Pleietrengende
 import no.nav.k9.søknad.ytelse.pls.v1.PleipengerLivetsSluttfase
+import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
+import no.nav.k9.søknad.Søknad as k9FormatSøknad
 import no.nav.k9.søknad.felles.personopplysninger.Søker as K9Søker
 import no.nav.k9.søknad.felles.personopplysninger.Utenlandsopphold as K9Utenlandsopphold
 
@@ -39,8 +39,10 @@ object SøknadUtils {
             mellomnavn = "Mellomnavn",
             fornavn = "Ola"
         ),
+        fraOgMed = LocalDate.parse("2022-01-01"),
+        tilOgMed = LocalDate.parse("2022-02-01"),
         vedleggId = listOf("123", "456"),
-        pleietrengende = Pleietrengende("02119970078", "Bjarne"),
+        pleietrengende = Pleietrengende(norskIdentitetsnummer = "02119970078", navn = "Bjarne"),
         medlemskap = Medlemskap(
             harBoddIUtlandetSiste12Mnd = true,
             utenlandsoppholdSiste12Mnd = listOf(
@@ -61,57 +63,102 @@ object SøknadUtils {
                 )
             )
         ),
-        fraværsperioder = listOf(
-            Fraværsperiode(
-                fraOgMed = LocalDate.parse("2021-02-01"),
-                tilOgMed = LocalDate.parse("2021-02-10"),
-                aktivitetFravær = listOf(FRILANSER, STØNAD_FRA_NAV)
-            ),
-            Fraværsperiode(
-                fraOgMed = LocalDate.parse("2021-02-13"),
-                tilOgMed = LocalDate.parse("2021-02-15"),
-                aktivitetFravær = listOf(ARBEIDSTAKER, FRILANSER, SELVSTENDIG_NÆRINGSDRIVENDE),
-                organisasjonsnummer = listOf("914242444")
+        utenlandsoppholdIPerioden = UtenlandsoppholdIPerioden(
+            skalOppholdeSegIUtlandetIPerioden = true,
+            opphold = listOf(
+                Utenlandsopphold(
+                    fraOgMed = LocalDate.parse("2021-01-01"),
+                    tilOgMed = LocalDate.parse("2021-01-10"),
+                    landnavn = "Cuba",
+                    landkode = "CU"
+                ),
+                Utenlandsopphold(
+                    fraOgMed = LocalDate.parse("2021-02-01"),
+                    tilOgMed = LocalDate.parse("2021-02-10"),
+                    landnavn = "Cuba",
+                    landkode = "CU"
                 )
+            )
         ),
-        utenlandsopphold = listOf(
-            Utenlandsopphold(
-                fraOgMed = LocalDate.parse("2021-01-01"),
-                tilOgMed = LocalDate.parse("2021-01-10"),
-                landnavn = "Cuba",
-                landkode = "CU"
-            ),
-            Utenlandsopphold(
-                fraOgMed = LocalDate.parse("2021-02-01"),
-                tilOgMed = LocalDate.parse("2021-02-10"),
-                landnavn = "Cuba",
-                landkode = "CU"
+        arbeidsgivere = listOf(
+            Arbeidsgiver(
+                navn = "Something Fishy AS",
+                organisasjonsnummer = "123456789",
+                erAnsatt = true,
+                sluttetFørSøknadsperiode = false,
+                arbeidsforhold = Arbeidsforhold(
+                    jobberNormaltTimer = 7.5,
+                    harFraværIPeriode = true,
+                    arbeidIPeriode = ArbeidIPeriode(
+                        jobberIPerioden = JobberIPeriodeSvar.JA,
+                        jobberProsent = 50.0,
+                        erLiktHverUke = true,
+                        enkeltdager = listOf(),
+                        fasteDager = PlanUkedager(
+                            mandag = Duration.ofHours(7).plusMinutes(30),
+                            onsdag = Duration.ofHours(7).plusMinutes(30),
+                            fredag = Duration.ofHours(7).plusMinutes(30)
+                        )
+                    )
+                )
             )
         ),
         frilans = Frilans(
             startdato = LocalDate.parse("2015-01-01"),
             jobberFortsattSomFrilans = false,
-            sluttdato = LocalDate.parse("2021-01-01")
+            sluttdato = LocalDate.parse("2021-01-01"),
+            arbeidsforhold = Arbeidsforhold(
+                jobberNormaltTimer = 7.5,
+                harFraværIPeriode = true,
+                arbeidIPeriode = ArbeidIPeriode(
+                    jobberIPerioden = JobberIPeriodeSvar.JA,
+                    jobberProsent = 50.0,
+                    erLiktHverUke = true,
+                    enkeltdager = listOf(),
+                    fasteDager = PlanUkedager(
+                        mandag = Duration.ofHours(7).plusMinutes(30),
+                        onsdag = Duration.ofHours(7).plusMinutes(30),
+                        fredag = Duration.ofHours(7).plusMinutes(30)
+                    )
+                )
+            )
         ),
         selvstendigNæringsdrivende = SelvstendigNæringsdrivende(
-            fraOgMed = LocalDate.parse("2015-01-01"),
-            næringstype = Næringstype.FISKE,
-            yrkesaktivSisteTreFerdigliknedeÅrene = YrkesaktivSisteTreFerdigliknedeArene(LocalDate.parse("2020-03-04")),
-            fiskerErPåBladB = false,
-            navnPåVirksomheten = "Bjarnes Bakeri",
-            registrertINorge = false,
-            registrertIUtlandet = Land("ABW","Aruba"),
-            næringsinntekt = 9656876,
-            erNyoppstartet = false,
-            harFlereAktiveVirksomheter = false,
-            varigEndring = VarigEndring(
-                dato = LocalDate.parse("2019-09-09"),
-                inntektEtterEndring = 854875,
-                forklaring = "Opplevde en varig endring fordi....."
+            virksomhet = Virksomhet(
+                fraOgMed = LocalDate.parse("2015-01-01"),
+                næringstype = Næringstype.FISKE,
+                yrkesaktivSisteTreFerdigliknedeÅrene = YrkesaktivSisteTreFerdigliknedeArene(LocalDate.parse("2020-03-04")),
+                fiskerErPåBladB = false,
+                navnPåVirksomheten = "Bjarnes Bakeri",
+                registrertINorge = false,
+                registrertIUtlandet = Land("ABW","Aruba"),
+                næringsinntekt = 9656876,
+                erNyoppstartet = false,
+                harFlereAktiveVirksomheter = false,
+                varigEndring = VarigEndring(
+                    dato = LocalDate.parse("2019-09-09"),
+                    inntektEtterEndring = 854875,
+                    forklaring = "Opplevde en varig endring fordi....."
+                ),
+                regnskapsfører = Regnskapsfører(
+                    navn = "Regn",
+                    telefon = "987654321"
+                )
             ),
-            regnskapsfører = Regnskapsfører(
-                navn = "Regn",
-                telefon = "987654321"
+            arbeidsforhold = Arbeidsforhold(
+                jobberNormaltTimer = 7.5,
+                harFraværIPeriode = true,
+                arbeidIPeriode = ArbeidIPeriode(
+                    jobberIPerioden = JobberIPeriodeSvar.JA,
+                    jobberProsent = 50.0,
+                    erLiktHverUke = true,
+                    enkeltdager = listOf(),
+                    fasteDager = PlanUkedager(
+                        mandag = Duration.ofHours(7).plusMinutes(30),
+                        onsdag = Duration.ofHours(7).plusMinutes(30),
+                        fredag = Duration.ofHours(7).plusMinutes(30)
+                    )
+                )
             )
         ),
         k9Format = gyldigK9Format(søknadId),
@@ -119,13 +166,13 @@ object SøknadUtils {
         harForståttRettigheterOgPlikter = true
     )
 
-    fun gyldigK9Format(søknadId: String = UUID.randomUUID().toString()) = Søknad(
+    fun gyldigK9Format(søknadId: String = UUID.randomUUID().toString()) = k9FormatSøknad(
         SøknadId(søknadId),
         Versjon("1.0.0"),
         ZonedDateTime.of(2018, 1, 2, 3, 4, 5, 6, ZoneId.of("UTC")),
         K9Søker(NorskIdentitetsnummer.of("02119970078")),
         PleipengerLivetsSluttfase()
-            .medPleietrengende(Pleietrengende(NorskIdentitetsnummer.of("02119970078")))
+            .medPleietrengende(Pleietrengende().medNorskIdentitetsnummer(NorskIdentitetsnummer.of("02119970078")))
             .medUtenlandsopphold(
                 K9Utenlandsopphold()
                     .medPerioder(

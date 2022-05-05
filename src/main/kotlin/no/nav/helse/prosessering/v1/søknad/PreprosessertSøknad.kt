@@ -1,5 +1,6 @@
 package no.nav.helse.prosessering.v1.søknad
 
+import java.time.LocalDate
 import java.time.ZonedDateTime
 import no.nav.k9.søknad.Søknad as K9Søknad
 
@@ -8,11 +9,13 @@ data class PreprosessertSøknad(
     val mottatt: ZonedDateTime,
     val språk: String?,
     val søker: Søker,
+    val fraOgMed: LocalDate,
+    val tilOgMed: LocalDate,
     val dokumentId: List<List<String>>,
     val pleietrengende: Pleietrengende,
+    val arbeidsgivere: List<Arbeidsgiver>,
     val medlemskap: Medlemskap,
-    val fraværsperioder: List<Fraværsperiode>,
-    val utenlandsopphold: List<Utenlandsopphold>?,
+    val utenlandsoppholdIPerioden: UtenlandsoppholdIPerioden,
     val frilans: Frilans?,
     val selvstendigNæringsdrivende: SelvstendigNæringsdrivende?,
     val k9Format: K9Søknad,
@@ -27,11 +30,13 @@ data class PreprosessertSøknad(
         søknadId = søknad.søknadId,
         mottatt = søknad.mottatt,
         søker = søknad.søker,
+        fraOgMed = søknad.fraOgMed,
+        tilOgMed = søknad.tilOgMed,
         dokumentId = dokumentId,
         pleietrengende = søknad.pleietrengende,
+        arbeidsgivere = søknad.arbeidsgivere,
         medlemskap = søknad.medlemskap,
-        fraværsperioder = søknad.fraværsperioder,
-        utenlandsopphold = søknad.utenlandsopphold,
+        utenlandsoppholdIPerioden = søknad.utenlandsoppholdIPerioden,
         frilans = søknad.frilans,
         selvstendigNæringsdrivende = søknad.selvstendigNæringsdrivende,
         k9Format = søknad.k9Format,

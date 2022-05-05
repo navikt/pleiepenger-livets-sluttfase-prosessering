@@ -15,6 +15,7 @@ class SøknadsformatTest {
 
         println(String(json))
 
+
         val forventetSøknad =
             //language=json
             """
@@ -30,9 +31,13 @@ class SøknadsformatTest {
                 "fødselsdato": "2000-01-01",
                 "aktørId": "123456"
               },
+              "fraOgMed": "2022-01-01",
+              "tilOgMed": "2022-02-01",
               "vedleggId": ["123", "456"],
               "pleietrengende": {
                 "norskIdentitetsnummer": "02119970078",
+                "fødselsdato": null,
+                "årsakManglerIdentitetsnummer": null,
                 "navn" : "Bjarne"
               },
               "medlemskap": {
@@ -55,66 +60,116 @@ class SøknadsformatTest {
                   }
                 ]
               },
-              "fraværsperioder": [
+              "utenlandsoppholdIPerioden": {
+                "skalOppholdeSegIUtlandetIPerioden": true,
+                "opphold": [
+                    {
+                      "fraOgMed": "2021-01-01",
+                      "tilOgMed": "2021-01-10",
+                      "landkode": "CU",
+                      "landnavn": "Cuba"
+                    },
+                    {
+                      "fraOgMed": "2021-02-01",
+                      "tilOgMed": "2021-02-10",
+                      "landkode": "CU",
+                      "landnavn": "Cuba"
+                    }
+                  ]
+              },
+              "arbeidsgivere": [
                 {
-                  "fraOgMed": "2021-02-01",
-                  "tilOgMed": "2021-02-10",
-                  "aktivitetFravær" : ["FRILANSER", "STØNAD_FRA_NAV"],
-                  "organisasjonsnummer" : null
-                },
-                {
-                  "fraOgMed": "2021-02-13",
-                  "tilOgMed": "2021-02-15",
-                  "aktivitetFravær" : ["ARBEIDSTAKER", "FRILANSER","SELVSTENDIG_NÆRINGSDRIVENDE"],
-                  "organisasjonsnummer" : ["914242444"]
-                }
-              ],
-              "utenlandsopphold": [
-                {
-                  "fraOgMed": "2021-01-01",
-                  "tilOgMed": "2021-01-10",
-                  "landkode": "CU",
-                  "landnavn": "Cuba"
-                },
-                {
-                  "fraOgMed": "2021-02-01",
-                  "tilOgMed": "2021-02-10",
-                  "landkode": "CU",
-                  "landnavn": "Cuba"
+                  "navn": "Something Fishy AS",
+                  "organisasjonsnummer": "123456789",
+                  "erAnsatt": true,
+                  "sluttetFørSøknadsperiode": false,
+                    "arbeidsforhold": {
+                      "jobberNormaltTimer": 7.5,
+                      "harFraværIPeriode": true,
+                      "arbeidIPeriode": {
+                        "jobberIPerioden": "JA",
+                        "jobberProsent": 50.0,
+                        "erLiktHverUke": true,
+                        "enkeltdager": [],
+                        "fasteDager": {
+                          "mandag": "PT7H30M",
+                          "tirsdag": null,
+                          "onsdag": "PT7H30M",
+                          "torsdag": null,
+                          "fredag": "PT7H30M"
+                        }
+                      }
+                    }
                 }
               ],
               "frilans" : {
                 "startdato" : "2015-01-01",
                 "jobberFortsattSomFrilans" : false,
-                "sluttdato" : "2021-01-01"
+                "sluttdato" : "2021-01-01",
+                "arbeidsforhold": {
+                  "jobberNormaltTimer": 7.5,
+                  "harFraværIPeriode": true,
+                  "arbeidIPeriode": {
+                    "jobberIPerioden": "JA",
+                    "jobberProsent": 50.0,
+                    "erLiktHverUke": true,
+                    "enkeltdager": [],
+                    "fasteDager": {
+                      "mandag": "PT7H30M",
+                      "tirsdag": null,
+                      "onsdag": "PT7H30M",
+                      "torsdag": null,
+                      "fredag": "PT7H30M"
+                    }
+                  }
+                }
               },
               "selvstendigNæringsdrivende": {
-                "fraOgMed": "2015-01-01",
-                "tilOgMed": null,
-                "næringstype": "FISKE",
-                "fiskerErPåBladB": false,
-                "navnPåVirksomheten": "Bjarnes Bakeri",
-                "registrertINorge": false,
-                "registrertIUtlandet": {
-                  "landkode": "ABW",
-                  "landnavn": "Aruba"
+                "virksomhet": {
+                  "fraOgMed": "2015-01-01",
+                    "tilOgMed": null,
+                    "næringstype": "FISKE",
+                    "fiskerErPåBladB": false,
+                    "navnPåVirksomheten": "Bjarnes Bakeri",
+                    "registrertINorge": false,
+                    "registrertIUtlandet": {
+                      "landkode": "ABW",
+                      "landnavn": "Aruba"
+                    },
+                    "næringsinntekt": 9656876,
+                    "organisasjonsnummer": null,
+                    "yrkesaktivSisteTreFerdigliknedeÅrene": {
+                      "oppstartsdato": "2020-03-04"
+                    },
+                    "varigEndring": {
+                      "dato": "2019-09-09",
+                      "inntektEtterEndring": 854875,
+                      "forklaring": "Opplevde en varig endring fordi....."
+                    },
+                    "regnskapsfører": {
+                      "navn": "Regn",
+                      "telefon": "987654321"
+                    },
+                    "erNyoppstartet": false,
+                    "harFlereAktiveVirksomheter": false
                 },
-                "næringsinntekt": 9656876,
-                "organisasjonsnummer": null,
-                "yrkesaktivSisteTreFerdigliknedeÅrene": {
-                  "oppstartsdato": "2020-03-04"
-                },
-                "varigEndring": {
-                  "dato": "2019-09-09",
-                  "inntektEtterEndring": 854875,
-                  "forklaring": "Opplevde en varig endring fordi....."
-                },
-                "regnskapsfører": {
-                  "navn": "Regn",
-                  "telefon": "987654321"
-                },
-                "erNyoppstartet": false,
-                "harFlereAktiveVirksomheter": false
+                "arbeidsforhold": {
+                  "jobberNormaltTimer": 7.5,
+                  "harFraværIPeriode": true,
+                  "arbeidIPeriode": {
+                    "jobberIPerioden": "JA",
+                    "jobberProsent": 50.0,
+                    "erLiktHverUke": true,
+                    "enkeltdager": [],
+                    "fasteDager": {
+                      "mandag": "PT7H30M",
+                      "tirsdag": null,
+                      "onsdag": "PT7H30M",
+                      "torsdag": null,
+                      "fredag": "PT7H30M"
+                    }
+                  }
+                }
               },
               "k9Format": {
                 "søknadId": "$søknadId",
@@ -127,8 +182,10 @@ class SøknadsformatTest {
                 "ytelse": {
                   "type": "PLEIEPENGER_LIVETS_SLUTTFASE",
                   "pleietrengende": {
-                    "norskIdentitetsnummer": "02119970078"
+                    "norskIdentitetsnummer": "02119970078",
+                    "fødselsdato": null
                   },
+                  "søknadsperiode": [],
                   "arbeidstid": {
                     "arbeidstakerList": [],
                     "frilanserArbeidstidInfo": null,
@@ -147,6 +204,9 @@ class SøknadsformatTest {
                       }
                     },
                     "perioderSomSkalSlettes": {}
+                  },
+                  "uttak": {
+                    "perioder": {}
                   },
                   "trekkKravPerioder" : [],
                   "utenlandsopphold": {
@@ -168,7 +228,6 @@ class SøknadsformatTest {
               "harBekreftetOpplysninger": true
             }
             """.trimIndent()
-
         JSONAssert.assertEquals(forventetSøknad, String(json), true)
     }
 }
