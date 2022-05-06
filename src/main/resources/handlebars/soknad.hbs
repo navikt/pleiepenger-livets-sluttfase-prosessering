@@ -230,6 +230,21 @@
                     </li>
                 </ul>
             {{/if}}
+
+            {{#if selvstendigNæringsdrivende.virksomhet.opptjeningIUtlandet}}
+                <h3>Jobb i annet EØS-land</h3>
+                {{#each selvstendigNæringsdrivende.virksomhet.opptjeningIUtlandet as |opptjeningIUtlandet|~}}
+                    <ul>
+                        <li>
+                            <p>Jobbet i {{opptjeningIUtlandet.land.landnavn}}
+                                som {{opptjeningIUtlandet.opptjeningType}}
+                                hos {{opptjeningIUtlandet.navn}}
+                                {{opptjeningIUtlandet.fraOgMed}} - {{opptjeningIUtlandet.tilOgMed}}.
+                            </p>
+                        </li>
+                    </ul>
+                {{/each}}
+            {{/if}}
         {{else}}
             <h2>Selvstendig næringsdrivende</h2>
             <p>Har ikke vært selvstending næringsdrivende i perioden det søkes om.</p>

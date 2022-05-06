@@ -316,8 +316,19 @@ private fun Virksomhet.somMap(): Map<String, Any?> = mapOf(
     "registrertINorge" to registrertINorge,
     "organisasjonsnummer" to organisasjonsnummer,
     "registrertIUtlandet" to registrertIUtlandet?.somMap(),
-    "regnskapsfører" to regnskapsfører?.somMap()
+    "regnskapsfører" to regnskapsfører?.somMap(),
+    "opptjeningIUtlandet" to opptjeningIUtlandet.somMap()
 )
+
+private fun List<OpptjeningIUtlandet>.somMap() = map {
+    mapOf<String, Any?>(
+        "navn" to it.navn,
+        "land" to it.land.somMap(),
+        "opptjeningType" to it.opptjeningType.pdfTest,
+        "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
+        "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed)
+    )
+}
 
 private fun Regnskapsfører.somMap() = mapOf<String, Any?>(
     "navn" to navn,
