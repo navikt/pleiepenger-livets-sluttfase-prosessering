@@ -89,6 +89,7 @@ internal class PdfV1Generator {
                         "arbeidsgivere" to søknad.arbeidsgivere.somMapAnsatt(),
                         "frilans" to søknad.frilans?.somMap(),
                         "selvstendigNæringsdrivende" to søknad.selvstendigNæringsdrivende?.somMap(),
+                        "opptjeningIUtlandet" to søknad.opptjeningIUtlandet.somMap(),
                         "samtykke" to mapOf(
                             "harForståttRettigheterOgPlikter" to søknad.harForståttRettigheterOgPlikter,
                             "harBekreftetOpplysninger" to søknad.harBekreftetOpplysninger
@@ -316,18 +317,20 @@ private fun Virksomhet.somMap(): Map<String, Any?> = mapOf(
     "registrertINorge" to registrertINorge,
     "organisasjonsnummer" to organisasjonsnummer,
     "registrertIUtlandet" to registrertIUtlandet?.somMap(),
-    "regnskapsfører" to regnskapsfører?.somMap(),
-    "opptjeningIUtlandet" to opptjeningIUtlandet.somMap()
+    "regnskapsfører" to regnskapsfører?.somMap()
 )
 
-private fun List<OpptjeningIUtlandet>.somMap() = map {
-    mapOf<String, Any?>(
-        "navn" to it.navn,
-        "land" to it.land.somMap(),
-        "opptjeningType" to it.opptjeningType.pdfTest,
-        "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
-        "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed)
-    )
+private fun List<OpptjeningIUtlandet>.somMap(): List<Map<String, Any?>>? {
+    if(isEmpty()) return null
+    return map {
+        mapOf<String, Any?>(
+            "navn" to it.navn,
+            "land" to it.land.somMap(),
+            "opptjeningType" to it.opptjeningType.pdfTest,
+            "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
+            "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed)
+        )
+    }
 }
 
 private fun Regnskapsfører.somMap() = mapOf<String, Any?>(

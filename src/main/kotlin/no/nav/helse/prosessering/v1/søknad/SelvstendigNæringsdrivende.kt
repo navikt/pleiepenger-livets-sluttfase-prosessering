@@ -22,8 +22,7 @@ data class Virksomhet(
     val varigEndring: VarigEndring? = null,
     val regnskapsfører: Regnskapsfører? = null,
     val erNyoppstartet: Boolean,
-    val harFlereAktiveVirksomheter: Boolean,
-    val opptjeningIUtlandet: List<OpptjeningIUtlandet> = listOf()
+    val harFlereAktiveVirksomheter: Boolean
 )
 
 data class Land(val landkode: String, val landnavn: String)

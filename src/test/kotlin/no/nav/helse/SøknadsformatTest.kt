@@ -224,6 +224,18 @@ class SøknadsformatTest {
                   "tekst": null
                 }
               },
+              "opptjeningIUtlandet": [
+                {
+                  "navn": "Kiwi AS",
+                  "opptjeningType": "ARBEIDSTAKER",
+                  "land": {
+                    "landkode": "IKKE GYLDIG",
+                    "landnavn": "Belgia"
+                  },
+                  "fraOgMed": "2022-01-01",
+                  "tilOgMed": "2022-01-10"
+                }
+              ],
               "harForståttRettigheterOgPlikter": true,
               "harBekreftetOpplysninger": true
             }
