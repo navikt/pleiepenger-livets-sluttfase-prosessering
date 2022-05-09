@@ -10,7 +10,7 @@ data class OpptjeningIUtlandet(
     val tilOgMed: LocalDate
 )
 
-enum class OpptjeningType(val pdfTest: String) {
+enum class OpptjeningType(val pdfTekst: String) {
     ARBEIDSTAKER("arbeidstaker"),
     FRILANSER("frilans")
 }

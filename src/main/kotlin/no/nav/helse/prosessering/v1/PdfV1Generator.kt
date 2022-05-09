@@ -326,7 +326,7 @@ private fun List<OpptjeningIUtlandet>.somMap(): List<Map<String, Any?>>? {
         mapOf<String, Any?>(
             "navn" to it.navn,
             "land" to it.land.somMap(),
-            "opptjeningType" to it.opptjeningType.pdfTest,
+            "opptjeningType" to it.opptjeningType.pdfTekst,
             "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
             "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed)
         )
