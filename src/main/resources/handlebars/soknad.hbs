@@ -238,8 +238,8 @@
     </section>
 
     <section id="opptjeningIUtlandet">
+        <h2>Jobb i annet EØS-land</h2>
         {{#if opptjeningIUtlandet}}
-            <h2>Jobb i annet EØS-land</h2>
             {{#each opptjeningIUtlandet as |opptjeningIUtlandet|~}}
                 <ul>
                     <li>
@@ -251,6 +251,8 @@
                     </li>
                 </ul>
             {{/each}}
+        {{else}}
+            <p>Nei</p>
         {{/if}}
     </section>
 

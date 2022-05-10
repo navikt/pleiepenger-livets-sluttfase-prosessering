@@ -25,6 +25,7 @@ class PdfV1GeneratorTest {
         id = "2-søknad-pleietrengende-uten-norskidentifikator"
         pdf = generator.generateOppsummeringPdf(
             søknad = SøknadUtils.gyldigSøknad(søknadId = id).copy(
+                opptjeningIUtlandet = listOf(),
                 pleietrengende = Pleietrengende(
                     navn = "Bjarne",
                     fødselsdato = LocalDate.now().minusYears(45),
