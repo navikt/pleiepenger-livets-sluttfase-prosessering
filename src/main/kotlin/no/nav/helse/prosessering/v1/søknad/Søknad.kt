@@ -19,6 +19,7 @@ data class Søknad(
     val utenlandsoppholdIPerioden: UtenlandsoppholdIPerioden,
     val frilans: Frilans?,
     val selvstendigNæringsdrivende: SelvstendigNæringsdrivende?,
+    val opptjeningIUtlandet: List<OpptjeningIUtlandet> = listOf(),
     val k9Format: Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean

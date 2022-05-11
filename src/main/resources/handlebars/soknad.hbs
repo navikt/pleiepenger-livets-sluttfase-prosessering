@@ -14,6 +14,7 @@
         <bookmark name="Utenlandsopphold" href="#utenlandsopphold"/>
         <bookmark name="Medlemskap" href="#medlemskap"/>
         <bookmark name="Arbeidsgivere" href="#arbeidsgivere"/>
+        <bookmark name="Opptjening i utlandet" href="#opptjeningIUtlandet"/>
         <bookmark name="Frilans" href="#frilans"/>
         <bookmark name="Selvstendig næringsdrivende" href="#selvstendigNæringsdrivende"/>
         <bookmark name="Jobb i søknadsperioden" href="#jobbISøknadsperioden"/>
@@ -233,6 +234,25 @@
         {{else}}
             <h2>Selvstendig næringsdrivende</h2>
             <p>Har ikke vært selvstending næringsdrivende i perioden det søkes om.</p>
+        {{/if}}
+    </section>
+
+    <section id="opptjeningIUtlandet">
+        <h2>Jobbet i annet EØS-land</h2>
+        {{#if opptjeningIUtlandet}}
+            {{#each opptjeningIUtlandet as |opptjeningIUtlandet|~}}
+                <ul>
+                    <li>
+                        <p>Jobbet i {{opptjeningIUtlandet.land.landnavn}}
+                            som {{opptjeningIUtlandet.opptjeningType}}
+                            hos {{opptjeningIUtlandet.navn}}
+                            {{opptjeningIUtlandet.fraOgMed}} - {{opptjeningIUtlandet.tilOgMed}}.
+                        </p>
+                    </li>
+                </ul>
+            {{/each}}
+        {{else}}
+            <p>Nei</p>
         {{/if}}
     </section>
 

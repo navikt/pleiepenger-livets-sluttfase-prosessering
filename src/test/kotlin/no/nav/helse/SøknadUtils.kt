@@ -143,7 +143,9 @@ object SøknadUtils {
                 regnskapsfører = Regnskapsfører(
                     navn = "Regn",
                     telefon = "987654321"
-                )
+                ),
+                tilOgMed = null,
+                organisasjonsnummer = null
             ),
             arbeidsforhold = Arbeidsforhold(
                 jobberNormaltTimer = 7.5,
@@ -159,6 +161,18 @@ object SøknadUtils {
                         fredag = Duration.ofHours(7).plusMinutes(30)
                     )
                 )
+            )
+        ),
+        opptjeningIUtlandet = listOf(
+            OpptjeningIUtlandet(
+                navn = "Kiwi AS",
+                opptjeningType = OpptjeningType.ARBEIDSTAKER,
+                land = Land(
+                    landkode = "IKKE GYLDIG",
+                    landnavn = "Belgia",
+                ),
+                fraOgMed = LocalDate.parse("2022-01-01"),
+                tilOgMed = LocalDate.parse("2022-01-10")
             )
         ),
         k9Format = gyldigK9Format(søknadId),
