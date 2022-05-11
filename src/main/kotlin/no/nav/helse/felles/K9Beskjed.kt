@@ -14,7 +14,7 @@ data class K9Beskjed(
     val ytelse: String
 )
 const val DAGER_SYNLIG : Long= 7
-const val TEKST = "Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase "
+const val TEKST = "Søknad om pleiepenger i livets sluttfase "
 const val YTELSE = "PLEIEPENGER_LIVETS_SLUTTFASE"
 
 fun Cleanup.tilK9Beskjed() = K9Beskjed(
