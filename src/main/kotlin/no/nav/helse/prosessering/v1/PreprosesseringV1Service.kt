@@ -36,7 +36,7 @@ internal class PreprosesseringV1Service(
                 eier = dokumentEier,
                 content = oppsummeringPdf,
                 contentType = "application/pdf",
-                title = "Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase"
+                title = "Søknad om pleiepenger i livets sluttfase"
             ),
             correlationId = correlationId
         ).dokumentId()
@@ -47,7 +47,7 @@ internal class PreprosesseringV1Service(
                 eier = dokumentEier,
                 content = Søknadsformat.somJson(søknad.k9Format),
                 contentType = "application/json",
-                title = "Søknad om pleiepenger ved pleie i hjemmet av nærstående i livets sluttfase - JSON"
+                title = "Søknad om pleiepenger i livets sluttfase - JSON"
             ),
             correlationId = correlationId
         ).dokumentId()
