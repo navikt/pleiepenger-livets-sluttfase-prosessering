@@ -18,6 +18,7 @@ data class PreprosessertSøknad(
     val utenlandsoppholdIPerioden: UtenlandsoppholdIPerioden,
     val frilans: Frilans?,
     val selvstendigNæringsdrivende: SelvstendigNæringsdrivende?,
+    val harVærtEllerErVernepliktig: Boolean? = null,
     val k9Format: K9Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean
@@ -39,6 +40,7 @@ data class PreprosessertSøknad(
         utenlandsoppholdIPerioden = søknad.utenlandsoppholdIPerioden,
         frilans = søknad.frilans,
         selvstendigNæringsdrivende = søknad.selvstendigNæringsdrivende,
+        harVærtEllerErVernepliktig = søknad.harVærtEllerErVernepliktig,
         k9Format = søknad.k9Format,
         harForståttRettigheterOgPlikter = søknad.harForståttRettigheterOgPlikter,
         harBekreftetOpplysninger = søknad.harBekreftetOpplysninger
