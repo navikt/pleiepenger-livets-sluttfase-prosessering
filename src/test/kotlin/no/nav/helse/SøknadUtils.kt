@@ -163,6 +163,7 @@ object SøknadUtils {
                 )
             )
         ),
+        harVærtEllerErVernepliktig = false,
         opptjeningIUtlandet = listOf(
             OpptjeningIUtlandet(
                 navn = "Kiwi AS",

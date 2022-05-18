@@ -20,6 +20,7 @@ data class Søknad(
     val frilans: Frilans?,
     val selvstendigNæringsdrivende: SelvstendigNæringsdrivende?,
     val opptjeningIUtlandet: List<OpptjeningIUtlandet> = listOf(),
+    val harVærtEllerErVernepliktig: Boolean? = null,
     val k9Format: Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean

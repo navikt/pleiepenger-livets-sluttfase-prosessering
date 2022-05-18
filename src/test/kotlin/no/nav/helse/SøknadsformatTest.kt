@@ -224,6 +224,7 @@ class SøknadsformatTest {
                   "tekst": null
                 }
               },
+              "harVærtEllerErVernepliktig" : false,
               "opptjeningIUtlandet": [
                 {
                   "navn": "Kiwi AS",

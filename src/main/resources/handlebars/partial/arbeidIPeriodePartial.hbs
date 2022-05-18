@@ -1,20 +1,20 @@
 {{#if arbeidIPeriode.jobberIPerioden}}
-    <li>Jobber i perioden</li>
+    <li>Jobbet i perioden</li>
 {{else}}
-    <li>Jobber ikke i perioden</li>
+    <li>Jobbet ikke i perioden</li>
 {{/if}}
 
 {{#if arbeidIPeriode.jobberProsent}}
-    <li>Jobber {{arbeidIPeriode.jobberProsent}} prosent, i snitt {{arbeidIPeriode.snittTimerPerUkedag}} hver dag.</li>
+    <li>Jobbet {{arbeidIPeriode.jobberProsent}} prosent, i snitt {{arbeidIPeriode.snittTimerPerUkedag}} hver dag.</li>
 {{/if}}
 
 <!-- Viser erLiktHverUke dersom jobberProsent ikke er satt. -->
 {{#unless arbeidIPeriode.jobberProsent}}
     {{#if arbeidIPeriode.erLiktHverUkeSatt}}
         {{#if arbeidIPeriode.erLiktHverUke}}
-            <li>Jobber likt hver uke</li>
+            <li>Jobbet likt hver uke</li>
         {{else}}
-            <li>Jobber variert</li>
+            <li>Jobbet variert</li>
         {{/if}}
     {{/if}}
 {{/unless}}

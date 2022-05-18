@@ -69,7 +69,7 @@
 
     <section id="utenlandsopphold">
         <h2>Perioder med utenlandsopphold og ferie</h2>
-        <p class="sporsmalstekst">Skal du reise til utlandet i perioden du søker om pleiepenger?</p>
+        <p class="sporsmalstekst">Har du vært i utlandet i perioden du søker om pleiepenger?</p>
         {{# if utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden }}
             <p>{{ jaNeiSvar utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden }}</p>
             <ul>
@@ -83,9 +83,9 @@
             <p>{{ jaNeiSvar utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden }}</p>
         {{/if}}
 
-        <p class="sporsmalstekst">Skal du ha ferie i perioden du søker om pleiepenger?</p>
+        <p class="sporsmalstekst">Har du vært på ferie i perioden du søker om pleiepenger?</p>
         {{# if ferieuttakIPerioden.skalTaUtFerieIPerioden }}
-            <p>Du opplyser at du skal ha ferie</p>
+            <p>Du opplyser at du har vært på ferie</p>
             <ul>
                 {{# each ferieuttakIPerioden.ferieuttak as |ferieuttak|~}}
                     <li>
@@ -138,7 +138,7 @@
     <section id="frilans">
         {{# if frilans }}
             <h2>Frilans</h2>
-            <p class="sporsmalstekst">Er du frilanser i perioden du søker for?</p>
+            <p class="sporsmalstekst">Var du frilanser i perioden du søker for?</p>
             <p>{{ jaNeiSvar true }}</p>
             <p class="sporsmalstekst">Når startet du som frilanser?</p>
             <p>{{frilans.startdato}}</p>
@@ -237,8 +237,16 @@
         {{/if}}
     </section>
 
+    <section id="verneplikt">
+        {{# if hjelp.harVærtEllerErVernepliktigErSatt}}
+            <h2>Verneplikt</h2>
+            <p class="sporsmalstekst">Utøvde du verneplikt på tidspunktet du søker pleiepenger fra?</p>
+            <p>{{ jaNeiSvar harVærtEllerErVernepliktig }}</p>
+        {{/if}}
+    </section>
+
     <section id="opptjeningIUtlandet">
-        <h2>Jobbet i annet EØS-land</h2>
+        <h2>Jobb i annet EØS-land</h2>
         {{#if opptjeningIUtlandet}}
             {{#each opptjeningIUtlandet as |opptjeningIUtlandet|~}}
                 <ul>
