@@ -20,8 +20,15 @@ internal fun PreprosessertSøknad.pleietrengendeMetrikk(){
         generelCounter.labels("pleietrengendeUtenFnrGrunn", "${pleietrengende.årsakManglerIdentitetsnummer}").inc()
     } else generelCounter.labels("pleietrengendeUtenFnr", "nei").inc()
 }
+
 internal fun PreprosessertSøknad.utenlandsoppholdIPeriodenMetrikk(){
     if(utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden == true){
         generelCounter.labels("utenlandsoppholdIPerioden", "ja").inc()
     } else generelCounter.labels("utenlandsoppholdIPerioden", "nei").inc()
+}
+
+internal fun PreprosessertSøknad.annetEØSLand(){
+    if(this.opptjeningIUtlandet.isNotEmpty()){
+        generelCounter.labels("opptjeningIUtlandet", "ja").inc()
+    } else generelCounter.labels("opptjeningIUtlandet", "nei").inc()
 }
