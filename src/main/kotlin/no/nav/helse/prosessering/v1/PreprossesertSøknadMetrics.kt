@@ -12,6 +12,8 @@ private val generelCounter = Counter.build()
 internal fun PreprosessertSøknad.reportMetrics(){
     utenlandsoppholdIPeriodenMetrikk()
     pleietrengendeMetrikk()
+    opptjeningIUtlandet()
+    verneplikt()
 }
 
 internal fun PreprosessertSøknad.pleietrengendeMetrikk(){
@@ -27,8 +29,14 @@ internal fun PreprosessertSøknad.utenlandsoppholdIPeriodenMetrikk(){
     } else generelCounter.labels("utenlandsoppholdIPerioden", "nei").inc()
 }
 
-internal fun PreprosessertSøknad.annetEØSLand(){
+internal fun PreprosessertSøknad.opptjeningIUtlandet(){
     if(this.opptjeningIUtlandet.isNotEmpty()){
         generelCounter.labels("opptjeningIUtlandet", "ja").inc()
     } else generelCounter.labels("opptjeningIUtlandet", "nei").inc()
+}
+
+internal fun PreprosessertSøknad.verneplikt(){
+    if(this.harVærtEllerErVernepliktig == true){
+        generelCounter.labels("verneplikt", "ja").inc()
+    } else generelCounter.labels("verneplikt", "nei").inc()
 }
