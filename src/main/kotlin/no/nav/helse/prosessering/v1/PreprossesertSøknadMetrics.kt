@@ -18,7 +18,7 @@ internal fun PreprosessertSøknad.pleietrengendeMetrikk(){
     if(pleietrengende.norskIdentitetsnummer == null){
         generelCounter.labels("pleietrengendeUtenFnr", "ja").inc()
         generelCounter.labels("pleietrengendeUtenFnrGrunn", "${pleietrengende.årsakManglerIdentitetsnummer}").inc()
-    }
+    } else generelCounter.labels("pleietrengendeUtenFnr", "nei").inc()
 }
 internal fun PreprosessertSøknad.utenlandsoppholdIPeriodenMetrikk(){
     if(utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden == true){
