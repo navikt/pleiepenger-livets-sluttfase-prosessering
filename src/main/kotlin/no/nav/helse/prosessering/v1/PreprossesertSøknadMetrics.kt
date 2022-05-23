@@ -1,17 +1,12 @@
 package no.nav.helse.prosessering.v1
 
 import io.prometheus.client.Counter
-import io.prometheus.client.Histogram
 import no.nav.helse.prosessering.v1.søknad.PreprosessertSøknad
 
 private val generelCounter = Counter.build()
     .name("generel_counter")
     .help("Generel counter")
     .labelNames("spm", "svar")
-    .register()
-
-val antallDagerHistogram = Histogram.build()
-    .name("antall_dager_histogram")
     .register()
 
 internal fun PreprosessertSøknad.reportMetrics(){
@@ -23,8 +18,8 @@ internal fun PreprosessertSøknad.reportMetrics(){
 }
 
 private fun PreprosessertSøknad.søknadsperiode() {
-    val antallDagerIPerioden = fraOgMed.datesUntil(tilOgMed.plusDays(1)).count().toDouble()
-    antallDagerHistogram.observe(antallDagerIPerioden)
+    val antallDagerIPerioden = fraOgMed.datesUntil(tilOgMed.plusDays(1)).count().toInt()
+    generelCounter.labels("antallDagerIPerioden", "$antallDagerIPerioden").inc()
 }
 
 private fun PreprosessertSøknad.pleietrengendeMetrikk(){
