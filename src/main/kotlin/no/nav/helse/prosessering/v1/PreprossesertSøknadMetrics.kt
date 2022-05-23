@@ -10,13 +10,18 @@ private val generelCounter = Counter.build()
     .register()
 
 internal fun PreprosessertSøknad.reportMetrics(){
+    utenlandsoppholdIPeriodenMetrikk()
+    pleietrengendeMetrikk()
+}
 
-    if(utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden == true){
-        generelCounter.labels("utenlandsoppholdIPerioden", "ja").inc()
-    } else generelCounter.labels("utenlandsoppholdIPerioden", "nei").inc()
-
+internal fun PreprosessertSøknad.pleietrengendeMetrikk(){
     if(pleietrengende.norskIdentitetsnummer == null){
         generelCounter.labels("pleietrengendeUtenFnr", "ja").inc()
         generelCounter.labels("pleietrengendeUtenFnrGrunn", "${pleietrengende.årsakManglerIdentitetsnummer}").inc()
     }
+}
+internal fun PreprosessertSøknad.utenlandsoppholdIPeriodenMetrikk(){
+    if(utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden == true){
+        generelCounter.labels("utenlandsoppholdIPerioden", "ja").inc()
+    } else generelCounter.labels("utenlandsoppholdIPerioden", "nei").inc()
 }
