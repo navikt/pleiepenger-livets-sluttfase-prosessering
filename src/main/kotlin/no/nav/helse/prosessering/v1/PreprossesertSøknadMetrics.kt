@@ -20,16 +20,15 @@ internal fun PreprosessertSøknad.reportMetrics(){
 }
 
 private fun PreprosessertSøknad.jobberIPeriodenMetrikk(){
-    if(frilans?.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden == JobberIPeriodeSvar.JA){
-        generelCounter.labels("jobberIPerioden", "ja").inc()
-    } else if(selvstendigNæringsdrivende?.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden == JobberIPeriodeSvar.JA){
-        generelCounter.labels("jobberIPerioden", "ja").inc()
-    } else if(arbeidsgivere.any { it.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden == JobberIPeriodeSvar.JA }){
-        generelCounter.labels("jobberIPerioden", "ja").inc()
-    } else {
-        generelCounter.labels("jobberIPerioden", "nei").inc()
+    when {
+        frilans?.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden == JobberIPeriodeSvar.JA -> jobberIPerioden()
+        selvstendigNæringsdrivende?.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden == JobberIPeriodeSvar.JA -> jobberIPerioden()
+        arbeidsgivere.any { it.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden == JobberIPeriodeSvar.JA} -> jobberIPerioden()
+        else -> generelCounter.labels("jobberIPerioden", "nei").inc()
     }
 }
+
+private fun jobberIPerioden() = generelCounter.labels("jobberIPerioden", "ja").inc()
 
 private fun PreprosessertSøknad.søknadsperiodeMetrikk() {
     val antallDagerIPerioden = fraOgMed.datesUntil(tilOgMed.plusDays(1)).count().toInt()
