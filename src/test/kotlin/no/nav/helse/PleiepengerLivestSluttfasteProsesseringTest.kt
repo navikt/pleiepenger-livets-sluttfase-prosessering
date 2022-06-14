@@ -2,7 +2,7 @@ package no.nav.helse
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.typesafe.config.ConfigFactory
-import io.ktor.config.*
+import io.ktor.server.config.*
 import io.ktor.http.*
 import io.ktor.server.engine.*
 import io.ktor.server.testing.*
@@ -69,10 +69,12 @@ class PleiepengerLivestSluttfasteProsesseringTest {
         private fun stopEngine() = engine.stop(5, 60, TimeUnit.SECONDS)
 
         fun restartEngine() {
+            logger.info("Restarting engine...")
             stopEngine()
             CollectorRegistry.defaultRegistry.clear()
             engine = newEngine(kafkaEnvironment)
             engine.start(wait = true)
+            logger.info("Engine started.")
         }
 
         @AfterClass

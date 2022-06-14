@@ -39,4 +39,9 @@ data class Søker(
     }
 }
 
-fun String.capitalizeName(): String = split(" ").joinToString(" ") { it.lowercase().capitalize() }
+fun String.capitalizeName(): String = split(" ").joinToString(" ") { s ->
+    s.lowercase()
+        .replaceFirstChar {
+            it.titlecase()
+        }
+}

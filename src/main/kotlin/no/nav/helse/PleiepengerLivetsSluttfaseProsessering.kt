@@ -2,12 +2,13 @@ package no.nav.helse
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.SerializationFeature
-import io.ktor.application.*
-import io.ktor.features.*
+import io.ktor.server.application.*
 import io.ktor.http.*
-import io.ktor.jackson.*
-import io.ktor.response.*
-import io.ktor.routing.*
+import io.ktor.serialization.jackson.*
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.response.respondText
+import io.ktor.server.routing.Routing
+import io.ktor.server.routing.get
 import io.prometheus.client.hotspot.DefaultExports
 import no.nav.helse.auth.AccessTokenClientResolver
 import no.nav.helse.dokument.K9MellomlagringGateway
