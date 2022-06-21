@@ -90,6 +90,7 @@ internal class PdfV1Generator {
                         "frilans" to søknad.frilans?.somMap(),
                         "selvstendigNæringsdrivende" to søknad.selvstendigNæringsdrivende?.somMap(),
                         "opptjeningIUtlandet" to søknad.opptjeningIUtlandet.somMap(),
+                        "utenlandskNæring" to søknad.utenlandskNæring?.somMapUtenlandskNæring(),
                         "harVærtEllerErVernepliktig" to søknad.harVærtEllerErVernepliktig,
                         "samtykke" to mapOf(
                             "harForståttRettigheterOgPlikter" to søknad.harForståttRettigheterOgPlikter,
@@ -100,8 +101,9 @@ internal class PdfV1Generator {
                             "ingen_arbeidsgivere" to søknad.arbeidsgivere.isEmpty(),
                             "harFlereAktiveVirksomheterErSatt" to søknad.harFlereAktiveVirksomehterSatt(),
                             "ingen_arbeidsforhold" to !søknad.harMinstEtArbeidsforhold(),
-                            "harVærtEllerErVernepliktigErSatt" to (søknad.harVærtEllerErVernepliktig != null)
-                        )
+                            "harVærtEllerErVernepliktigErSatt" to (søknad.harVærtEllerErVernepliktig != null),
+                            "utenlandskNæringSatt" to (søknad.utenlandskNæring != null),
+                            )
                     )
                 )
                 .resolver(MapValueResolver.INSTANCE)
@@ -331,6 +333,20 @@ private fun List<OpptjeningIUtlandet>.somMap(): List<Map<String, Any?>>? {
             "opptjeningType" to it.opptjeningType.pdfTekst,
             "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
             "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed)
+        )
+    }
+}
+
+private fun List<UtenlandskNæring>.somMapUtenlandskNæring(): List<Map<String, Any?>>? {
+    if(isEmpty()) return null
+    return map {
+        mapOf(
+            "næringstype" to it.næringstype.beskrivelse,
+            "navnPåVirksomheten" to it.navnPåVirksomheten,
+            "land" to it.land.somMap(),
+            "identifikasjonsnummer" to it.identifikasjonsnummer,
+            "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
+            "tilOgMed" to if(it.tilOgMed != null) DATE_FORMATTER.format(it.tilOgMed) else null
         )
     }
 }

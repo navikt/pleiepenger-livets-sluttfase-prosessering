@@ -237,6 +237,19 @@ class SøknadsformatTest {
                   "tilOgMed": "2022-01-10"
                 }
               ],
+             "utenlandskNæring": [
+               {
+                 "næringstype": "DAGMAMMA",
+                 "navnPåVirksomheten": "Dagmamma AS",
+                 "land": {
+                   "landkode": "NDL",
+                   "landnavn": "Nederland"
+                 },
+                 "identifikasjonsnummer": "123ABC",
+                 "fraOgMed": "2022-01-01",
+                 "tilOgMed": "2022-01-10"
+               }
+             ],
               "harForståttRettigheterOgPlikter": true,
               "harBekreftetOpplysninger": true
             }
