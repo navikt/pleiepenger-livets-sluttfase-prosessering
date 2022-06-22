@@ -176,6 +176,16 @@ object SøknadUtils {
                 tilOgMed = LocalDate.parse("2022-01-10")
             )
         ),
+        utenlandskNæring = listOf(
+            UtenlandskNæring(
+                næringstype = Næringstype.DAGMAMMA,
+                navnPåVirksomheten = "Dagmamma AS",
+                land = Land(landkode = "NDL", landnavn = "Nederland"),
+                identifikasjonsnummer = "123ABC",
+                fraOgMed = LocalDate.parse("2022-01-01"),
+                tilOgMed = LocalDate.parse("2022-01-10")
+            )
+        ),
         k9Format = gyldigK9Format(søknadId),
         harBekreftetOpplysninger = true,
         harForståttRettigheterOgPlikter = true
