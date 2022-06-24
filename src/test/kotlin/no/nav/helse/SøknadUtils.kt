@@ -181,7 +181,7 @@ object SøknadUtils {
                 næringstype = Næringstype.DAGMAMMA,
                 navnPåVirksomheten = "Dagmamma AS",
                 land = Land(landkode = "NDL", landnavn = "Nederland"),
-                identifikasjonsnummer = "123ABC",
+                organisasjonsnummer = "123ABC",
                 fraOgMed = LocalDate.parse("2022-01-01"),
                 tilOgMed = LocalDate.parse("2022-01-10")
             )

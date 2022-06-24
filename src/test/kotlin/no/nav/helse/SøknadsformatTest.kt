@@ -245,7 +245,7 @@ class SøknadsformatTest {
                    "landkode": "NDL",
                    "landnavn": "Nederland"
                  },
-                 "identifikasjonsnummer": "123ABC",
+                 "organisasjonsnummer": "123ABC",
                  "fraOgMed": "2022-01-01",
                  "tilOgMed": "2022-01-10"
                }
