@@ -52,7 +52,7 @@ class PdfV1GeneratorTest {
                         næringstype = Næringstype.FISKE,
                         navnPåVirksomheten = "Fiskeriet AS",
                         land = Land(landkode = "NDL", landnavn = "Nederland"),
-                        organisasjonsnummer = "123ABC",
+                        organisasjonsnummer = null,
                         fraOgMed = LocalDate.parse("2022-01-01")
                     )
                 )
