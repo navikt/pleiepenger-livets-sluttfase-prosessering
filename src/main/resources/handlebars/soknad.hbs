@@ -266,25 +266,23 @@
     </section>
 
     <section id="utenlandskNæring">
-        {{#if hjelp.utenlandskNæringSatt}}
-            <h2>Utenlandsk næring</h2>
-            {{#if utenlandskNæring}}
-                <p>Ja</p>
-                {{#each utenlandskNæring as |næring|~}}
-                    <ul>
-                        <li>
-                            <p><b>{{næring.navnPåVirksomheten}} ({{næring.fraOgMed}} - {{næring.tilOgMed}})</b></p>
-                            <p>{{næring.land.landnavn}} {{næring.land.landkode}}</p>
-                            {{#if næring.organisasjonsnummer}}
-                                <p>Organisasjonsnummer: {{næring.organisasjonsnummer}}</p>
-                            {{/if}}
-                            <p>Næringstype: {{næring.næringstype}}</p>
-                        </li>
-                    </ul>
-                {{/each}}
-            {{else}}
-                <p>Nei</p>
-            {{/if}}
+        <h2>Utenlandsk næring</h2>
+        {{#if utenlandskNæring}}
+            <p>Ja</p>
+            {{#each utenlandskNæring as |næring|~}}
+                <ul>
+                    <li>
+                        <p><b>{{næring.navnPåVirksomheten}} ({{næring.fraOgMed}} - {{næring.tilOgMed}})</b></p>
+                        <p>{{næring.land.landnavn}} {{næring.land.landkode}}</p>
+                        {{#if næring.organisasjonsnummer}}
+                            <p>Organisasjonsnummer: {{næring.organisasjonsnummer}}</p>
+                        {{/if}}
+                        <p>Næringstype: {{næring.næringstype}}</p>
+                    </li>
+                </ul>
+            {{/each}}
+        {{else}}
+            <p>Nei</p>
         {{/if}}
     </section>
 

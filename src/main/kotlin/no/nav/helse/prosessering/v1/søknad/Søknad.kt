@@ -19,8 +19,8 @@ data class Søknad(
     val utenlandsoppholdIPerioden: UtenlandsoppholdIPerioden,
     val frilans: Frilans?,
     val selvstendigNæringsdrivende: SelvstendigNæringsdrivende?,
-    val opptjeningIUtlandet: List<OpptjeningIUtlandet> = listOf(),
-    val utenlandskNæring: List<UtenlandskNæring>? = null, // TODO:20/06/2022 Fjerne nullable når frontend er prodsatt
+    val opptjeningIUtlandet: List<OpptjeningIUtlandet>,
+    val utenlandskNæring: List<UtenlandskNæring>,
     val harVærtEllerErVernepliktig: Boolean? = null,
     val k9Format: Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
