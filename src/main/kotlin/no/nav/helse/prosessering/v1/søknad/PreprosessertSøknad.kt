@@ -17,7 +17,7 @@ data class PreprosessertSøknad(
     val medlemskap: Medlemskap,
     val utenlandsoppholdIPerioden: UtenlandsoppholdIPerioden,
     val opptjeningIUtlandet: List<OpptjeningIUtlandet>,
-    val utenlandskNæring: List<UtenlandskNæring>? = null,
+    val utenlandskNæring: List<UtenlandskNæring>,
     val frilans: Frilans?,
     val selvstendigNæringsdrivende: SelvstendigNæringsdrivende?,
     val harVærtEllerErVernepliktig: Boolean? = null,

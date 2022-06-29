@@ -90,7 +90,7 @@ internal class PdfV1Generator {
                         "frilans" to søknad.frilans?.somMap(),
                         "selvstendigNæringsdrivende" to søknad.selvstendigNæringsdrivende?.somMap(),
                         "opptjeningIUtlandet" to søknad.opptjeningIUtlandet.somMap(),
-                        "utenlandskNæring" to søknad.utenlandskNæring?.somMapUtenlandskNæring(),
+                        "utenlandskNæring" to søknad.utenlandskNæring.somMapUtenlandskNæring(),
                         "harVærtEllerErVernepliktig" to søknad.harVærtEllerErVernepliktig,
                         "samtykke" to mapOf(
                             "harForståttRettigheterOgPlikter" to søknad.harForståttRettigheterOgPlikter,
@@ -101,8 +101,7 @@ internal class PdfV1Generator {
                             "ingen_arbeidsgivere" to søknad.arbeidsgivere.isEmpty(),
                             "harFlereAktiveVirksomheterErSatt" to søknad.harFlereAktiveVirksomehterSatt(),
                             "ingen_arbeidsforhold" to !søknad.harMinstEtArbeidsforhold(),
-                            "harVærtEllerErVernepliktigErSatt" to (søknad.harVærtEllerErVernepliktig != null),
-                            "utenlandskNæringSatt" to (søknad.utenlandskNæring != null),
+                            "harVærtEllerErVernepliktigErSatt" to (søknad.harVærtEllerErVernepliktig != null)
                             )
                     )
                 )
