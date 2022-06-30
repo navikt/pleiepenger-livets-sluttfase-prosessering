@@ -59,6 +59,23 @@ class PdfV1GeneratorTest {
             )
         )
         if (writeBytes) File(pdfPath(soknadId = id)).writeBytes(pdf)
+
+        id = "4-sluttet-som-frilans-før-søknadsperioden"
+        pdf = generator.generateOppsummeringPdf(
+            søknad = SøknadUtils.gyldigSøknad(søknadId = id).copy(
+                opptjeningIUtlandet = listOf(),
+                utenlandskNæring = listOf(),
+                fraOgMed = LocalDate.parse("2022-01-05"),
+                tilOgMed = LocalDate.parse("2022-01-10"),
+                frilans = Frilans(
+                    startdato = LocalDate.parse("2000-01-01"),
+                    jobberFortsattSomFrilans = false,
+                    sluttdato = LocalDate.parse("2022-01-04"),
+                    arbeidsforhold = null
+                )
+            )
+        )
+        if (writeBytes) File(pdfPath(soknadId = id)).writeBytes(pdf)
     }
 
     private fun pdfPath(soknadId: String) = "${System.getProperty("user.dir")}/generated-pdf-$soknadId.pdf"

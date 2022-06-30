@@ -137,16 +137,14 @@
     </section>
 
     <section id="frilans">
-        {{# if frilans }}
-            <h2>Frilans</h2>
+        <h2>Frilans</h2>
+        {{# if frilans.arbeidsforhold }}
             <p class="sporsmalstekst">Var du frilanser i perioden du søker for?</p>
             <p>{{ jaNeiSvar true }}</p>
             <p class="sporsmalstekst">Når startet du som frilanser?</p>
             <p>{{frilans.startdato}}</p>
 
-            {{#if frilans.arbeidsforhold}}
-                <p class="sporsmalstekst">Jobber normalt {{frilans.arbeidsforhold.jobberNormaltTimer}} timer per uke</p>
-            {{/if}}
+            <p class="sporsmalstekst">Jobber normalt {{frilans.arbeidsforhold.jobberNormaltTimer}} timer per uke</p>
             <p class="sporsmalstekst">Jobber du fremdeles som frilanser?</p>
             <p>{{ jaNeiSvar frilans.jobberFortsattSomFrilans }}</p>
             {{#unless frilans.jobberFortsattSomFrilans}}
@@ -154,7 +152,6 @@
                 <p>{{frilans.sluttdato}}</p>
             {{/unless}}
         {{else}}
-            <h2>Frilans</h2>
             <p>Har ikke vært frilanser i perioden det søkes om.</p>
         {{/if}}
     </section>
