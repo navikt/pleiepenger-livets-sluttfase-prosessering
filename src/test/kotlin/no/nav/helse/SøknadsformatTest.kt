@@ -106,6 +106,7 @@ class SøknadsformatTest {
                 "startdato" : "2015-01-01",
                 "jobberFortsattSomFrilans" : false,
                 "sluttdato" : "2021-01-01",
+                "harHattInntektSomFrilanser": true,
                 "arbeidsforhold": {
                   "jobberNormaltTimer": 7.5,
                   "harFraværIPeriode": true,

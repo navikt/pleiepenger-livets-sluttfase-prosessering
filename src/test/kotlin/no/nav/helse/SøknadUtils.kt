@@ -106,6 +106,7 @@ object SøknadUtils {
         frilans = Frilans(
             startdato = LocalDate.parse("2015-01-01"),
             jobberFortsattSomFrilans = false,
+            harHattInntektSomFrilanser = true,
             sluttdato = LocalDate.parse("2021-01-01"),
             arbeidsforhold = Arbeidsforhold(
                 jobberNormaltTimer = 7.5,
