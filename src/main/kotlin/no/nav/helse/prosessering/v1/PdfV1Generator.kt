@@ -295,7 +295,8 @@ private fun Frilans.somMap() = mapOf<String, Any?>(
     "startdato" to DATE_FORMATTER.format(startdato),
     "sluttdato" to if (sluttdato != null) DATE_FORMATTER.format(sluttdato) else null,
     "jobberFortsattSomFrilans" to jobberFortsattSomFrilans,
-    "arbeidsforhold" to arbeidsforhold?.somMap()
+    "arbeidsforhold" to arbeidsforhold?.somMap(),
+    "harHattInntektSomFrilanser" to harHattInntektSomFrilanser
 )
 
 private fun SelvstendigNæringsdrivende.somMap() = mapOf<String, Any?>(

@@ -71,7 +71,8 @@ class PdfV1GeneratorTest {
                     startdato = LocalDate.parse("2000-01-01"),
                     jobberFortsattSomFrilans = false,
                     sluttdato = LocalDate.parse("2022-01-04"),
-                    arbeidsforhold = null
+                    arbeidsforhold = null,
+                    harHattInntektSomFrilanser = false
                 )
             )
         )
