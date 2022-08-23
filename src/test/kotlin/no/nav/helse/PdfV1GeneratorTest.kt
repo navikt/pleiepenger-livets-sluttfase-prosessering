@@ -77,6 +77,37 @@ class PdfV1GeneratorTest {
             )
         )
         if (writeBytes) File(pdfPath(soknadId = id)).writeBytes(pdf)
+
+        id = "5-har-lastet-opp-id-ved-manglende-norskIdentifikator"
+        pdf = generator.generateOppsummeringPdf(
+            søknad = SøknadUtils.gyldigSøknad(søknadId = id).copy(
+                opptjeningIUtlandet = listOf(),
+                utenlandskNæring = listOf(),
+                opplastetIdVedleggId = listOf("123"),
+                pleietrengende = Pleietrengende(
+                    navn = "Bjarne",
+                    fødselsdato = LocalDate.now().minusYears(45),
+                    årsakManglerIdentitetsnummer = ÅrsakManglerIdentitetsnummer.BOR_I_UTLANDET
+                )
+            )
+        )
+        if (writeBytes) File(pdfPath(soknadId = id)).writeBytes(pdf)
+
+
+        id = "6-har-ikke-lastet-opp-id-ved-manglende-norskIdentifikator"
+        pdf = generator.generateOppsummeringPdf(
+            søknad = SøknadUtils.gyldigSøknad(søknadId = id).copy(
+                opptjeningIUtlandet = listOf(),
+                utenlandskNæring = listOf(),
+                opplastetIdVedleggId = emptyList(),
+                pleietrengende = Pleietrengende(
+                    navn = "Bjarne",
+                    fødselsdato = LocalDate.now().minusYears(45),
+                    årsakManglerIdentitetsnummer = ÅrsakManglerIdentitetsnummer.BOR_I_UTLANDET
+                )
+            )
+        )
+        if (writeBytes) File(pdfPath(soknadId = id)).writeBytes(pdf)
     }
 
     private fun pdfPath(soknadId: String) = "${System.getProperty("user.dir")}/generated-pdf-$soknadId.pdf"

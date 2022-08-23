@@ -42,6 +42,7 @@ object SøknadUtils {
         fraOgMed = LocalDate.parse("2022-01-01"),
         tilOgMed = LocalDate.parse("2022-02-01"),
         vedleggId = listOf("123", "456"),
+        opplastetIdVedleggId = listOf("987"),
         pleietrengende = Pleietrengende(norskIdentitetsnummer = "02119970078", navn = "Bjarne"),
         medlemskap = Medlemskap(
             harBoddIUtlandetSiste12Mnd = true,

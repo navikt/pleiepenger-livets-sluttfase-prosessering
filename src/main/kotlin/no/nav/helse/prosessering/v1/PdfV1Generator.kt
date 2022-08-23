@@ -86,6 +86,7 @@ internal class PdfV1Generator {
                             "skalOppholdeSegIUtlandetIPerioden" to søknad.utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden,
                             "opphold" to søknad.utenlandsoppholdIPerioden.opphold.somMapUtenlandsopphold()
                         ),
+                        "harLastetOppId" to søknad.opplastetIdVedleggId.isNotEmpty(),
                         "arbeidsgivere" to søknad.arbeidsgivere.somMapAnsatt(),
                         "frilans" to søknad.frilans?.somMap(),
                         "selvstendigNæringsdrivende" to søknad.selvstendigNæringsdrivende?.somMap(),
@@ -170,10 +171,11 @@ private fun ZonedDateTime.norskDag() = when (dayOfWeek) {
 }
 
 private fun Pleietrengende.somMap() = mapOf<String, Any?>(
-    "norskIdentitetsnummer" to this.norskIdentitetsnummer,
+    "manglerNorskIdentitetsnummer" to (norskIdentitetsnummer == null),
+    "norskIdentitetsnummer" to norskIdentitetsnummer,
     "fødselsdato" to if(fødselsdato != null) DATE_FORMATTER.format(fødselsdato) else null,
     "årsakManglerIdentitetsnummer" to årsakManglerIdentitetsnummer?.pdfTekst,
-    "navn" to this.navn
+    "navn" to navn
 )
 
 private fun Medlemskap.somMap() = mapOf<String, Any?>(

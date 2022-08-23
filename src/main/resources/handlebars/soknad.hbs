@@ -57,6 +57,14 @@
             {{#if pleietrengende.årsakManglerIdentitetsnummer}}
                 <p>Oppgitt grunn for at pleietrengende ikke har fødselsnummer/D-nummer: {{pleietrengende.årsakManglerIdentitetsnummer}}</p>
             {{/if}}
+            {{#if pleietrengende.manglerNorskIdentitetsnummer}}
+                {{#if harLastetOppId}}
+                    <p>Har lastet opp kopi av ID.</p>
+                {{else}}
+                    <p>Har ikke lastet opp kopi av ID.</p>
+                {{/if}}
+            {{/if}}
+
     </section>
 
     <section id="perioder">
