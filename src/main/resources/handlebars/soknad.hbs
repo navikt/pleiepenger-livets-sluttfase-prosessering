@@ -20,6 +20,7 @@
         <bookmark name="Selvstendig næringsdrivende" href="#selvstendigNæringsdrivende"/>
         <bookmark name="Jobb i søknadsperioden" href="#jobbISøknadsperioden"/>
         <bookmark name="Samtykke" href="#samtykke"/>
+        <bookmark name="vedlegg" href="#vedlegg"/>
     </bookmarks>
     {{#block 'style-common' }}
     {{/block}}
@@ -57,14 +58,6 @@
             {{#if pleietrengende.årsakManglerIdentitetsnummer}}
                 <p>Oppgitt grunn for at pleietrengende ikke har fødselsnummer/D-nummer: {{pleietrengende.årsakManglerIdentitetsnummer}}</p>
             {{/if}}
-            {{#if pleietrengende.manglerNorskIdentitetsnummer}}
-                {{#if harLastetOppId}}
-                    <p>Har lastet opp kopi av ID.</p>
-                {{else}}
-                    <p>Har ikke lastet opp kopi av ID.</p>
-                {{/if}}
-            {{/if}}
-
     </section>
 
     <section id="perioder">
@@ -357,6 +350,24 @@
         {{else}}
             Nei
         {{/if}}
+    </section>
+
+    <section id="vedlegg">
+        <h2>Vedlegg</h2>
+        {{#if pleietrengende.manglerNorskIdentitetsnummer}}
+            {{#if harLastetOppId}}
+                <p>Har lastet opp kopi av ID til pleietrengende.</p>
+            {{else}}
+                <p>Har ikke lastet opp kopi av ID til pleietrengende.</p>
+            {{/if}}
+        {{/if}}
+
+        {{#if harLastetOppLegeerklæring}}
+            <p>Har lastet opp legeerklæring.</p>
+        {{else}}
+            <p>Har ikke lastet opp legeerklæring.</p>
+        {{/if}}
+
     </section>
 
     <!-- SAMTYKKE -->

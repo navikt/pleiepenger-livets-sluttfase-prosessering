@@ -87,6 +87,7 @@ internal class PdfV1Generator {
                             "opphold" to søknad.utenlandsoppholdIPerioden.opphold.somMapUtenlandsopphold()
                         ),
                         "harLastetOppId" to søknad.opplastetIdVedleggId.isNotEmpty(),
+                        "harLastetOppLegeerklæring" to søknad.vedleggId.isNotEmpty(),
                         "arbeidsgivere" to søknad.arbeidsgivere.somMapAnsatt(),
                         "frilans" to søknad.frilans?.somMap(),
                         "selvstendigNæringsdrivende" to søknad.selvstendigNæringsdrivende?.somMap(),

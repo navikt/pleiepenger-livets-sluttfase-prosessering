@@ -99,6 +99,7 @@ class PdfV1GeneratorTest {
             søknad = SøknadUtils.gyldigSøknad(søknadId = id).copy(
                 opptjeningIUtlandet = listOf(),
                 utenlandskNæring = listOf(),
+                vedleggId = emptyList(),
                 opplastetIdVedleggId = emptyList(),
                 pleietrengende = Pleietrengende(
                     navn = "Bjarne",
