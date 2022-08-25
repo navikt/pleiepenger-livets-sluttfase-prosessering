@@ -101,6 +101,13 @@ class SøknadsformatTest {
                         }
                       }
                     }
+                },
+                {
+                  "navn": "Slutta",
+                  "organisasjonsnummer": "12121212",
+                  "erAnsatt": false,
+                  "sluttetFørSøknadsperiode": true,
+                  "arbeidsforhold": null
                 }
               ],
               "frilans" : {
