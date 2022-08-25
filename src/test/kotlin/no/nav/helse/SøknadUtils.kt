@@ -102,6 +102,12 @@ object SøknadUtils {
                         )
                     )
                 )
+            ),
+            Arbeidsgiver(
+                navn = "Slutta",
+                organisasjonsnummer = "12121212",
+                sluttetFørSøknadsperiode = true,
+                erAnsatt = false
             )
         ),
         frilans = Frilans(
