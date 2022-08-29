@@ -13,6 +13,7 @@ data class Søknad(
     val fraOgMed: LocalDate,
     val tilOgMed: LocalDate,
     val vedleggId: List<String> = listOf(),
+    val opplastetIdVedleggId: List<String> = listOf(),
     val pleietrengende: Pleietrengende,
     val arbeidsgivere: List<Arbeidsgiver>,
     val medlemskap: Medlemskap,

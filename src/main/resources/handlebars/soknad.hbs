@@ -20,6 +20,7 @@
         <bookmark name="Selvstendig næringsdrivende" href="#selvstendigNæringsdrivende"/>
         <bookmark name="Jobb i søknadsperioden" href="#jobbISøknadsperioden"/>
         <bookmark name="Samtykke" href="#samtykke"/>
+        <bookmark name="vedlegg" href="#vedlegg"/>
     </bookmarks>
     {{#block 'style-common' }}
     {{/block}}
@@ -118,8 +119,8 @@
                             {{else}}
                                 <li class="sporsmalstekst">Er ikke ansatt</li>
                                 {{#if arbeidsgiver.sluttetFørSøknadsperiodeErSatt}}
-                                    <li class="sporsmalstekst">
-                                        <p>Sluttet du hos {{arbeidsgiver.navn}} før {{periode.fraOgMed}}?</p>
+                                    <li>
+                                        <p> <b>Sluttet du hos {{arbeidsgiver.navn}} før {{periode.fraOgMed}}?</b></p>
                                         <p>{{ jaNeiSvar arbeidsgiver.sluttetFørSøknadsperiode }}</p>
                                     </li>
                                 {{/if}}
@@ -349,6 +350,24 @@
         {{else}}
             Nei
         {{/if}}
+    </section>
+
+    <section id="vedlegg">
+        <h2>Vedlegg</h2>
+        {{#if pleietrengende.manglerNorskIdentitetsnummer}}
+            {{#if harLastetOppId}}
+                <p>Har lastet opp kopi av ID til pleietrengende.</p>
+            {{else}}
+                <p>Har ikke lastet opp kopi av ID til pleietrengende.</p>
+            {{/if}}
+        {{/if}}
+
+        {{#if harLastetOppLegeerklæring}}
+            <p>Har lastet opp legeerklæring.</p>
+        {{else}}
+            <p>Har ikke lastet opp legeerklæring.</p>
+        {{/if}}
+
     </section>
 
     <!-- SAMTYKKE -->

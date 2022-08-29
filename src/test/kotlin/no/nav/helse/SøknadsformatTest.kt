@@ -34,6 +34,7 @@ class SøknadsformatTest {
               "fraOgMed": "2022-01-01",
               "tilOgMed": "2022-02-01",
               "vedleggId": ["123", "456"],
+              "opplastetIdVedleggId": ["987"],
               "pleietrengende": {
                 "norskIdentitetsnummer": "02119970078",
                 "fødselsdato": null,
@@ -100,6 +101,13 @@ class SøknadsformatTest {
                         }
                       }
                     }
+                },
+                {
+                  "navn": "Slutta",
+                  "organisasjonsnummer": "12121212",
+                  "erAnsatt": false,
+                  "sluttetFørSøknadsperiode": true,
+                  "arbeidsforhold": null
                 }
               ],
               "frilans" : {

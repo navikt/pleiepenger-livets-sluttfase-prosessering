@@ -64,6 +64,11 @@ internal class PreprosesseringV1Service(
             søknad.vedleggId.forEach { komplettDokumentId.add(listOf(it)) }
         }
 
+        if(søknad.opplastetIdVedleggId.isNotEmpty()){
+            logger.info("Legger til ${søknad.opplastetIdVedleggId.size} opplastetIdVedleggId's fra søknad som dokument.")
+            søknad.opplastetIdVedleggId.forEach { komplettDokumentId.add(listOf(it)) }
+        }
+
         logger.info("Totalt ${komplettDokumentId.size} dokumentbolker med totalt ${komplettDokumentId.flatten().size} dokumenter")
 
         val preprosessertMeldingV1 = PreprosessertSøknad(
