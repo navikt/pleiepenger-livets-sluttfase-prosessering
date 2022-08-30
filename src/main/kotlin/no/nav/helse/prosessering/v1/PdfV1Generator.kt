@@ -225,18 +225,12 @@ private fun Søknad.harMinstEtArbeidsforhold() : Boolean{
 
 private fun Arbeidsforhold.somMap(): Map<String, Any?> = mapOf(
     "jobberNormaltTimer" to jobberNormaltTimer,
-    "harFraværIPeriode" to harFraværIPeriode,
     "arbeidIPeriode" to arbeidIPeriode?.somMap()
 )
 
 private fun ArbeidIPeriode.somMap(): Map<String, Any?> = mapOf(
     "jobberIPerioden" to jobberIPerioden.tilBoolean(),
-    "jobberProsent" to jobberProsent,
-    "erLiktHverUkeSatt" to (erLiktHverUke != null),
-    "erLiktHverUke" to erLiktHverUke,
-    "enkeltdagerPerMnd" to enkeltdager?.somMapPerMnd(),
-    "fasteDager" to fasteDager?.somMap(),
-    "snittTimerPerUkedag" to fasteDager?.mandag?.somTekst() // alle dager er like dersom jobberProsent er satt.
+    "enkeltdagerPerMnd" to enkeltdager?.somMapPerMnd()
 )
 
 private fun List<Enkeltdag>.somMapEnkeltdag(): List<Map<String, Any?>> {
@@ -275,13 +269,6 @@ fun List<Enkeltdag>.somMapPerMnd(): List<Map<String, Any>> {
 }
 
 private fun Duration?.harGyldigVerdi() = this != null && this != Duration.ZERO
-private fun PlanUkedager.somMap() = mapOf<String, Any?>(
-    "mandag" to if (mandag.harGyldigVerdi()) mandag!!.somTekst() else null,
-    "tirsdag" to if (tirsdag.harGyldigVerdi()) tirsdag!!.somTekst() else null,
-    "onsdag" to if (onsdag.harGyldigVerdi()) onsdag!!.somTekst() else null,
-    "torsdag" to if (torsdag.harGyldigVerdi()) torsdag!!.somTekst() else null,
-    "fredag" to if (fredag.harGyldigVerdi()) fredag!!.somTekst() else null,
-)
 
 private fun List<Arbeidsgiver>.somMapAnsatt() = map {
     mapOf<String, Any?>(
