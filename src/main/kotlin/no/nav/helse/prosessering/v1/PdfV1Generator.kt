@@ -225,7 +225,7 @@ private fun Søknad.harMinstEtArbeidsforhold() : Boolean{
 
 private fun Arbeidsforhold.somMap(): Map<String, Any?> = mapOf(
     "jobberNormaltTimer" to jobberNormaltTimer,
-    "arbeidIPeriode" to arbeidIPeriode?.somMap()
+    "arbeidIPeriode" to arbeidIPeriode.somMap()
 )
 
 private fun ArbeidIPeriode.somMap(): Map<String, Any?> = mapOf(

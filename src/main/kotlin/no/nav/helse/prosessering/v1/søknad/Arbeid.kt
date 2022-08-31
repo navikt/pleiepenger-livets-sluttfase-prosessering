@@ -13,7 +13,7 @@ data class Arbeidsgiver(
 
 data class Arbeidsforhold(
     val jobberNormaltTimer: Double,
-    val arbeidIPeriode: ArbeidIPeriode? = null
+    val arbeidIPeriode: ArbeidIPeriode
 )
 
 data class ArbeidIPeriode(
