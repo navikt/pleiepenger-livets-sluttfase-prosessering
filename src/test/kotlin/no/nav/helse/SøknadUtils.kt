@@ -89,17 +89,9 @@ object SøknadUtils {
                 sluttetFørSøknadsperiode = false,
                 arbeidsforhold = Arbeidsforhold(
                     jobberNormaltTimer = 7.5,
-                    harFraværIPeriode = true,
                     arbeidIPeriode = ArbeidIPeriode(
                         jobberIPerioden = JobberIPeriodeSvar.JA,
-                        jobberProsent = 50.0,
-                        erLiktHverUke = true,
-                        enkeltdager = listOf(),
-                        fasteDager = PlanUkedager(
-                            mandag = Duration.ofHours(7).plusMinutes(30),
-                            onsdag = Duration.ofHours(7).plusMinutes(30),
-                            fredag = Duration.ofHours(7).plusMinutes(30)
-                        )
+                        enkeltdager = listOf(Enkeltdag(LocalDate.parse("2022-01-01"), Duration.ofHours(4)))
                     )
                 )
             ),
@@ -117,17 +109,9 @@ object SøknadUtils {
             sluttdato = LocalDate.parse("2021-01-01"),
             arbeidsforhold = Arbeidsforhold(
                 jobberNormaltTimer = 7.5,
-                harFraværIPeriode = true,
                 arbeidIPeriode = ArbeidIPeriode(
                     jobberIPerioden = JobberIPeriodeSvar.JA,
-                    jobberProsent = 50.0,
-                    erLiktHverUke = true,
-                    enkeltdager = listOf(),
-                    fasteDager = PlanUkedager(
-                        mandag = Duration.ofHours(7).plusMinutes(30),
-                        onsdag = Duration.ofHours(7).plusMinutes(30),
-                        fredag = Duration.ofHours(7).plusMinutes(30)
-                    )
+                    enkeltdager = listOf(Enkeltdag(LocalDate.parse("2022-01-01"), Duration.ofHours(4)))
                 )
             )
         ),
@@ -157,17 +141,9 @@ object SøknadUtils {
             ),
             arbeidsforhold = Arbeidsforhold(
                 jobberNormaltTimer = 7.5,
-                harFraværIPeriode = true,
                 arbeidIPeriode = ArbeidIPeriode(
                     jobberIPerioden = JobberIPeriodeSvar.JA,
-                    jobberProsent = 50.0,
-                    erLiktHverUke = true,
-                    enkeltdager = listOf(),
-                    fasteDager = PlanUkedager(
-                        mandag = Duration.ofHours(7).plusMinutes(30),
-                        onsdag = Duration.ofHours(7).plusMinutes(30),
-                        fredag = Duration.ofHours(7).plusMinutes(30)
-                    )
+                    enkeltdager = listOf(Enkeltdag(LocalDate.parse("2022-01-01"), Duration.ofHours(4)))
                 )
             )
         ),

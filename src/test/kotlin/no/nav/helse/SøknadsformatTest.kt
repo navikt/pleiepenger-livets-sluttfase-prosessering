@@ -86,19 +86,14 @@ class SøknadsformatTest {
                   "sluttetFørSøknadsperiode": false,
                     "arbeidsforhold": {
                       "jobberNormaltTimer": 7.5,
-                      "harFraværIPeriode": true,
                       "arbeidIPeriode": {
                         "jobberIPerioden": "JA",
-                        "jobberProsent": 50.0,
-                        "erLiktHverUke": true,
-                        "enkeltdager": [],
-                        "fasteDager": {
-                          "mandag": "PT7H30M",
-                          "tirsdag": null,
-                          "onsdag": "PT7H30M",
-                          "torsdag": null,
-                          "fredag": "PT7H30M"
-                        }
+                        "enkeltdager": [
+                          {
+                            "dato": "2022-01-01",
+                            "tid": "PT4H"
+                          }
+                        ]
                       }
                     }
                 },
@@ -117,19 +112,14 @@ class SøknadsformatTest {
                 "harHattInntektSomFrilanser": true,
                 "arbeidsforhold": {
                   "jobberNormaltTimer": 7.5,
-                  "harFraværIPeriode": true,
                   "arbeidIPeriode": {
                     "jobberIPerioden": "JA",
-                    "jobberProsent": 50.0,
-                    "erLiktHverUke": true,
-                    "enkeltdager": [],
-                    "fasteDager": {
-                      "mandag": "PT7H30M",
-                      "tirsdag": null,
-                      "onsdag": "PT7H30M",
-                      "torsdag": null,
-                      "fredag": "PT7H30M"
-                    }
+                    "enkeltdager": [
+                      {
+                        "dato": "2022-01-01",
+                        "tid": "PT4H"
+                      }
+                    ]
                   }
                 }
               },
@@ -164,19 +154,14 @@ class SøknadsformatTest {
                 },
                 "arbeidsforhold": {
                   "jobberNormaltTimer": 7.5,
-                  "harFraværIPeriode": true,
                   "arbeidIPeriode": {
                     "jobberIPerioden": "JA",
-                    "jobberProsent": 50.0,
-                    "erLiktHverUke": true,
-                    "enkeltdager": [],
-                    "fasteDager": {
-                      "mandag": "PT7H30M",
-                      "tirsdag": null,
-                      "onsdag": "PT7H30M",
-                      "torsdag": null,
-                      "fredag": "PT7H30M"
-                    }
+                    "enkeltdager": [
+                      {
+                        "dato": "2022-01-01",
+                        "tid": "PT4H"
+                      }
+                    ]
                   }
                 }
               },
