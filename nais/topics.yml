@@ -19,6 +19,9 @@ spec:
       application: pleiepenger-livets-sluttfase-api
       access: write
     - team: dusseldorf
+      application: k9-brukerdialog-api
+      access: write
+    - team: dusseldorf
       application: pleiepenger-livets-sluttfase-prosessering
       access: read
 
