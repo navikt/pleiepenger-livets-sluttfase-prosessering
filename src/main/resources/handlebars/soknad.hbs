@@ -56,7 +56,7 @@
                 <p>Fødselsdato: {{pleietrengende.fødselsdato}}</p>
             {{/if}}
             {{#if pleietrengende.årsakManglerIdentitetsnummer}}
-                <p>Personen har ikke har fødselsnummer/D-nummer på grunn av: {{pleietrengende.årsakManglerIdentitetsnummer}}</p>
+                <p>Personen har ikke fødselsnummer/D-nummer på grunn av: {{pleietrengende.årsakManglerIdentitetsnummer}}</p>
             {{/if}}
     </section>
 
@@ -83,20 +83,6 @@
             </ul>
         {{else}}
             <p>{{ jaNeiSvar utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden }}</p>
-        {{/if}}
-
-        <p class="sporsmalstekst">Har du vært på ferie i perioden du søker om pleiepenger?</p>
-        {{# if ferieuttakIPerioden.skalTaUtFerieIPerioden }}
-            <p>Du opplyser at du har vært på ferie</p>
-            <ul>
-                {{# each ferieuttakIPerioden.ferieuttak as |ferieuttak|~}}
-                    <li>
-                        {{ferieuttak.fraOgMed}} - {{ferieuttak.tilOgMed}}
-                    </li>
-                {{/each}}
-            </ul>
-        {{else}}
-            <p>{{ jaNeiSvar utenlandsoppholdIPerioden.skalTaUtFerieIPerioden }}</p>
         {{/if}}
     </section>
 
