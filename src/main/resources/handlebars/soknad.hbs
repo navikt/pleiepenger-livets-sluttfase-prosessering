@@ -41,7 +41,7 @@
     </div>
 
     <section id="pleietrengende">
-            <h2>Pleietrengende</h2>
+            <h2>Den du pleier</h2>
             <p class="navn">
                 Navn: {{# if pleietrengende.navn }}
                     {{ pleietrengende.navn }}
@@ -50,13 +50,13 @@
                 {{/if}}
             </p>
             {{# if pleietrengende.norskIdentitetsnummer }}
-                <p>Identitetsnummer: {{ pleietrengende.norskIdentitetsnummer }}</p>
+                <p>Fødselsnummer/D-nummer: {{ pleietrengende.norskIdentitetsnummer }}</p>
             {{/if}}
             {{#if pleietrengende.fødselsdato}}
                 <p>Fødselsdato: {{pleietrengende.fødselsdato}}</p>
             {{/if}}
             {{#if pleietrengende.årsakManglerIdentitetsnummer}}
-                <p>Oppgitt grunn for at pleietrengende ikke har fødselsnummer/D-nummer: {{pleietrengende.årsakManglerIdentitetsnummer}}</p>
+                <p>Personen har ikke fødselsnummer/D-nummer på grunn av: {{pleietrengende.årsakManglerIdentitetsnummer}}</p>
             {{/if}}
     </section>
 
@@ -84,20 +84,6 @@
         {{else}}
             <p>{{ jaNeiSvar utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden }}</p>
         {{/if}}
-
-        <p class="sporsmalstekst">Har du vært på ferie i perioden du søker om pleiepenger?</p>
-        {{# if ferieuttakIPerioden.skalTaUtFerieIPerioden }}
-            <p>Du opplyser at du har vært på ferie</p>
-            <ul>
-                {{# each ferieuttakIPerioden.ferieuttak as |ferieuttak|~}}
-                    <li>
-                        {{ferieuttak.fraOgMed}} - {{ferieuttak.tilOgMed}}
-                    </li>
-                {{/each}}
-            </ul>
-        {{else}}
-            <p>{{ jaNeiSvar utenlandsoppholdIPerioden.skalTaUtFerieIPerioden }}</p>
-        {{/if}}
     </section>
 
     <section id="arbeidsgivere">
@@ -109,10 +95,11 @@
         {{/if}}
 
         {{#if arbeidsgivere}}
+            <h2>Din arbeidssituasjon</h2>
             {{#each arbeidsgivere as |arbeidsgiver|~}}
-                <h2>{{arbeidsgiver.navn}} (orgnr: {{arbeidsgiver.organisasjonsnummer}})</h2>
                 <ul class="ul-no-indent">
                     <li class="li-style-none">
+                        <h3>{{arbeidsgiver.navn}} (orgnr: {{arbeidsgiver.organisasjonsnummer}})</h3>
                         <ul>
                             {{#if arbeidsgiver.erAnsatt}}
                                 <li class="sporsmalstekst">Er ansatt</li>
@@ -140,7 +127,7 @@
     <section id="frilans">
         <h2>Frilans</h2>
         {{# if frilans.harHattInntektSomFrilanser }}
-            <p class="sporsmalstekst">Var du frilanser i perioden du søker for?</p>
+            <p class="sporsmalstekst">Er du frilanser i perioden du søker for?</p>
             <p>{{ jaNeiSvar true }}</p>
             <p class="sporsmalstekst">Når startet du som frilanser?</p>
             <p>{{frilans.startdato}}</p>
@@ -154,7 +141,7 @@
                 <p>{{frilans.sluttdato}}</p>
             {{/unless}}
         {{else}}
-            <p>Har ikke vært frilanser i perioden det søkes om.</p>
+            <p>Er ikke frilanser i perioden det søkes om.</p>
         {{/if}}
     </section>
 
