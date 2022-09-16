@@ -194,11 +194,13 @@
                 {{/if}}</h3>
 
             <p>Næringstype: {{selvstendigNæringsdrivende.virksomhet.næringstype}}
-                {{#if selvstendigNæringsdrivende.virksomhet.fiskerErPåBladB}}
-                    (blad B)
-                {{else}}
-                    (ikke blad B)
-                {{/if}}
+                {{#eq selvstendigNæringsdrivende.virksomhet.næringstype "Fiske"}}
+                    {{#if selvstendigNæringsdrivende.fiskerErPåBladB}}
+                        (blad B)
+                    {{else}}
+                        (ikke blad B)
+                    {{/if}}
+                {{/eq}}
             </p>
 
             {{#if selvstendigNæringsdrivende.virksomhet.registrertINorge}}
