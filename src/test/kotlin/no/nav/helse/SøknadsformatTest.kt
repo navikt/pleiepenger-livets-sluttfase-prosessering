@@ -245,7 +245,14 @@ class SøknadsformatTest {
                }
              ],
               "harForståttRettigheterOgPlikter": true,
-              "harBekreftetOpplysninger": true
+              "harBekreftetOpplysninger": true,
+              "ferieuttakIPerioden": {
+                "skalTaUtFerieIPerioden": true,
+                "ferieuttak": [{
+                  "fraOgMed": "2022-01-05",
+                  "tilOgMed": "2022-01-06"
+                }]
+              }
             }
             """.trimIndent()
         JSONAssert.assertEquals(forventetSøknad, String(json), true)

@@ -172,7 +172,14 @@ object SøknadUtils {
         ),
         k9Format = gyldigK9Format(søknadId),
         harBekreftetOpplysninger = true,
-        harForståttRettigheterOgPlikter = true
+        harForståttRettigheterOgPlikter = true,
+        ferieuttakIPerioden = FerieuttakIPerioden(
+            skalTaUtFerieIPerioden = true,
+            ferieuttak = listOf(
+                Ferieuttak(fraOgMed = LocalDate.parse("2022-01-05"),
+                tilOgMed = LocalDate.parse("2022-01-06"))
+            )
+        )
     )
 
     fun gyldigK9Format(søknadId: String = UUID.randomUUID().toString()) = k9FormatSøknad(
