@@ -90,7 +90,7 @@ object SøknadUtils {
                 arbeidsforhold = Arbeidsforhold(
                     jobberNormaltTimer = 7.5,
                     arbeidIPeriode = ArbeidIPeriode(
-                        jobberIPerioden = JobberIPeriodeSvar.JA,
+                        jobberIPerioden = JobberIPeriodeSvar.REDUSERT,
                         enkeltdager = listOf(Enkeltdag(LocalDate.parse("2022-01-01"), Duration.ofHours(4)))
                     )
                 )
@@ -110,8 +110,8 @@ object SøknadUtils {
             arbeidsforhold = Arbeidsforhold(
                 jobberNormaltTimer = 7.5,
                 arbeidIPeriode = ArbeidIPeriode(
-                    jobberIPerioden = JobberIPeriodeSvar.JA,
-                    enkeltdager = listOf(Enkeltdag(LocalDate.parse("2022-01-01"), Duration.ofHours(4)))
+                    jobberIPerioden = JobberIPeriodeSvar.HELT_FRAVÆR,
+                    enkeltdager = null
                 )
             )
         ),
@@ -142,8 +142,8 @@ object SøknadUtils {
             arbeidsforhold = Arbeidsforhold(
                 jobberNormaltTimer = 7.5,
                 arbeidIPeriode = ArbeidIPeriode(
-                    jobberIPerioden = JobberIPeriodeSvar.JA,
-                    enkeltdager = listOf(Enkeltdag(LocalDate.parse("2022-01-01"), Duration.ofHours(4)))
+                    jobberIPerioden = JobberIPeriodeSvar.SOM_VANLIG,
+                    enkeltdager = null
                 )
             )
         ),

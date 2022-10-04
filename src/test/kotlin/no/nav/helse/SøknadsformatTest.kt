@@ -87,7 +87,7 @@ class SøknadsformatTest {
                     "arbeidsforhold": {
                       "jobberNormaltTimer": 7.5,
                       "arbeidIPeriode": {
-                        "jobberIPerioden": "JA",
+                        "jobberIPerioden": "REDUSERT",
                         "enkeltdager": [
                           {
                             "dato": "2022-01-01",
@@ -113,13 +113,8 @@ class SøknadsformatTest {
                 "arbeidsforhold": {
                   "jobberNormaltTimer": 7.5,
                   "arbeidIPeriode": {
-                    "jobberIPerioden": "JA",
-                    "enkeltdager": [
-                      {
-                        "dato": "2022-01-01",
-                        "tid": "PT4H"
-                      }
-                    ]
+                    "jobberIPerioden": "HELT_FRAVÆR",
+                    "enkeltdager": null
                   }
                 }
               },
@@ -155,13 +150,8 @@ class SøknadsformatTest {
                 "arbeidsforhold": {
                   "jobberNormaltTimer": 7.5,
                   "arbeidIPeriode": {
-                    "jobberIPerioden": "JA",
-                    "enkeltdager": [
-                      {
-                        "dato": "2022-01-01",
-                        "tid": "PT4H"
-                      }
-                    ]
+                    "jobberIPerioden": "SOM_VANLIG",
+                    "enkeltdager": null
                   }
                 }
               },
