@@ -192,6 +192,9 @@ class SøknadsformatTest {
                   "uttak": {
                     "perioder": {}
                   },
+                  "lovbestemtFerie": {
+                    "perioder": {}
+                  },
                   "trekkKravPerioder" : [],
                   "utenlandsopphold": {
                     "perioder": {
