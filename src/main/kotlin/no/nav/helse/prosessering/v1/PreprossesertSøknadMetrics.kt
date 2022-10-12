@@ -21,9 +21,9 @@ internal fun PreprosessertSøknad.reportMetrics(){
 
 private fun PreprosessertSøknad.jobberIPeriodenMetrikk(){
     when {
-        frilans?.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden == JobberIPeriodeSvar.JA -> jobberIPerioden()
-        selvstendigNæringsdrivende?.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden == JobberIPeriodeSvar.JA -> jobberIPerioden()
-        arbeidsgivere.any { it.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden == JobberIPeriodeSvar.JA} -> jobberIPerioden()
+        frilans?.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden?.tilBoolean() == true -> jobberIPerioden()
+        selvstendigNæringsdrivende?.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden?.tilBoolean() == true -> jobberIPerioden()
+        arbeidsgivere.any { it.arbeidsforhold?.arbeidIPeriode?.jobberIPerioden?.tilBoolean() == true } -> jobberIPerioden()
         else -> generelCounter.labels("jobberIPerioden", "nei").inc()
     }
 }

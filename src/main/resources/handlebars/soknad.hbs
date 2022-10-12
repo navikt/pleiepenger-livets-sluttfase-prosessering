@@ -84,6 +84,20 @@
         {{else}}
             <p>{{ jaNeiSvar utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden }}</p>
         {{/if}}
+
+        <p class="sporsmalstekst">Skal du ha ferie i perioden du søker om pleiepenger?</p>
+                {{# if ferieuttakIPerioden.skalTaUtFerieIPerioden }}
+                    <p>Du opplyser at du skal ha ferie</p>
+                    <ul>
+                        {{# each ferieuttakIPerioden.ferieuttak as |ferieuttak|~}}
+                            <li>
+                                {{ferieuttak.fraOgMed}} - {{ferieuttak.tilOgMed}}
+                            </li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    <p>{{ jaNeiSvar utenlandsoppholdIPerioden.skalTaUtFerieIPerioden }}</p>
+                {{/if}}
     </section>
 
     <section id="arbeidsgivere">

@@ -87,7 +87,7 @@ class SøknadsformatTest {
                     "arbeidsforhold": {
                       "jobberNormaltTimer": 7.5,
                       "arbeidIPeriode": {
-                        "jobberIPerioden": "JA",
+                        "jobberIPerioden": "REDUSERT",
                         "enkeltdager": [
                           {
                             "dato": "2022-01-01",
@@ -113,13 +113,8 @@ class SøknadsformatTest {
                 "arbeidsforhold": {
                   "jobberNormaltTimer": 7.5,
                   "arbeidIPeriode": {
-                    "jobberIPerioden": "JA",
-                    "enkeltdager": [
-                      {
-                        "dato": "2022-01-01",
-                        "tid": "PT4H"
-                      }
-                    ]
+                    "jobberIPerioden": "HELT_FRAVÆR",
+                    "enkeltdager": null
                   }
                 }
               },
@@ -155,13 +150,8 @@ class SøknadsformatTest {
                 "arbeidsforhold": {
                   "jobberNormaltTimer": 7.5,
                   "arbeidIPeriode": {
-                    "jobberIPerioden": "JA",
-                    "enkeltdager": [
-                      {
-                        "dato": "2022-01-01",
-                        "tid": "PT4H"
-                      }
-                    ]
+                    "jobberIPerioden": "SOM_VANLIG",
+                    "enkeltdager": null
                   }
                 }
               },
@@ -200,6 +190,9 @@ class SøknadsformatTest {
                     "perioderSomSkalSlettes": {}
                   },
                   "uttak": {
+                    "perioder": {}
+                  },
+                  "lovbestemtFerie": {
                     "perioder": {}
                   },
                   "trekkKravPerioder" : [],
@@ -245,7 +238,14 @@ class SøknadsformatTest {
                }
              ],
               "harForståttRettigheterOgPlikter": true,
-              "harBekreftetOpplysninger": true
+              "harBekreftetOpplysninger": true,
+              "ferieuttakIPerioden": {
+                "skalTaUtFerieIPerioden": true,
+                "ferieuttak": [{
+                  "fraOgMed": "2022-01-05",
+                  "tilOgMed": "2022-01-06"
+                }]
+              }
             }
             """.trimIndent()
         JSONAssert.assertEquals(forventetSøknad, String(json), true)
