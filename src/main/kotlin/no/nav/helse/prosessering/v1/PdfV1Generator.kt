@@ -86,6 +86,10 @@ internal class PdfV1Generator {
                             "skalOppholdeSegIUtlandetIPerioden" to søknad.utenlandsoppholdIPerioden.skalOppholdeSegIUtlandetIPerioden,
                             "opphold" to søknad.utenlandsoppholdIPerioden.opphold.somMapUtenlandsopphold()
                         ),
+                        "ferieuttakIPerioden" to mapOf(
+                            "skalTaUtFerieIPerioden" to søknad.ferieuttakIPerioden?.skalTaUtFerieIPerioden,
+                            "ferieuttak" to søknad.ferieuttakIPerioden?.ferieuttak?.somMapFerieuttak()
+                        ),
                         "harLastetOppId" to søknad.opplastetIdVedleggId.isNotEmpty(),
                         "harLastetOppLegeerklæring" to søknad.vedleggId.isNotEmpty(),
                         "arbeidsgivere" to søknad.arbeidsgivere.somMapAnsatt(),
@@ -360,3 +364,12 @@ private fun VarigEndring.somMap() = mapOf<String, Any?>(
     "inntektEtterEndring" to inntektEtterEndring,
     "forklaring" to forklaring
 )
+
+private fun List<Ferieuttak>.somMapFerieuttak(): List<Map<String, Any?>> {
+    return map {
+        mapOf<String, Any?>(
+            "fraOgMed" to DATE_FORMATTER.format(it.fraOgMed),
+            "tilOgMed" to DATE_FORMATTER.format(it.tilOgMed)
+        )
+    }
+}
