@@ -131,7 +131,7 @@ class PleiepengerLivestSluttfasteProsesseringTest {
         wireMockServer.stubJournalfor(201) // Simulerer journalføring fungerer igjen
         restartEngine()
         cleanupConsumer
-            .hentCleanupMelding(søknad.søknadId)
+            .hentCleanupMelding(søknad.søknadId, maxWaitInSeconds = 60)
             .assertGyldigMelding(søknad.søknadId)
     }
 
