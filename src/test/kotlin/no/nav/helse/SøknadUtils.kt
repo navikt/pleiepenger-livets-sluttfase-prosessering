@@ -217,8 +217,8 @@ object SøknadUtils {
                 OpptjeningAktivitet()
                     .medFrilanser(
                         Frilanser()
-                            .medStartDato(LocalDate.parse("2015-01-01"))
-                            .medSluttDato(LocalDate.parse("2021-01-01"))
+                            .medStartdato(LocalDate.parse("2015-01-01"))
+                            .medSluttdato(LocalDate.parse("2021-01-01"))
                     )
             )
     )
