@@ -9,15 +9,16 @@ import io.ktor.server.testing.*
 import io.prometheus.client.CollectorRegistry
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.time.delay
-import no.nav.common.KafkaEnvironment
 import no.nav.helse.dusseldorf.testsupport.wiremock.WireMockBuilder
 import no.nav.k9.søknad.JsonUtils
 import no.nav.k9.søknad.Søknad
 import org.json.JSONObject
 import org.junit.AfterClass
+import org.junit.jupiter.api.Assertions
 import org.skyscreamer.jsonassert.JSONAssert
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.testcontainers.containers.KafkaContainer
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 import kotlin.test.Test
@@ -41,16 +42,16 @@ class PleiepengerLivestSluttfasteProsesseringTest {
             .stubLagreDokument()
             .stubSlettDokument()
 
-        private val kafkaEnvironment = KafkaWrapper.bootstrap()
-        private val kafkaTestProducer = kafkaEnvironment.meldingsProducer()
+        private val kafkaContainer = KafkaWrapper.bootstrap()
+        private val kafkaTestProducer = kafkaContainer.meldingsProducer()
 
-        private val cleanupConsumer = kafkaEnvironment.cleanupConsumer()
+        private val cleanupConsumer = kafkaContainer.cleanupConsumer()
 
-        private var engine = newEngine(kafkaEnvironment).apply {
+        private var engine = newEngine(kafkaContainer).apply {
             start(wait = true)
         }
 
-        private fun getConfig(kafkaEnvironment: KafkaEnvironment?): ApplicationConfig {
+        private fun getConfig(kafkaEnvironment: KafkaContainer?): ApplicationConfig {
             val fileConfig = ConfigFactory.load()
             val testConfig = ConfigFactory.parseMap(
                 TestConfiguration.asMap(
@@ -62,7 +63,7 @@ class PleiepengerLivestSluttfasteProsesseringTest {
             return HoconApplicationConfig(mergedConfig)
         }
 
-        private fun newEngine(kafkaEnvironment: KafkaEnvironment?) = TestApplicationEngine(createTestEnvironment {
+        private fun newEngine(kafkaEnvironment: KafkaContainer) = TestApplicationEngine(createTestEnvironment {
             config = getConfig(kafkaEnvironment)
         })
 
@@ -72,7 +73,7 @@ class PleiepengerLivestSluttfasteProsesseringTest {
             logger.info("Restarting engine...")
             stopEngine()
             CollectorRegistry.defaultRegistry.clear()
-            engine = newEngine(kafkaEnvironment)
+            engine = newEngine(kafkaContainer)
             engine.start(wait = true)
             logger.info("Engine started.")
         }
@@ -85,7 +86,7 @@ class PleiepengerLivestSluttfasteProsesseringTest {
             cleanupConsumer.close()
             kafkaTestProducer.close()
             stopEngine()
-            kafkaEnvironment.tearDown()
+            kafkaContainer.stop()
             logger.info("Tear down complete")
         }
     }
@@ -93,17 +94,15 @@ class PleiepengerLivestSluttfasteProsesseringTest {
     @Test
     fun `test isready, isalive, health og metrics`() {
         with(engine) {
-            handleRequest(HttpMethod.Get, "/isready") {}.apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                handleRequest(HttpMethod.Get, "/isalive") {}.apply {
-                    assertEquals(HttpStatusCode.OK, response.status())
-                    handleRequest(HttpMethod.Get, "/metrics") {}.apply {
-                        assertEquals(HttpStatusCode.OK, response.status())
-                        handleRequest(HttpMethod.Get, "/health") {}.apply {
-                            assertEquals(HttpStatusCode.OK, response.status())
-                        }
-                    }
-                }
+            val healthEndpoints = listOf("/isready", "/isalive", "/metrics", "/health")
+
+            val responses = healthEndpoints
+                .map { endpoint ->
+                handleRequest(HttpMethod.Get, endpoint).response.status()
+            }
+
+            responses.forEach { statusCode ->
+                Assertions.assertEquals(HttpStatusCode.OK, statusCode)
             }
         }
     }
@@ -111,6 +110,17 @@ class PleiepengerLivestSluttfasteProsesseringTest {
     @Test
     fun `Gylding søknad blir prosessert av journalføringskonsumer`() {
         val søknad = SøknadUtils.gyldigSøknad()
+
+        kafkaTestProducer.leggTilMottak(søknad)
+        cleanupConsumer
+            .hentCleanupMelding(søknad.søknadId)
+            .assertGyldigMelding(søknad.søknadId)
+    }
+
+    @Test
+    fun `Sende søknad hvor søker har D-nummer`() {
+        val dNummerA = "55125314561"
+        val søknad = SøknadUtils.gyldigSøknad(søkerFødselsnummer = dNummerA)
 
         kafkaTestProducer.leggTilMottak(søknad)
         cleanupConsumer
@@ -132,17 +142,6 @@ class PleiepengerLivestSluttfasteProsesseringTest {
         restartEngine()
         cleanupConsumer
             .hentCleanupMelding(søknad.søknadId, maxWaitInSeconds = 60)
-            .assertGyldigMelding(søknad.søknadId)
-    }
-
-    @Test
-    fun `Sende søknad hvor søker har D-nummer`() {
-        val dNummerA = "55125314561"
-        val søknad = SøknadUtils.gyldigSøknad(søkerFødselsnummer = dNummerA)
-
-        kafkaTestProducer.leggTilMottak(søknad)
-        cleanupConsumer
-            .hentCleanupMelding(søknad.søknadId)
             .assertGyldigMelding(søknad.søknadId)
     }
 
