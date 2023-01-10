@@ -1,10 +1,10 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val dusseldorfKtorVersion = "3.2.2.1-4942135"
-val k9FormatVersion = "8.0.0"
-val ktorVersion = "2.2.1"
-val slf4jVersion = "2.0.5"
+val dusseldorfKtorVersion = "3.2.2.2-2f78c17"
+val k9FormatVersion = "8.0.2"
+val ktorVersion = "2.2.2"
+val slf4jVersion = "2.0.6"
 val kotlinxCoroutinesVersion = "1.6.4"
 
 val openhtmltopdfVersion = "1.0.10"
@@ -17,7 +17,7 @@ val jsonassertVersion = "1.5.1"
 val mainClass = "no.nav.helse.PleiepengerLivetsSluttfaseProsesseringKt"
 
 plugins {
-    kotlin("jvm") version "1.7.22"
+    kotlin("jvm") version "1.8.0"
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
