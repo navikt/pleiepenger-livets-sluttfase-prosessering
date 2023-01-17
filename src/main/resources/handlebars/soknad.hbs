@@ -58,6 +58,11 @@
             {{#if pleietrengende.årsakManglerIdentitetsnummer}}
                 <p>Personen har ikke fødselsnummer/D-nummer på grunn av: {{pleietrengende.årsakManglerIdentitetsnummer}}</p>
             {{/if}}
+
+            {{# if hjelp.pleierDuDenSykeHjemmeErSatt}}
+                <br/><p class="sporsmalstekst">Pleier du personen i et privat hjem i perioden du søker for?</p>
+                <p>{{ jaNeiSvar pleierDuDenSykeHjemme }}</p>
+            {{/if}}
     </section>
 
     <section id="perioder">
