@@ -239,6 +239,7 @@ class SøknadsformatTest {
              ],
               "harForståttRettigheterOgPlikter": true,
               "harBekreftetOpplysninger": true,
+              "pleierDuDenSykeHjemme": true,
               "ferieuttakIPerioden": {
                 "skalTaUtFerieIPerioden": true,
                 "ferieuttak": [{

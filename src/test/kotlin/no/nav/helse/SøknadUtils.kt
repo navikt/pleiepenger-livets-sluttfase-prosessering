@@ -170,6 +170,7 @@ object SøknadUtils {
                 tilOgMed = LocalDate.parse("2022-01-10")
             )
         ),
+        pleierDuDenSykeHjemme = true,
         k9Format = gyldigK9Format(søknadId),
         harBekreftetOpplysninger = true,
         harForståttRettigheterOgPlikter = true,

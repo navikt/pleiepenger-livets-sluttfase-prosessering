@@ -24,6 +24,7 @@ data class Søknad(
     val opptjeningIUtlandet: List<OpptjeningIUtlandet>,
     val utenlandskNæring: List<UtenlandskNæring>,
     val harVærtEllerErVernepliktig: Boolean? = null,
+    val pleierDuDenSykeHjemme: Boolean? = null,
     val k9Format: Søknad,
     val harForståttRettigheterOgPlikter: Boolean,
     val harBekreftetOpplysninger: Boolean
