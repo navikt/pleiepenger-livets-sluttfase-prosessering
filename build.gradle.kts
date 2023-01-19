@@ -9,7 +9,7 @@ val kotlinxCoroutinesVersion = "1.6.4"
 
 val openhtmltopdfVersion = "1.0.10"
 val kafkaTestcontainerVersion = "1.17.6"
-val kafkaVersion = "3.3.1"
+val kafkaVersion = "3.3.2"
 val handlebarsVersion = "4.3.1"
 val fuelVersion = "2.3.1"
 val jsonassertVersion = "1.5.1"
