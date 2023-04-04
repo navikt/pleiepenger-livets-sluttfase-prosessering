@@ -2,10 +2,14 @@ package no.nav.helse
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.typesafe.config.ConfigFactory
-import io.ktor.server.config.*
-import io.ktor.http.*
-import io.ktor.server.engine.*
-import io.ktor.server.testing.*
+import io.ktor.http.HttpMethod
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.config.ApplicationConfig
+import io.ktor.server.config.HoconApplicationConfig
+import io.ktor.server.engine.stop
+import io.ktor.server.testing.TestApplicationEngine
+import io.ktor.server.testing.createTestEnvironment
+import io.ktor.server.testing.handleRequest
 import io.prometheus.client.CollectorRegistry
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.time.delay
@@ -13,7 +17,7 @@ import no.nav.helse.dusseldorf.testsupport.wiremock.WireMockBuilder
 import no.nav.k9.søknad.JsonUtils
 import no.nav.k9.søknad.Søknad
 import org.json.JSONObject
-import org.junit.AfterClass
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions
 import org.skyscreamer.jsonassert.JSONAssert
 import org.slf4j.Logger
@@ -78,7 +82,7 @@ class PleiepengerLivestSluttfasteProsesseringTest {
             logger.info("Engine started.")
         }
 
-        @AfterClass
+        @AfterAll
         @JvmStatic
         fun tearDown() {
             logger.info("Tearing down")

@@ -1,6 +1,7 @@
 package no.nav.helse
 
 import no.nav.helse.prosessering.v1.søknad.*
+import no.nav.k9.søknad.felles.Kildesystem
 import no.nav.k9.søknad.felles.Versjon
 import no.nav.k9.søknad.felles.opptjening.Frilanser
 import no.nav.k9.søknad.felles.opptjening.OpptjeningAktivitet
@@ -221,5 +222,5 @@ object SøknadUtils {
                             .medSluttdato(LocalDate.parse("2021-01-01"))
                     )
             )
-    )
+    ).medKildesystem(Kildesystem.SØKNADSDIALOG)
 }

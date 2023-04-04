@@ -159,6 +159,7 @@ class SøknadsformatTest {
                 "søknadId": "$søknadId",
                 "versjon": "1.0.0",
                 "mottattDato": "2018-01-02T03:04:05.000Z",
+                "kildesystem": "søknadsdialog",
                 "søker": {
                   "norskIdentitetsnummer": "02119970078"
                 },
